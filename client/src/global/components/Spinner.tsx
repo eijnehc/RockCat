@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-import { COLORS } from '../constant';
 
 export const RocketSpinner = () => <Loader />;
 

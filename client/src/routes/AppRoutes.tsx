@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 
 import { createBrowserRouter } from 'react-router-dom';
-import { RocketSpinner } from '../global';
 
 const CoursesPage = lazy(() => import('../Courses/pages/CoursesPage'));
 const DashboardPage = lazy(() => import('../Dashboard/pages/DashboardPage'));
