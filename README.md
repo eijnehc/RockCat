@@ -4,21 +4,15 @@ A gamified coding platform for kids to learn to code smarter.
 
 ## Dependencies
 
----
-
 The frontend web app requires the following to manage the dependencies:
 
 > pnpm
 
 ## Getting Started
 
----
-
 To run the demo in a development environment, you can start web app and the backend service in separate terminal instances.
 
 ## Installation
-
----
 
 Start the terminal application in Mac computer or Command Prompt program in Windows computer.
 
