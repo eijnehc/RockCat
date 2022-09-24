@@ -27,4 +27,4 @@ At the prompt, navigate to the where source code folder and type the below comma
 Navigate to ./client in a separate terminal session, type the below command to start the application.
 
     cd ./client
-    pnpm run dev
+    pnpm vite
