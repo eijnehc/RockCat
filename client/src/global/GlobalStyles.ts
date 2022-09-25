@@ -87,7 +87,8 @@ html {
   --color-gray-700: ${COLORS.gray[700]};
   --color-gray-900: ${COLORS.gray[900]};
   --color-primary: ${COLORS.primary[300]};
-  --color-primary-300: ${COLORS.primary[500]};
+  --color-primary-300: ${COLORS.primary[300]};
+  --color-primary-900: ${COLORS.primary[900]};
   --color-secondary: ${COLORS.secondary[300]};
   --color-secondary-300: ${COLORS.secondary[500]};
   --color-success: ${COLORS.success[300]};
