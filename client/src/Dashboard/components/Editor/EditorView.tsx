@@ -1,5 +1,5 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-export const EditorView: FC = () => <div>Editor</div>;
+export const EditorView: FC = () => <div>Editor</div>
 
-EditorView.displayName = 'EditorView';
+EditorView.displayName = 'EditorView'

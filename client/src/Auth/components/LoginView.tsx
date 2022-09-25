@@ -1,5 +1,5 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-export const LoginView: FC = () => <div>Login</div>;
+export const LoginView: FC = () => <div>Login</div>
 
-LoginView.displayName = 'LoginView';
+LoginView.displayName = 'LoginView'

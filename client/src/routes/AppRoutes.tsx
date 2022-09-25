@@ -1,12 +1,12 @@
-import { lazy } from 'react';
+import { lazy } from 'react'
 
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom'
 
-const CoursesPage = lazy(() => import('../Courses/pages/CoursesPage'));
-const DashboardPage = lazy(() => import('../Dashboard/pages/DashboardPage'));
-const LoginPage = lazy(() => import('../Auth/pages/LoginPage'));
-const WelcomePage = lazy(() => import('../Welcome/pages/WelcomePage'));
-const PageNotFound = lazy(() => import('../global/pages/PageNotFound'));
+const CoursesPage = lazy(() => import('../Courses/pages/CoursesPage'))
+const DashboardPage = lazy(() => import('../Dashboard/pages/DashboardPage'))
+const LoginPage = lazy(() => import('../Auth/pages/LoginPage'))
+const WelcomePage = lazy(() => import('../Welcome/pages/WelcomePage'))
+const PageNotFound = lazy(() => import('../global/pages/PageNotFound'))
 
 export const router = createBrowserRouter([
   {
@@ -32,4 +32,4 @@ export const router = createBrowserRouter([
     path: '*',
     element: <PageNotFound />,
   },
-]);
+])

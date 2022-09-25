@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-import { LoginView } from './LoginView';
+import { LoginView } from './LoginView'
 
-export const LoginContainer: FC = () => <LoginView />;
+export const LoginContainer: FC = () => <LoginView />
 
-LoginContainer.displayName = 'LoginContainer';
+LoginContainer.displayName = 'LoginContainer'

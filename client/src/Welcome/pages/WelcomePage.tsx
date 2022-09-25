@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-import { WelcomeContainer } from '../components';
+import { WelcomeContainer } from '../components'
 
-const WelcomePage: FC = () => <WelcomeContainer />;
+const WelcomePage: FC = () => <WelcomeContainer />
 
-WelcomePage.displayName = 'WelcomePage';
+WelcomePage.displayName = 'WelcomePage'
 
-export default WelcomePage;
+export default WelcomePage

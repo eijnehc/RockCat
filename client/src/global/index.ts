@@ -1,2 +1,2 @@
-export { GlobalStyles } from './GlobalStyles';
-export * from './components';
+export { GlobalStyles } from './GlobalStyles'
+export * from './components'

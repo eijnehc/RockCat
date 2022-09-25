@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-import { LoginContainer } from '../components';
+import { LoginContainer } from '../components'
 
-const LoginPage: FC = () => <LoginContainer />;
+const LoginPage: FC = () => <LoginContainer />
 
-LoginPage.displayName = 'LoginPage';
+LoginPage.displayName = 'LoginPage'
 
-export default LoginPage;
+export default LoginPage

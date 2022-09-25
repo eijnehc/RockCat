@@ -1,6 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components'
 
-export const RocketSpinner = () => <Loader />;
+export const RocketSpinner = () => <Loader />
 
 const AnimLoaderBack = keyframes`
     0%, 30%, 70% {
@@ -9,7 +9,7 @@ const AnimLoaderBack = keyframes`
     20%, 40%, 100% {
       transform: translateY(-5px);
     }
-`;
+`
 const AnimLoader = keyframes`
     0% {
       box-shadow: 4px 4px 12px 2px rgba(255, 61, 0, 0.75);
@@ -25,7 +25,7 @@ const AnimLoader = keyframes`
       background-position: -36px -36px;
       background-size: 80px 80px;
     }
-`;
+`
 
 const Loader = styled.span`
   width: 32px;
@@ -85,4 +85,4 @@ const Loader = styled.span`
     box-sizing: border-box;
     animation: ${AnimLoader} 1s linear infinite alternate;
   }
-`;
+`

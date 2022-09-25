@@ -1,1 +1,1 @@
-export * from './DashboardContainer';
+export * from './DashboardContainer'
