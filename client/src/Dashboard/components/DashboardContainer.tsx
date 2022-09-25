@@ -1,17 +1,38 @@
-import { FC } from 'react'
+import { FC, useCallback, useState } from 'react'
 import styled from 'styled-components'
 
 import { EditorView } from './Editor'
 import { MapView } from './Map'
 import { QuestionView } from './Questions'
 
-export const DashboardContainer: FC = () => (
-  <Wrapper>
-    <QuestionView />
-    <EditorView />
-    <MapView />
-  </Wrapper>
-)
+export const DashboardContainer: FC = () => {
+  const [js, setJs] = useState('')
+  const [html, setHtml] = useState('')
+  const [css, setCss] = useState('')
+  const [srcDoc, setSrcDoc] = useState('')
+
+  const handleChange = useCallback((value: string, viewUpdate: any) => {
+    setJs(value)
+  }, [])
+
+  const handleSubmitCode = () => {
+    return setSrcDoc(`
+        <html>
+          <body>${html}</body>
+          <style>${css}</style>
+          <script>${js}</script>
+        </html>
+      `)
+  }
+
+  return (
+    <Wrapper>
+      <QuestionView />
+      <EditorView code={js} onChange={handleChange} onSubmitCode={handleSubmitCode} />
+      <MapView />
+    </Wrapper>
+  )
+}
 
 const Wrapper = styled.div`
   display: flex;

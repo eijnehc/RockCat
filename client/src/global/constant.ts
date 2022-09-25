@@ -11,6 +11,7 @@ export const COLORS = {
   primary: {
     300: 'hsl(221deg 83% 53%)',
     500: 'hsl(221deg 83% 53% / 0.3)',
+    900: 'hsl(221deg 63% 40%)',
   },
   secondary: {
     300: 'hsl(262deg 83% 58%)',
