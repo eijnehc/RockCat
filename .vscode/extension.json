@@ -1,0 +1,13 @@
+{
+  "reccomendations": [
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "henriiik.vscode-sort",
+    "streetsidesoftware.code-spell-checker",
+    "styled-components.vscode-styled-components",
+    "oderwat.indent-rainbow",
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "search.exclude": {
+    "**/build": true,
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/public": true,
+    "**/tmp": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.watcherExclude": {
+    "**/build": true,
+    "**/node_modules": true
+  },
+  "files.exclude": {
+    "**/build": true
+  },
+  "cSpell.words": []
+}

@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-import { CoursesView } from './CoursesView';
+import { CoursesView } from './CoursesView'
 
-export const CoursesContainer: FC = () => <CoursesView />;
+export const CoursesContainer: FC = () => <CoursesView />
 
-CoursesContainer.displayName = 'CoursesContainer';
+CoursesContainer.displayName = 'CoursesContainer'

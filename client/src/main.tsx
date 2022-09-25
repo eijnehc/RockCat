@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react';
-import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom/client'
+import { RouterProvider } from 'react-router-dom'
 
-import { GlobalStyles, RocketSpinner } from './global';
-import { router } from './routes';
+import { GlobalStyles, RocketSpinner } from './global'
+import { router } from './routes'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -21,4 +21,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <RouterProvider router={router} />
     </Suspense>
   </React.StrictMode>
-);
+)

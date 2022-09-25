@@ -6,7 +6,7 @@ A gamified coding platform for kids to learn to code smarter.
 
 The frontend web app requires the following to manage the dependencies:
 
-> pnpm
+> :star2: pnpm
 
 ## Getting Started
 

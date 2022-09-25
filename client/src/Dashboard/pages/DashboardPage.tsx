@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-import { DashboardContainer } from '../components';
+import { DashboardContainer } from '../components'
 
-const DashboardPage: FC = () => <DashboardContainer />;
+const DashboardPage: FC = () => <DashboardContainer />
 
-DashboardPage.displayName = 'DashboardPage';
+DashboardPage.displayName = 'DashboardPage'
 
-export default DashboardPage;
+export default DashboardPage

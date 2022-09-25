@@ -1,1 +1,1 @@
-export * from './QuestionView';
+export * from './QuestionView'

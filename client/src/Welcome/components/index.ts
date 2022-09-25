@@ -1,1 +1,1 @@
-export * from './WelcomeContainer';
+export * from './WelcomeContainer'

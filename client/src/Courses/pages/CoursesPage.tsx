@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-import { CoursesContainer } from '../components';
+import { CoursesContainer } from '../components'
 
-const CoursesPage: FC = () => <CoursesContainer />;
+const CoursesPage: FC = () => <CoursesContainer />
 
-CoursesPage.displayName = 'CoursesPage';
+CoursesPage.displayName = 'CoursesPage'
 
-export default CoursesPage;
+export default CoursesPage

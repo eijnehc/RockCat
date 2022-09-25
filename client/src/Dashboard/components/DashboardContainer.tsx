@@ -1,9 +1,9 @@
-import { FC } from 'react';
-import styled from 'styled-components';
+import { FC } from 'react'
+import styled from 'styled-components'
 
-import { EditorView } from './Editor';
-import { MapView } from './Map';
-import { QuestionView } from './Questions';
+import { EditorView } from './Editor'
+import { MapView } from './Map'
+import { QuestionView } from './Questions'
 
 export const DashboardContainer: FC = () => (
   <Wrapper>
@@ -11,7 +11,7 @@ export const DashboardContainer: FC = () => (
     <EditorView />
     <MapView />
   </Wrapper>
-);
+)
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,6 +22,6 @@ const Wrapper = styled.div`
     /* Temp border to see the demarcation */
     border: 1px solid black;
   }
-`;
+`
 
-DashboardContainer.displayName = 'DashboardContainer';
+DashboardContainer.displayName = 'DashboardContainer'

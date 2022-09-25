@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-import { WelcomeView } from './WelcomeView';
+import { WelcomeView } from './WelcomeView'
 
-export const WelcomeContainer: FC = () => <WelcomeView />;
+export const WelcomeContainer: FC = () => <WelcomeView />
 
-WelcomeContainer.displayName = 'WelcomeContainer';
+WelcomeContainer.displayName = 'WelcomeContainer'

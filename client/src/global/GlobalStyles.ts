@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
-import { COLORS, WEIGHTS } from './constant';
+import { COLORS, WEIGHTS } from './constant'
 
 export const GlobalStyles = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -101,4 +101,4 @@ html {
   --font-weight-medium: ${WEIGHTS.medium};
   --font-weight-bold: ${WEIGHTS.bold};
 }
-`;
+`

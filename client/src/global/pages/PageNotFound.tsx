@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-const NotFoundPage: FC = () => <div>Page not found</div>;
+const NotFoundPage: FC = () => <div>Page not found</div>
 
-NotFoundPage.displayName = 'NotFoundPage';
+NotFoundPage.displayName = 'NotFoundPage'
 
-export default NotFoundPage;
+export default NotFoundPage

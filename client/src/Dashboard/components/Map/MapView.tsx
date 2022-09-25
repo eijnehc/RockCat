@@ -1,5 +1,5 @@
-import { FC } from 'react';
+import { FC } from 'react'
 
-export const MapView: FC = () => <div>Map</div>;
+export const MapView: FC = () => <div>Map</div>
 
-MapView.displayName = 'MapView';
+MapView.displayName = 'MapView'
