@@ -35,13 +35,13 @@ const Loader = styled.span`
   position: relative;
   border-radius: 50% 50% 0 0;
   border-bottom: 10px solid var(--color-danger);
-  background-color: var(--color-gray-100);
+  background-color: var(--color-gray-50);
   background-image: radial-gradient(
       ellipse at center,
-      var(--color-gray-100) 34%,
+      var(--color-gray-50) 34%,
       var(--color-danger) 35%,
       var(--color-danger) 54%,
-      var(--color-gray-100) 55%
+      var(--color-gray-50) 55%
     ),
     linear-gradient(var(--color-danger) 10px, transparent 0);
   background-size: 28px 28px;

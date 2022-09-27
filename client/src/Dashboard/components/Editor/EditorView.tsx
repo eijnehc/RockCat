@@ -55,8 +55,8 @@ const EditorTitle = styled.div<EditorStyleProps>`
   display: flex;
   justify-content: space-between;
   font-weight: var(--font-weight-medium);
-  background-color: ${(props) => (props.dark ? 'var(--color-gray-900)' : 'var(--color-gray-300)')};
-  color: var(--color-secondary);
+  background-color: ${(props) => (props.dark ? 'var(--color-gray-900)' : 'var(--color-gray-100)')};
+  color: ${(props) => (props.dark ? 'var(--color-secondary-medium)' : 'var(--color-secondary-dark)')};
   padding: 0.5rem;
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
@@ -83,7 +83,7 @@ const CompileButton = styled.button`
   align-self: flex-end;
   margin-top: 1rem;
 
-  background: var(--color-primary-900);
+  background: var(--color-primary-dark);
   border: none;
   border-radius: 12px;
   padding: 0;
@@ -103,7 +103,7 @@ const ForegroundLayer = styled.span`
   padding: 12px 32px;
   border-radius: 12px;
   font-size: 1.25rem;
-  background: var(--color-primary);
+  background: var(--color-primary-medium);
   color: white;
   transform: translateY(-4px);
 `

@@ -80,23 +80,22 @@ a {
 /* DESIGN TOKENS */
 html {
   --color-white: ${COLORS.white};
+  --color-black: ${COLORS.black};
   --color-offblack: ${COLORS.offblack};
+  --color-gray-50: ${COLORS.gray[50]};
   --color-gray-100: ${COLORS.gray[100]};
   --color-gray-300: ${COLORS.gray[300]};
   --color-gray-500: ${COLORS.gray[500]};
   --color-gray-700: ${COLORS.gray[700]};
   --color-gray-900: ${COLORS.gray[900]};
-  --color-primary: ${COLORS.primary[300]};
-  --color-primary-300: ${COLORS.primary[300]};
-  --color-primary-900: ${COLORS.primary[900]};
-  --color-secondary: ${COLORS.secondary[300]};
-  --color-secondary-300: ${COLORS.secondary[500]};
-  --color-success: ${COLORS.success[300]};
-  --color-success-300: ${COLORS.success[500]};
-  --color-danger: ${COLORS.danger[300]};
-  --color-danger-300: ${COLORS.danger[500]};
-  --color-warning:  ${COLORS.warning[300]};
-  --color-warning-300:  ${COLORS.warning[500]};
+  --color-primary-medium: ${COLORS.primary['medium']};
+  --color-primary-dark: ${COLORS.primary['dark']};
+  --color-secondary-medium: ${COLORS.secondary['medium']};
+  --color-secondary-dark: ${COLORS.secondary['dark']};
+  --color-info: ${COLORS.info};
+  --color-success: ${COLORS.success};
+  --color-danger: ${COLORS.danger};
+  --color-warning:  ${COLORS.warning};
   
   --font-weight-normal: ${WEIGHTS.normal};
   --font-weight-medium: ${WEIGHTS.medium};
