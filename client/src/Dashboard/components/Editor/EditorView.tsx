@@ -22,7 +22,7 @@ export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode }) => {
       <EditorTitle dark={dark}>
         <div>&#128640; Editor</div>
         <ThemeButton onClick={() => setDark((prevDark) => !prevDark)}>
-          {dark ? <Moon color='var(--color-white)' /> : <Sun color='var(--color-offblack)' />}
+          {dark ? <Sun color='var(--color-white)' /> : <Moon color='var(--color-offblack)' />}
         </ThemeButton>
       </EditorTitle>
       <CodeMirror
