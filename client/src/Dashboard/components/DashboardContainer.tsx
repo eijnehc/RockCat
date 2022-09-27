@@ -39,11 +39,12 @@ export const DashboardContainer: FC = () => {
 const Wrapper = styled.div`
   display: flex;
   min-height: 100%;
+  color: var(--color-white);
 
   > div {
     flex: 1;
     /* Temp border to see the demarcation */
-    border: 1px solid black;
+    border: 1px solid var(--color-white);
   }
 `
 

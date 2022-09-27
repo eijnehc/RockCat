@@ -72,6 +72,10 @@ html, body, #root {
   height: 100%;
 }
 
+body {
+  background-color: var(--color-offblack);
+}
+
 a {
   color: inherit;
   text-decoration: none;
