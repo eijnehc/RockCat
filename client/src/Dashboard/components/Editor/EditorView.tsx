@@ -15,7 +15,7 @@ interface EditorStyleProps {
 }
 
 export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode }) => {
-  const [dark, setDark] = useState(true)
+  const [dark, setDark] = useState(false)
 
   return (
     <Wrapper>
