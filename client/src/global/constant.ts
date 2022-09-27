@@ -1,34 +1,27 @@
 export const COLORS = {
   white: 'hsl(0deg 0% 100%)',
-  offblack: 'hsl(24deg 5% 6%)',
+  black: 'hsl(0deg 0% 0%)',
+  offblack: 'hsl(231deg 13% 10%)',
   gray: {
-    100: 'hsl(40deg 12% 95%)',
-    300: 'hsl(35deg 8% 80%)',
-    500: 'hsl(30deg 4% 60%)',
-    700: 'hsl(28deg 5% 40%)',
-    900: 'hsl(24deg 6% 16%)',
+    50: 'hsl(40deg 12% 95%)',
+    100: 'hsl(210deg 25% 88%)',
+    300: 'hsl(210deg 14% 80%)',
+    500: 'hsl(210deg 8% 50%)',
+    700: 'hsl(210deg 10% 40%)',
+    900: 'hsl(210deg 15% 20%)',
   },
   primary: {
-    300: 'hsl(221deg 83% 53%)',
-    500: 'hsl(221deg 83% 53% / 0.3)',
-    900: 'hsl(221deg 63% 40%)',
+    medium: 'hsl(333deg 100% 50%)',
+    dark: 'hsl(333deg 90% 47%)',
   },
   secondary: {
-    300: 'hsl(262deg 83% 58%)',
-    500: 'hsl(262deg 83% 58% / 0.3)',
+    medium: 'hsl(278deg 87% 72%)',
+    dark: 'hsl(278deg 63% 48%)',
   },
-  success: {
-    300: 'hsl(142deg 76% 36%)',
-    500: 'hsl(142deg 76% 36% / 0.3)',
-  },
-  danger: {
-    300: 'hsl(347deg 77% 50%)',
-    500: 'hsl(347deg 77% 50% / 0.3)',
-  },
-  warning: {
-    300: 'hsl(41deg 96% 40%)',
-    500: 'hsl(41deg 96% 40% / 0.3)',
-  },
+  info: 'hsl(223deg 77% 63%)',
+  success: 'hsl(167deg 85% 51%)',
+  danger: 'hsl(347deg 77% 50%)',
+  warning: 'hsl(30deg 100% 50%)',
 }
 
 export const WEIGHTS = {
