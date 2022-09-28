@@ -39,7 +39,6 @@ export const DashboardContainer: FC = () => {
 const Wrapper = styled.div`
   display: flex;
   min-height: 100%;
-  color: var(--color-white);
 
   > div {
     flex: 1;

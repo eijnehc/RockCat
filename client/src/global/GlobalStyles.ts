@@ -74,6 +74,7 @@ html, body, #root {
 
 body {
   background-color: var(--color-offblack);
+  color: var(--color-white);
 }
 
 a {
