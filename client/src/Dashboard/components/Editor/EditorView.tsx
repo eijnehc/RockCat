@@ -4,6 +4,8 @@ import { javascript } from '@codemirror/lang-javascript'
 import CodeMirror from '@uiw/react-codemirror'
 import styled from 'styled-components'
 
+import { Logo } from '../../../global'
+
 interface Props {
   onChange: (value: string, viewUpdate: any) => void
   onSubmitCode: () => void
@@ -20,7 +22,9 @@ export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode }) => {
   return (
     <Wrapper>
       <EditorTitle dark={dark}>
-        <div>&#128640; Editor</div>
+        <div>
+          <Logo /> Editor
+        </div>
         <ThemeButton onClick={() => setDark((prevDark) => !prevDark)}>
           {dark ? <Sun color='var(--color-white)' /> : <Moon color='var(--color-offblack)' />}
         </ThemeButton>
@@ -51,6 +55,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding: 1rem;
 `
+
 const EditorTitle = styled.div<EditorStyleProps>`
   display: flex;
   justify-content: space-between;
