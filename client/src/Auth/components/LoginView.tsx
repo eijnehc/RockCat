@@ -25,9 +25,7 @@ export const LoginView: FC<Props> = ({ onSubmit }) => {
         <GitHubButton>
           <GitHub /> Continue on GitHub
         </GitHubButton>
-        <br />
-        <div>or</div>
-        <br />
+        <Divider>OR</Divider>
         <Form onSubmit={onSubmit}>
           <Input type='email' placeholder='email' name='email' style={{ marginBottom: '3rem' }} />
           <LoginButton type='submit'>Email a Login Link</LoginButton>
@@ -130,6 +128,30 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   width: 65%;
+`
+
+const Divider = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 65%;
+  color: var(--color-gray-500);
+  margin: 1.5rem 0px;
+
+  &:before,
+  &:after {
+    content: '';
+    flex: 1 1;
+    border-bottom: 1px solid var(--color-gray-500);
+    margin: auto;
+  }
+
+  &:before {
+    margin-right: 10px;
+  }
+
+  &:after {
+    margin-left: 10px;
+  }
 `
 
 const TopSphere = styled.div`
