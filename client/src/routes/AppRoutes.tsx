@@ -1,8 +1,7 @@
 import { lazy } from 'react'
-
 import { createBrowserRouter } from 'react-router-dom'
 
-const CoursesPage = lazy(() => import('../Courses/pages/CoursesPage'))
+const ProfilePage = lazy(() => import('../Profile/pages/ProfilePage'))
 const DashboardPage = lazy(() => import('../Dashboard/pages/DashboardPage'))
 const LoginPage = lazy(() => import('../Auth/pages/LoginPage'))
 const WelcomePage = lazy(() => import('../Welcome/pages/WelcomePage'))
@@ -19,8 +18,8 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: '/courses',
-    element: <CoursesPage />,
+    path: '/profile',
+    element: <ProfilePage />,
   },
   {
     /*Temporarily put this as the default page as this is the core product */
