@@ -1,1 +1,1 @@
-export * from './CoursesContainer'
+export * from './ProfileContainer'
