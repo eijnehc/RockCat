@@ -8,9 +8,7 @@ The frontend web app requires the following to manage the dependencies:
 
 > :star2: pnpm
 
-## Getting Started
-
-To run the demo in a development environment, you can start web app and the backend service in separate terminal instances.
+    npm install -g pnpm
 
 ## Installation
 
@@ -18,13 +16,11 @@ Start the terminal application in Mac computer or Command Prompt program in Wind
 
 At the prompt, navigate to the where source code folder and type the below command to install the dependencies for Server and Client.
 
-    npm install -g pnpm
+    pnpm client-install
+    pnpm server-install
 
-# Server
+## Getting Started
 
-# Web App
+To run the demo in a development environment, you can simply start web app and the backend service in same terminal instances by running
 
-Navigate to ./client in a separate terminal session, type the below command to start the application.
-
-    cd ./client
-    pnpm vite
+    pnpm dev
