@@ -1,9 +1,13 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 
+import { useCoursesQuery } from '../apis'
 import BackgroundImage from '../assets/stars.png'
 
 export const WelcomeView: FC = () => {
+  const { courses } = useCoursesQuery()
+  console.log(courses)
+
   return <Wrapper>Welcome</Wrapper>
 }
 
