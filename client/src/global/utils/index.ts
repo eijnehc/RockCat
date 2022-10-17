@@ -1,1 +1,1 @@
-export * from './superbase'
+export * from './supabase'

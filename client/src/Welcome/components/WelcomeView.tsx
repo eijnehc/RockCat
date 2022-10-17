@@ -1,14 +1,40 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { useCoursesQuery } from '../apis'
+import { supabase } from '../../global'
+import { orderSuccessQuery, useCoursesQuery } from '../apis'
 import BackgroundImage from '../assets/stars.png'
+
+const requestOptions = {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+}
 
 export const WelcomeView: FC = () => {
   const { courses } = useCoursesQuery()
-  console.log(courses)
+  const [searchParams] = useSearchParams()
+  const sessionId = searchParams.get('session_id')
 
-  return <Wrapper>Welcome</Wrapper>
+  useEffect(() => {
+    const fetchStripeCustomer = async (sessionId: string | null) => {
+      if (sessionId) {
+        const customer = await orderSuccessQuery(sessionId)
+        console.log(customer)
+        // await supabase.from('profile').insert({ email: customer.email, stripe_customer: sessionId })
+      }
+    }
+    fetchStripeCustomer(sessionId)
+  }, [!sessionId])
+
+  return (
+    <Wrapper>
+      Welcome
+      <form action='/api/v1/create-checkout-session' method='POST'>
+        <button>Checkout</button>
+      </form>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.div`

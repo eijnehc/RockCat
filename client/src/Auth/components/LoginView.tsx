@@ -6,10 +6,11 @@ import styled, { keyframes } from 'styled-components'
 import { Input, Logo } from '../../global'
 
 interface Props {
+  onGithubSignIn: () => void
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
-export const LoginView: FC<Props> = ({ onSubmit }) => {
+export const LoginView: FC<Props> = ({ onGithubSignIn, onSubmit }) => {
   return (
     <Wrapper>
       <Header>
@@ -22,7 +23,7 @@ export const LoginView: FC<Props> = ({ onSubmit }) => {
       <BottomSphere />
       <LoginWrapper>
         <SignOnHeader>Sign In</SignOnHeader>
-        <GitHubButton>
+        <GitHubButton onClick={onGithubSignIn}>
           <GitHub /> Continue on GitHub
         </GitHubButton>
         <Divider>OR</Divider>
