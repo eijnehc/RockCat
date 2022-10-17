@@ -2,14 +2,10 @@ import { FC, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { apiRoutes } from '../../apiRoutes'
 import { supabase } from '../../global'
 import { orderSuccessQuery, useCoursesQuery } from '../apis'
 import BackgroundImage from '../assets/stars.png'
-
-const requestOptions = {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-}
 
 export const WelcomeView: FC = () => {
   const { courses } = useCoursesQuery()
@@ -30,7 +26,7 @@ export const WelcomeView: FC = () => {
   return (
     <Wrapper>
       Welcome
-      <form action='/api/v1/create-checkout-session' method='POST'>
+      <form action={apiRoutes.createCheckoutSessionHttpUrl} method='POST'>
         <button>Checkout</button>
       </form>
     </Wrapper>

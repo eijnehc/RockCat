@@ -1,5 +1,7 @@
+import { apiRoutes } from '../../../apiRoutes'
+
 export const orderSuccessQuery = async (sessionId: string) => {
-  const res = await fetch(`/api/v1/order/success?session_id=${sessionId}`)
+  const res = await fetch(apiRoutes.orderSuccessHttpUrl(sessionId))
 
   return res.json()
 }
