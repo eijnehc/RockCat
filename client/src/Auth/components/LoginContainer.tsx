@@ -10,7 +10,7 @@ import { LoginView } from './LoginView'
 
 export const LoginContainer: FC = () => {
   const [isValidUser, setIsValidUser] = useState(true)
-  const [isSubmitted, setIsSubmitted] = useState(true)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const sessionId = searchParams.get('session_id')
