@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client-install": "cd client && pnpm install",
-    "server-install": "cd client && pnpm install",
+    "server-install": "cd server && pnpm install",
     "server": "cd server && pnpm start",
     "client": "cd client && pnpm start",
     "dev": "concurrently \"pnpm run server\" \"pnpm run client\""
