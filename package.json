@@ -1,0 +1,19 @@
+{
+  "name": "RockCat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client-install": "cd client && pnpm install",
+    "server-install": "cd client && pnpm install",
+    "server": "cd server && pnpm start",
+    "client": "cd client && pnpm start",
+    "dev": "concurrently \"pnpm run server\" \"pnpm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.4.0"
+  }
+}

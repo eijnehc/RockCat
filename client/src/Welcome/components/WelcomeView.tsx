@@ -1,10 +1,18 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 
+import { apiRoutes } from '../../apiRoutes'
 import BackgroundImage from '../assets/stars.png'
 
 export const WelcomeView: FC = () => {
-  return <Wrapper>Welcome</Wrapper>
+  return (
+    <Wrapper>
+      Welcome
+      <form action={apiRoutes.createCheckoutSessionHttpUrl} method='POST'>
+        <button>Checkout</button>
+      </form>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.div`
