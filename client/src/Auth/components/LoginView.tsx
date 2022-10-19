@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { GitHub } from 'react-feather'
+import { ArrowLeft, GitHub } from 'react-feather'
 import { Link } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
 
@@ -8,9 +8,12 @@ import { Input, Logo } from '../../global'
 interface Props {
   onGithubSignIn: () => void
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  onBack: () => void
+  isValidUser: boolean
+  isSubmitted: boolean
 }
 
-export const LoginView: FC<Props> = ({ onGithubSignIn, onSubmit }) => {
+export const LoginView: FC<Props> = ({ isSubmitted, isValidUser, onGithubSignIn, onSubmit, onBack }) => {
   return (
     <Wrapper>
       <Header>
@@ -22,15 +25,39 @@ export const LoginView: FC<Props> = ({ onGithubSignIn, onSubmit }) => {
       <TopSphere />
       <BottomSphere />
       <LoginWrapper>
-        <SignOnHeader>Sign In</SignOnHeader>
-        <GitHubButton onClick={onGithubSignIn}>
-          <GitHub /> Continue on GitHub
-        </GitHubButton>
-        <Divider>OR</Divider>
-        <Form onSubmit={onSubmit}>
-          <Input type='email' placeholder='email' name='email' style={{ marginBottom: '3rem' }} />
-          <LoginButton type='submit'>Email a Login Link</LoginButton>
-        </Form>
+        {!isSubmitted ? (
+          <>
+            <SignOnHeader>Sign In</SignOnHeader>
+            <GitHubButton onClick={onGithubSignIn}>
+              <GitHub /> Continue on GitHub
+            </GitHubButton>
+            <Divider>OR</Divider>
+            <Form onSubmit={onSubmit}>
+              <EmailInputWrapper>
+                <Input type='email' placeholder='email' name='email' required />
+                <ErrorMsg>
+                  {!isValidUser ? 'There is no registered user with this email address' : null}
+                </ErrorMsg>
+              </EmailInputWrapper>
+              <LoginButton type='submit'>Email a Login Link</LoginButton>
+            </Form>
+          </>
+        ) : (
+          <EmailWrapper>
+            <EmailHeader>
+              <BackButton>
+                <ArrowLeft onClick={onBack} />
+              </BackButton>
+              <span>Email Sent</span>
+              <span />
+            </EmailHeader>
+            <EmailText>
+              A “magic link” has been emailed to you, containing a link you can click to log in. It should
+              show up in your inbox within 30 seconds or so.
+            </EmailText>
+            <strong>You can close this tab now.</strong>
+          </EmailWrapper>
+        )}
       </LoginWrapper>
     </Wrapper>
   )
@@ -129,6 +156,47 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   width: 65%;
+`
+
+const EmailInputWrapper = styled.div`
+  margin-bottom: 1rem;
+`
+
+const ErrorMsg = styled.div`
+  padding: 0.5rem;
+  color: var(--color-danger);
+  font-size: 0.7rem;
+`
+
+const EmailWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100%;
+  padding: 3rem;
+`
+
+const EmailHeader = styled.h2`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 2.5rem;
+`
+
+const BackButton = styled.div`
+  align-self: start;
+  color: var(--color-gray-300);
+  cursor: pointer;
+
+  :hover {
+    color: var(--color-white);
+  }
+`
+
+const EmailText = styled.div`
+  text-align: justify;
 `
 
 const Divider = styled.div`
