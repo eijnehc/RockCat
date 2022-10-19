@@ -1,1 +1,1 @@
-export * from './useCoursesQuery'
+export * from './useQuestionsQuery'

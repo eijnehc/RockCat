@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { useCoursesQuery } from '../apis'
+import { useQuestionsQuery } from '../apis'
 
 import { WelcomeView } from './WelcomeView'
 
 export const WelcomeContainer: FC = () => {
-  const { courses } = useCoursesQuery()
+  const { questions } = useQuestionsQuery()
   const [searchParams] = useSearchParams()
   const sessionId = searchParams.get('cancelled')
 
