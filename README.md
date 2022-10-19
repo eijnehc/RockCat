@@ -24,3 +24,12 @@ At the prompt, navigate to the where source code folder and type the below comma
 To run the demo in a development environment, you can simply start web app and the backend service in same terminal instances by running
 
     pnpm dev
+
+## Stripe Payment
+
+After being redirected to the Stripe checkout page use this test card to simulate a payment
+
+- Payment Succeeds: 4242 4242 4242 4242
+- Use a valid future date, such as 12/34.
+- Use any three-digit CVC.
+- Use any value you like for other form fields.
