@@ -7,6 +7,7 @@ export const StyledHeader = styled.header`
 `
 
 export const Nav = styled.nav`
+  // background-color: #2b2a27;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,6 +27,7 @@ export const Logo = styled.img`
 
 export const Image = styled.img`
   width: 450px;
+  margin-top: 40px;
   margin-left: 40px;
   @media (max-width: ${({ theme }) => theme.mobile}) {
     margin: 40px 0 30px;

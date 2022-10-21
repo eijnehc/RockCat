@@ -14,7 +14,9 @@ export function Header() {
           <h1 style={{ fontSize: '3em' }}>RockCat</h1>
           <Button>Login</Button>
         </Nav>
-
+      </Container>
+      <hr></hr>
+      <Container>
         <Flex>
           <div>
             <h1>Build The Community Your Fans Will Love</h1>
