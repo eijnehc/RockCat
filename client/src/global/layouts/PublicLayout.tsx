@@ -35,7 +35,9 @@ export const PublicLayout: FC<Props> = ({ children }) => {
           &nbsp;<Title>RockCat</Title>
         </Link>
         <Wrapper>
-          <Button onClick={redirectLogin}>Login</Button>
+          <Button onClick={redirectLogin} emphasis='outline'>
+            Login
+          </Button>
         </Wrapper>
       </MainHeader>
       {children}
@@ -57,7 +59,8 @@ const MainHeader = styled.header`
   align-items: baseline;
   height: 72px;
   padding: 12px 20px;
-  border-bottom: 2px solid var(--color-gray-700);
+  border-bottom: 1px solid var(--color-gray-700);
+  margin-bottom: 16px;
 `
 
 const Wrapper = styled.div`
