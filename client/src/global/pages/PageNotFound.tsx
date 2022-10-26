@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { EyeOff } from 'react-feather'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -17,9 +18,12 @@ const NotFoundPage: FC = () => {
 
   return (
     <Wrapper>
+      <EyeOff size={72} />
       <div>The page you are looking for cannot be found</div>
       <FlexRow>
-        <Button onClick={redirectLogin}>Go to Login</Button>
+        <Button emphasis='outline' onClick={redirectLogin}>
+          Go to Login
+        </Button>
         <Button onClick={redirectBack}>Go back</Button>
       </FlexRow>
     </Wrapper>
@@ -33,11 +37,11 @@ const Wrapper = styled.div`
   min-height: 100%;
   justify-content: center;
   align-items: center;
+  gap: 24px;
 `
 
 const FlexRow = styled.div`
   display: flex;
-  margin-top: 1rem;
   gap: 12px;
 `
 
