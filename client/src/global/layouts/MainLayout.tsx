@@ -1,8 +1,9 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { Button, Logo } from '../components'
+import { Logo } from '../components'
+import { supabase } from '../utils'
 
 interface Props {
   children: ReactNode
@@ -10,20 +11,57 @@ interface Props {
 
 export const MainLayout: FC<Props> = ({ children }) => {
   const navigate = useNavigate()
+  const [profile, setProfile] = useState<any>(null)
 
-  const redirectLogin = () => {
-    navigate('/login')
+  useEffect(() => {
+    /* fires when a user signs out */
+    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
+      console.log(event)
+      if (event === 'SIGNED_OUT') {
+        navigate('/welcome')
+      }
+    })
+    checkUser()
+    return () => {
+      authListener.subscription.unsubscribe()
+    }
+  }, [])
+
+  async function checkUser() {
+    /* when the component loads, checks user to show or hide Sign In link */
+    const user = await supabase.auth.getUser()
+    if (!user?.data?.user) {
+      navigate('/welcome')
+    } else {
+      setProfile(user.data.user)
+    }
   }
+
+  const redirectHome = () => {
+    navigate('/')
+  }
+
+  const redirectDashboard = () => {
+    navigate('/dashboard')
+  }
+
+  const redirectProfile = () => {
+    navigate('/profile')
+  }
+
+  if (!profile) return null
 
   return (
     <Layout>
       <MainHeader>
-        <Link to='/welcome'>
+        <Link to='/'>
           <Logo size='2rem' />
           &nbsp;<Title>RockCat</Title>
         </Link>
         <Wrapper>
-          <Button onClick={redirectLogin}>Login</Button>
+          <button onClick={redirectHome}>Home</button>
+          <button onClick={redirectDashboard}>Dashboard</button>
+          <button onClick={redirectProfile}>Profile</button>
         </Wrapper>
       </MainHeader>
       {children}

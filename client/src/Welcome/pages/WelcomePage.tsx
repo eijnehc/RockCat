@@ -1,12 +1,12 @@
 import { FC } from 'react'
 
-import { MainLayout } from '../../global'
+import { PublicLayout } from '../../global'
 import { WelcomeContainer } from '../components'
 
 const WelcomePage: FC = () => (
-  <MainLayout>
+  <PublicLayout>
     <WelcomeContainer />
-  </MainLayout>
+  </PublicLayout>
 )
 
 WelcomePage.displayName = 'WelcomePage'

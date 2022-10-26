@@ -10,7 +10,6 @@ const WelcomePage = lazy(() => import('../../Welcome/pages/WelcomePage'))
 
 export const router = createBrowserRouter([
   {
-    /*Will become landing page once dashboard is ready*/
     path: '/welcome',
     element: <WelcomePage />,
   },
@@ -19,17 +18,15 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: '/home',
+    path: '/',
     element: <HomePage />,
   },
   {
-    /*Temporarily put this as the default page as this is the core product */
-    path: '/',
+    path: 'dashboard',
     element: <DashboardPage />,
-    // element: <RocketSpinner />,
   },
   {
-    path: '/profile',
+    path: 'profile',
     element: <ProfilePage />,
   },
   {

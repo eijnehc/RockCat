@@ -26,6 +26,17 @@ export const LoginContainer: FC = () => {
     navigate('/login')
   }, [!sessionId])
 
+  useEffect(() => {
+    signOut()
+  }, [])
+
+  async function signOut() {
+    const profileData = await supabase.auth.getUser()
+    if (profileData?.data?.user) {
+      supabase.auth.signOut()
+    }
+  }
+
   const handleGithubSignIn = () => {
     supabase.auth.signInWithOAuth({
       provider: 'github',
