@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { apiRoutes } from '../../apiRoutes'
 import { Logo } from '../../global'
+import { QUERIES } from '../../global/constant'
 import RocketLaunch from '../assets/rocket-launch.png'
 import BackgroundImage from '../assets/stars.png'
 
@@ -36,7 +37,9 @@ export const WelcomeView: FC = () => {
             <Button>Get Started</Button>
           </form>
         </BoxContent>
-        <img src={RocketLaunch} alt='rocket-launch' />
+        <RocketLaunchWrapper>
+          <img src={RocketLaunch} alt='rocket-launch' />
+        </RocketLaunchWrapper>
       </HeroWrapper>
       <CourseHighlightsWrapper>
         <Header style={{ color: 'var(--color-primary-dark)' }}>What We Provide</Header>
@@ -75,9 +78,8 @@ const Wrapper = styled.div`
 const HeroWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding-left: 150px;
   margin-bottom: 48px;
 `
 
@@ -90,6 +92,13 @@ const Header = styled.header`
 const BoxContent = styled.div`
   width: clamp(200px, 40%, 400px);
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media ${QUERIES.laptopAndUp} {
+    display: block;
+  }
 `
 
 const Button = styled.button`
@@ -106,6 +115,14 @@ const Button = styled.button`
   &:hover {
     opacity: 1;
     transform: scale(1.05);
+  }
+`
+
+const RocketLaunchWrapper = styled.div`
+  display: none;
+
+  @media ${QUERIES.laptopAndUp} {
+    display: inline-block;
   }
 `
 
