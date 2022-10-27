@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { RouterProvider } from 'react-router-dom'
 
 import { GlobalStyles, RocketSpinner } from './global'
-import { router } from './routes'
+import { router } from './global'
 
 const queryClient = new QueryClient()
 

@@ -10,6 +10,7 @@ import { LoginView } from './LoginView'
 
 export const LoginContainer: FC = () => {
   const [isValidUser, setIsValidUser] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -26,6 +27,17 @@ export const LoginContainer: FC = () => {
     navigate('/login')
   }, [!sessionId])
 
+  useEffect(() => {
+    signOut()
+  }, [])
+
+  async function signOut() {
+    const profileData = await supabase.auth.getUser()
+    if (profileData?.data?.user) {
+      supabase.auth.signOut()
+    }
+  }
+
   const handleGithubSignIn = () => {
     supabase.auth.signInWithOAuth({
       provider: 'github',
@@ -34,6 +46,7 @@ export const LoginContainer: FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value
     const isUserValid = await isUserValidQuery(email)
 
@@ -47,6 +60,7 @@ export const LoginContainer: FC = () => {
     } else {
       setIsValidUser(false)
     }
+    setIsLoading(false)
   }
 
   const handleBack = () => {
@@ -57,6 +71,7 @@ export const LoginContainer: FC = () => {
   return (
     <LoginView
       isValidUser={isValidUser}
+      isLoading={isLoading}
       isSubmitted={isSubmitted}
       onGithubSignIn={handleGithubSignIn}
       onSubmit={handleSubmit}

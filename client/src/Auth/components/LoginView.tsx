@@ -6,14 +6,22 @@ import styled, { keyframes } from 'styled-components'
 import { Input, Logo } from '../../global'
 
 interface Props {
+  isValidUser: boolean
+  isLoading: boolean
+  isSubmitted: boolean
   onGithubSignIn: () => void
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   onBack: () => void
-  isValidUser: boolean
-  isSubmitted: boolean
 }
 
-export const LoginView: FC<Props> = ({ isSubmitted, isValidUser, onGithubSignIn, onSubmit, onBack }) => {
+export const LoginView: FC<Props> = ({
+  isSubmitted,
+  isLoading,
+  isValidUser,
+  onGithubSignIn,
+  onSubmit,
+  onBack,
+}) => {
   return (
     <Wrapper>
       <Header>
@@ -39,7 +47,9 @@ export const LoginView: FC<Props> = ({ isSubmitted, isValidUser, onGithubSignIn,
                   {!isValidUser ? 'There is no registered user with this email address' : null}
                 </ErrorMsg>
               </EmailInputWrapper>
-              <LoginButton type='submit'>Email a Login Link</LoginButton>
+              <LoginButton type='submit' disabled={isLoading}>
+                Email a Login Link
+              </LoginButton>
             </Form>
           </>
         ) : (
@@ -148,6 +158,12 @@ const LoginButton = styled.button`
   :hover {
     color: var(--color-white);
   }
+
+  :disabled {
+    cursor: default;
+    opacity: 0.4;
+  }
+
   animation: ${Animate} 5s linear infinite;
 `
 

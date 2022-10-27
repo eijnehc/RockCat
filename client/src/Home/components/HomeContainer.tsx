@@ -1,19 +1,13 @@
 import { FC } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-import { useProfileQuery } from '../apis/hooks'
+import { useQuestionsQuery } from '../apis/hooks'
 
 import { HomeView } from './HomeView'
 
 export const HomeContainer: FC = () => {
-  const { profile } = useProfileQuery()
-  const navigate = useNavigate()
+  const { questions } = useQuestionsQuery()
 
-  if (!profile) {
-    navigate('/')
-  }
-
-  return <HomeView />
+  return <HomeView questions={questions} />
 }
 
 HomeContainer.displayName = 'HomeContainer'
