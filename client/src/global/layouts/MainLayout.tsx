@@ -2,7 +2,7 @@ import { FC, ReactNode, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { Logo } from '../components'
+import { Avatar, Logo } from '../components'
 import { supabase } from '../utils'
 
 interface Props {
@@ -49,6 +49,11 @@ export const MainLayout: FC<Props> = ({ children }) => {
     navigate('/profile')
   }
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    navigate('/welcome')
+  }
+
   if (!profile) return null
 
   return (
@@ -59,9 +64,11 @@ export const MainLayout: FC<Props> = ({ children }) => {
           &nbsp;<Title>RockCat</Title>
         </Link>
         <Wrapper>
-          <button onClick={redirectHome}>Home</button>
+          <Avatar userName='Chen Jie' />
+          {/* <button onClick={redirectHome}>Home</button>
           <button onClick={redirectDashboard}>Dashboard</button>
           <button onClick={redirectProfile}>Profile</button>
+          <button onClick={handleLogout}>Logout</button> */}
         </Wrapper>
       </MainHeader>
       {children}
@@ -80,7 +87,7 @@ const Title = styled.span`
 
 const MainHeader = styled.header`
   display: flex;
-  align-items: baseline;
+  align-items: center;
   height: 72px;
   padding: 12px 20px;
   border-bottom: 2px solid var(--color-gray-700);
@@ -88,4 +95,5 @@ const MainHeader = styled.header`
 
 const Wrapper = styled.div`
   margin-left: auto;
+  cursor: pointer;
 `
