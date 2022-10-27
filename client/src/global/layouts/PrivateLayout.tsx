@@ -9,7 +9,7 @@ interface Props {
   children: ReactNode
 }
 
-export const MainLayout: FC<Props> = ({ children }) => {
+export const PrivateLayout: FC<Props> = ({ children }) => {
   const navigate = useNavigate()
   const [profile, setProfile] = useState<any>(null)
 
@@ -75,7 +75,6 @@ export const MainLayout: FC<Props> = ({ children }) => {
     </Layout>
   )
 }
-MainLayout.displayName = 'MainLayout'
 
 const Layout = styled.div`
   min-height: 100%;
@@ -97,3 +96,5 @@ const Wrapper = styled.div`
   margin-left: auto;
   cursor: pointer;
 `
+
+PrivateLayout.displayName = 'PrivateLayout'
