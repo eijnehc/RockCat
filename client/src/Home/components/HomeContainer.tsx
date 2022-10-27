@@ -1,13 +1,13 @@
-import { FC, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { FC } from 'react'
 
-import { supabase } from '../../global'
-import { useProfileQuery } from '../apis/hooks'
+import { useQuestionsQuery } from '../apis/hooks'
 
 import { HomeView } from './HomeView'
 
 export const HomeContainer: FC = () => {
-  return <HomeView />
+  const { questions } = useQuestionsQuery()
+
+  return <HomeView questions={questions} />
 }
 
 HomeContainer.displayName = 'HomeContainer'

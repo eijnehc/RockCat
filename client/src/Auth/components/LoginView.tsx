@@ -160,6 +160,7 @@ const LoginButton = styled.button`
   }
 
   :disabled {
+    cursor: default;
     opacity: 0.4;
   }
 
