@@ -1,5 +1,6 @@
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Menu, MenuButton, MenuItem, MenuList } from '@reach/menu-button'
 import styled from 'styled-components'
 
 import { Avatar, Logo } from '../components'
@@ -64,11 +65,16 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
           &nbsp;<Title>RockCat</Title>
         </Link>
         <Wrapper>
-          <Avatar userName='Chen Jie' />
-          {/* <button onClick={redirectHome}>Home</button>
-          <button onClick={redirectDashboard}>Dashboard</button>
-          <button onClick={redirectProfile}>Profile</button>
-          <button onClick={handleLogout}>Logout</button> */}
+          <Menu>
+            <StyledMenuButton>
+              <Avatar userName='Chen Jie' />
+            </StyledMenuButton>
+            <StyledMenuList>
+              <StyledMenuItem onSelect={redirectHome}>Home</StyledMenuItem>
+              <StyledMenuItem onSelect={redirectProfile}>My Account</StyledMenuItem>
+              <StyledMenuItem onSelect={handleLogout}>Log Out</StyledMenuItem>
+            </StyledMenuList>
+          </Menu>
         </Wrapper>
       </MainHeader>
       {children}
@@ -95,6 +101,44 @@ const MainHeader = styled.header`
 const Wrapper = styled.div`
   margin-left: auto;
   cursor: pointer;
+`
+
+/*
+  Remove default button styles.
+*/
+const StyledMenuButton = styled(MenuButton)`
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+`
+
+const StyledMenuList = styled(MenuList)`
+  display: block;
+  background-color: var(--color-gray-500);
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: 8px;
+  transform: translateY(1rem);
+  cursor: pointer;
+`
+
+const StyledMenuItem = styled(MenuItem)`
+  font-weight: var(--font-weight-medium);
+  padding: 0.5rem;
+  padding-right: 2rem;
+
+  &[data-selected] {
+    background-color: var(--color-secondary-medium);
+  }
+
+  :last-of-type {
+    border-top: 1px solid var(--color-gray-300);
+  }
 `
 
 PrivateLayout.displayName = 'PrivateLayout'
