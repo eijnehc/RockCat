@@ -68,6 +68,13 @@ table {
   isolation: isolate;
 }
 
+html {
+  /*
+    Silence the warning about missing Reach Dialog styles
+  */
+  --reach-dialog: 1;
+}
+
 html, body, #root {
   height: 100%;
 }
