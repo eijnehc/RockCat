@@ -3,7 +3,7 @@ import { Aperture, Codepen, Map } from 'react-feather'
 import styled from 'styled-components'
 
 import { apiRoutes } from '../../apiRoutes'
-import { Logo } from '../../global'
+import { Avatar, Logo } from '../../global'
 import { QUERIES } from '../../global/constant'
 import RocketLaunch from '../assets/rocket-launch.png'
 import BackgroundImage from '../assets/stars.png'
@@ -11,6 +11,8 @@ import BackgroundImage from '../assets/stars.png'
 import { CourseHighlights } from './Constants'
 
 export const WelcomeView: FC = () => {
+  // KIV Random profile link
+  // <Avatar userName='Chen Jie' imageUrl='https://api.lorem.space/image/face?w=150&h=150' />
   const renderImage = (id: number) => {
     switch (id) {
       case 1:

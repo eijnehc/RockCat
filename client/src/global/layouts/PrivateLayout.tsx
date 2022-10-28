@@ -1,15 +1,16 @@
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Menu, MenuButton, MenuItem, MenuList } from '@reach/menu-button'
 import styled from 'styled-components'
 
-import { Logo } from '../components'
+import { Avatar, Logo } from '../components'
 import { supabase } from '../utils'
 
 interface Props {
   children: ReactNode
 }
 
-export const MainLayout: FC<Props> = ({ children }) => {
+export const PrivateLayout: FC<Props> = ({ children }) => {
   const navigate = useNavigate()
   const [profile, setProfile] = useState<any>(null)
 
@@ -49,30 +50,38 @@ export const MainLayout: FC<Props> = ({ children }) => {
     navigate('/profile')
   }
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    navigate('/welcome')
+  }
+
   if (!profile) return null
 
   return (
-    <Layout>
+    <>
       <MainHeader>
         <Link to='/'>
           <Logo size='2rem' />
           &nbsp;<Title>RockCat</Title>
         </Link>
         <Wrapper>
-          <button onClick={redirectHome}>Home</button>
-          <button onClick={redirectDashboard}>Dashboard</button>
-          <button onClick={redirectProfile}>Profile</button>
+          <Menu>
+            <MenuButton>
+              <Avatar userName='Chen Jie' />
+            </MenuButton>
+            <StyledMenuList>
+              <StyledMenuItem onSelect={redirectHome}>Home</StyledMenuItem>
+              <StyledMenuItem onSelect={redirectProfile}>My Account</StyledMenuItem>
+              <StyledMenuItem onSelect={handleLogout}>Log Out</StyledMenuItem>
+            </StyledMenuList>
+          </Menu>
         </Wrapper>
       </MainHeader>
       {children}
-    </Layout>
+    </>
   )
 }
-MainLayout.displayName = 'MainLayout'
 
-const Layout = styled.div`
-  min-height: 100%;
-`
 const Title = styled.span`
   font-size: 2rem;
   font-weight: var(--font-weight-bold);
@@ -80,8 +89,7 @@ const Title = styled.span`
 
 const MainHeader = styled.header`
   display: flex;
-  align-items: baseline;
-  height: 72px;
+  align-items: center;
   padding: 12px 20px;
   border-bottom: 2px solid var(--color-gray-700);
 `
@@ -89,3 +97,29 @@ const MainHeader = styled.header`
 const Wrapper = styled.div`
   margin-left: auto;
 `
+
+const StyledMenuList = styled(MenuList)`
+  display: block;
+  background-color: var(--color-gray-500);
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: 8px;
+  transform: translateY(1rem);
+  cursor: pointer;
+`
+
+const StyledMenuItem = styled(MenuItem)`
+  font-weight: var(--font-weight-medium);
+  padding: 0.5rem;
+  padding-right: 2rem;
+
+  &[data-selected] {
+    background-color: var(--color-primary-medium);
+  }
+
+  :last-of-type {
+    border-top: 1px solid var(--color-gray-300);
+  }
+`
+
+PrivateLayout.displayName = 'PrivateLayout'

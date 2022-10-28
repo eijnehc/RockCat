@@ -1,12 +1,12 @@
 import { FC } from 'react'
 
-import { MainLayout } from '../../global'
+import { PrivateLayout } from '../../global'
 import { ProfileContainer } from '../components'
 
 const ProfilePage: FC = () => (
-  <MainLayout>
+  <PrivateLayout>
     <ProfileContainer />
-  </MainLayout>
+  </PrivateLayout>
 )
 
 ProfilePage.displayName = 'ProfilePage'
