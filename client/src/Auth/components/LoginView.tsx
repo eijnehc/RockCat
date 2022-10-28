@@ -29,7 +29,9 @@ export const LoginView: FC<Props> = ({
       <BottomSphere />
       <Header>
         <Link to='/welcome'>
-          <Logo size='4rem' />
+          <TouchDown>
+            <Logo size='4rem' />
+          </TouchDown>
           &nbsp;RockCat
         </Link>
       </Header>
@@ -87,6 +89,23 @@ const Header = styled.div`
   padding: 1.5rem;
   font-size: 3rem;
   font-weight: var(--font-weight-bold);
+`
+
+const Landing = keyframes`
+    0% {
+      transform: rotate(-45deg) translateX(50px) translateY(-50px);
+    }
+    60% {
+      transform: rotate(-45deg) translateX(10px)  translateY(-20px);
+    }
+    100% {
+      transform: rotate(0deg) translateY(0px);
+    }
+`
+
+const TouchDown = styled.div`
+  display: inline-block;
+  animation: ${Landing} 2s ease-out 1;
 `
 
 const SignOnHeader = styled.h2`

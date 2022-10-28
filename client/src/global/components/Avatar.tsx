@@ -44,14 +44,14 @@ export const Avatar: FC<Props> = ({ size = 'medium', userName, imageUrl }) => {
 
 const Wrapper = styled.span<SizeProp>`
   border-radius: 50%;
-  border: 2px solid var(--color-gray-100);
-  padding: ${(props) => (props.imageUrl ? size(props.size ?? 'medium') : '0px')};
+  border: 2px solid var(--color-primary-dark);
+  padding: ${(props) => (!props?.imageUrl ? size(props.size ?? 'medium') : '0px')};
   text-align: center;
   color: var(--color-white);
-  background-color: hsl(278deg 87% 72% / 0.7);
+  background-color: hsl(333deg 100% 50% / 0.2);
 
   :hover {
-    border-color: var(--color-white);
+    border-color: var(--color-primary-medium);
   }
 `
 

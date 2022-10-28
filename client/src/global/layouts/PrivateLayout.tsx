@@ -132,7 +132,7 @@ const StyledMenuItem = styled(MenuItem)`
   padding-right: 2rem;
 
   &[data-selected] {
-    background-color: var(--color-secondary-medium);
+    background-color: var(--color-primary-medium);
   }
 
   :last-of-type {
