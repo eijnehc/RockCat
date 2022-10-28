@@ -58,7 +58,7 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
   if (!profile) return null
 
   return (
-    <Layout>
+    <>
       <MainHeader>
         <Link to='/'>
           <Logo size='2rem' />
@@ -66,9 +66,9 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
         </Link>
         <Wrapper>
           <Menu>
-            <StyledMenuButton>
+            <MenuButton>
               <Avatar userName='Chen Jie' />
-            </StyledMenuButton>
+            </MenuButton>
             <StyledMenuList>
               <StyledMenuItem onSelect={redirectHome}>Home</StyledMenuItem>
               <StyledMenuItem onSelect={redirectProfile}>My Account</StyledMenuItem>
@@ -78,13 +78,10 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
         </Wrapper>
       </MainHeader>
       {children}
-    </Layout>
+    </>
   )
 }
 
-const Layout = styled.div`
-  min-height: 100%;
-`
 const Title = styled.span`
   font-size: 2rem;
   font-weight: var(--font-weight-bold);
@@ -93,27 +90,12 @@ const Title = styled.span`
 const MainHeader = styled.header`
   display: flex;
   align-items: center;
-  height: 72px;
   padding: 12px 20px;
   border-bottom: 2px solid var(--color-gray-700);
 `
 
 const Wrapper = styled.div`
   margin-left: auto;
-`
-
-/*
-  Remove default button styles.
-*/
-const StyledMenuButton = styled(MenuButton)`
-  display: block;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
 `
 
 const StyledMenuList = styled(MenuList)`

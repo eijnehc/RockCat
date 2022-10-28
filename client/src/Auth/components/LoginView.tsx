@@ -133,12 +133,14 @@ const LoginWrapper = styled.div`
 `
 
 const GitHubButton = styled.button`
+  text-align: center;
   color: var(--color-gray-300);
   background-color: inherit;
   padding: 0.5rem 3rem;
   border: 1px solid var(--color-gray-300);
   border-radius: 1rem;
   font-size: 1rem;
+  font-weight: var(--font-weight-normal);
   cursor: pointer;
 
   :hover {
@@ -160,6 +162,7 @@ const Animate = keyframes`
 `
 
 const LoginButton = styled.button`
+  text-align: center;
   font-size: 1rem;
   font-weight: inherit;
   border-radius: 0.75rem;
@@ -228,6 +231,7 @@ const BackButton = styled.div`
   cursor: pointer;
 
   :hover {
+    transform: scale(1.2);
     color: var(--color-white);
   }
 `

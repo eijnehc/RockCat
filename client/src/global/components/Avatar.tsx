@@ -4,14 +4,16 @@ import styled from 'styled-components'
 import { getInitials } from '../utils'
 
 type Size = 'small' | 'medium' | 'large'
+type Color = 'fill' | 'outline'
 
-interface SizeProp {
+interface StyledProps {
   size?: Size
   imageUrl?: string
 }
 
-interface Props extends SizeProp {
+interface Props extends StyledProps {
   userName: string
+  color?: string
 }
 
 /* units */
@@ -34,21 +36,22 @@ const size = (size: Size) => {
   }
 }
 
-export const Avatar: FC<Props> = ({ size = 'medium', userName, imageUrl }) => {
+export const Avatar: FC<Props> = ({ size = 'medium', color = 'outline', userName, imageUrl }) => {
   return (
-    <Wrapper data-size={size}>
+    <Wrapper size={size} color={color}>
       {imageUrl ? <Image src={imageUrl} alt={userName} /> : getInitials(userName)}
     </Wrapper>
   )
 }
 
-const Wrapper = styled.span<SizeProp>`
+const Wrapper = styled.span<StyledProps>`
   border-radius: 50%;
   border: 2px solid var(--color-primary-dark);
   padding: ${(props) => (!props?.imageUrl ? size(props.size ?? 'medium') : '0px')};
   text-align: center;
   color: var(--color-white);
-  background-color: hsl(333deg 100% 50% / 0.2);
+  background-color: ${(props) =>
+    props.color === 'outline' ? 'hsl(333deg 100% 50% / 0.2)' : 'var(--color-primary-medium)'};
 
   :hover {
     border-color: var(--color-primary-medium);
