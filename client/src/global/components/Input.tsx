@@ -5,8 +5,8 @@ export const Input = styled.input`
   width: 100%;
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  border: 1px solid var(--color-gray-300);
-  color: var(--color-white);
+  border: 1px solid var(--color-gray-100);
+  color: inherit;
   border-radius: 1rem;
 
   &::placeholder {
@@ -16,7 +16,7 @@ export const Input = styled.input`
 
   :hover,
   :focus {
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--color-gray-500);
   }
 
   :focus {

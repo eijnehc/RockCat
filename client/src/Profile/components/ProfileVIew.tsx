@@ -1,38 +1,61 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Calendar, GitHub } from 'react-feather'
 import styled from 'styled-components'
 
-import { Avatar } from '../../global'
+import { Avatar, Button, Input, Modal } from '../../global'
 
-export const ProfileView: FC = () => {
+import { Profile } from './ProfileContainer'
+
+interface Props {
+  profile: Profile
+  handleUpdateProfile: () => void
+}
+
+export const ProfileView: FC<Props> = ({ profile, handleUpdateProfile }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const date = new Date(profile.data[0].created_at).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+  })
+
   return (
-    <Wrapper>
-      <Card>
-        <UserWrapper>
-          <AvatarWrapper>
-            <Avatar userName='Chen Jie' color='fill' size='large' />
-          </AvatarWrapper>
-          <UserInfo>
-            <h2 style={{ fontSize: '1.2rem' }}>John Doe</h2>
-            <div style={{ color: 'var(--color-gray-700)' }}>chenjiesgx@gmail.com</div>
-          </UserInfo>
-        </UserWrapper>
-        <AdditionalInfoWrapper>
-          <AdditionalInfo>
-            <Calendar style={{ marginRight: '6px' }} />
-            Joined in <span style={{ color: 'var(--color-black)' }}>March 2022</span>
-          </AdditionalInfo>
-          <AdditionalInfo>
-            <GitHub style={{ marginRight: '6px' }} />
-            Linked with <span style={{ color: 'var(--color-black)' }}>JohnDoe</span>
-          </AdditionalInfo>
-        </AdditionalInfoWrapper>
-        <EditUserWrapper>
-          <ButtonWrapper>Disconnect Github</ButtonWrapper>
-          <ButtonWrapper>Edit Profile</ButtonWrapper>
-        </EditUserWrapper>
-      </Card>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Card>
+          <UserWrapper>
+            <AvatarWrapper>
+              <Avatar userName={profile.data[0].name} color='fill' size='large' />
+            </AvatarWrapper>
+            <UserInfo>
+              <h2 style={{ fontSize: '1.2rem' }}>{profile.data[0].name}</h2>
+              <div style={{ color: 'var(--color-gray-700)' }}>{profile.data[0].email}</div>
+            </UserInfo>
+          </UserWrapper>
+          <AdditionalInfoWrapper>
+            <AdditionalInfo>
+              <Calendar style={{ marginRight: '6px' }} />
+              Joined in <span style={{ color: 'var(--color-black)' }}>{date}</span>
+            </AdditionalInfo>
+            <AdditionalInfo>
+              <GitHub style={{ marginRight: '6px' }} />
+              Linked with <span style={{ color: 'var(--color-black)' }}>JohnDoe</span>
+            </AdditionalInfo>
+          </AdditionalInfoWrapper>
+          <EditUserWrapper>
+            <ButtonWrapper>Invoice</ButtonWrapper>
+            <ButtonWrapper onClick={() => setIsOpen(true)}>Edit Profile</ButtonWrapper>
+            <ButtonWrapper>Disconnect Github</ButtonWrapper>
+          </EditUserWrapper>
+        </Card>
+      </Wrapper>
+      <Modal title='Edit Profile' isOpen={isOpen} handleDismiss={() => setIsOpen(false)}>
+        <Form onSubmit={handleUpdateProfile}>
+          <Input name='name' defaultValue={profile.data[0].name} />
+          <Input name='email' type='email' placeholder='email' defaultValue={profile.data[0].email} />
+          <Button>Save</Button>
+        </Form>
+      </Modal>
+    </>
   )
 }
 
@@ -50,7 +73,7 @@ const Card = styled.div`
   margin-right: auto;
   width: clamp(200px, 60%, 350px);
   max-width: 100%;
-  height: 350px;
+  height: 400px;
   border-radius: 2rem;
   background-color: var(--color-white);
 `
@@ -95,13 +118,20 @@ const ButtonWrapper = styled.button`
   padding: 8px;
   color: var(--color-gray-700);
 
-  :first-of-type {
+  :not(:last-child) {
     border-bottom: 1px solid var(--color-primary-medium);
   }
 
   :hover {
     color: inherit;
   }
+`
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 `
 
 ProfileView.displayName = 'ProfileView'
