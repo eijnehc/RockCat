@@ -7,11 +7,11 @@ type Size = 'small' | 'medium' | 'large'
 
 interface SizeProp {
   size?: Size
+  imageUrl?: string
 }
 
 interface Props extends SizeProp {
   userName: string
-  imageUrl?: string
 }
 
 /* units */
@@ -45,7 +45,7 @@ export const Avatar: FC<Props> = ({ size = 'medium', userName, imageUrl }) => {
 const Wrapper = styled.span<SizeProp>`
   border-radius: 50%;
   border: 2px solid var(--color-gray-100);
-  padding: ${(props) => size(props.size ?? 'medium')};
+  padding: ${(props) => (props.imageUrl ? size(props.size ?? 'medium') : '0px')};
   text-align: center;
   color: var(--color-white);
   background-color: hsl(278deg 87% 72% / 0.7);

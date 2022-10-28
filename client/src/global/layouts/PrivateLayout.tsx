@@ -100,7 +100,6 @@ const MainHeader = styled.header`
 
 const Wrapper = styled.div`
   margin-left: auto;
-  cursor: pointer;
 `
 
 /*
