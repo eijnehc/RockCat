@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from 'react-query'
 
-import { Questions } from '../../interfaces'
+import { QuestionsOverview } from '../../interfaces'
 import { questionsQuery } from '../queries'
 
 export const useQuestionsQuery = () => {
@@ -8,7 +8,7 @@ export const useQuestionsQuery = () => {
     data: questions,
     isLoading,
     error,
-  }: UseQueryResult<Questions[]> = useQuery(['questionsQuery'], () => questionsQuery())
+  }: UseQueryResult<QuestionsOverview> = useQuery(['questionsQuery'], () => questionsQuery())
 
   return { questions, isLoading, error }
 }

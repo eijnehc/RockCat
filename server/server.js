@@ -9,6 +9,7 @@ app.use(express.static('public'));
 
 require('./routes/transaction')(app);
 require('./routes/user')(app);
+require('./routes/question')(app);
 
 app.listen(PORT, () => {
   console.log(`Server port ${PORT} is running`);

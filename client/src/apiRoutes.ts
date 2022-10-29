@@ -2,4 +2,5 @@ export const apiRoutes = {
   createCheckoutSessionHttpUrl: `/api/v1/create-checkout-session`,
   signUpHttpUrl: (sessionId: string) => `/api/v1/sign-up?session_id=${sessionId}`,
   signInHttpUrl: (email: string) => `/api/v1/sign-in?email=${email}`,
+  questionsHttpUrl: (query: string) => `/api/v1/questions${query}`,
 }
