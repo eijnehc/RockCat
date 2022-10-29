@@ -1,9 +1,10 @@
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Menu, MenuButton, MenuItem, MenuList } from '@reach/menu-button'
 import styled from 'styled-components'
 
 import { Avatar, Logo } from '../components'
+import { useAuthAtom } from '../hooks'
 import { supabase } from '../utils'
 
 interface Props {
@@ -12,31 +13,13 @@ interface Props {
 
 export const PrivateLayout: FC<Props> = ({ children }) => {
   const navigate = useNavigate()
-  const [profile, setProfile] = useState<any>(null)
+  const [auth] = useAuthAtom()
 
   useEffect(() => {
-    /* fires when a user signs out */
-    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
-      console.log(event)
-      if (event === 'SIGNED_OUT') {
-        navigate('/welcome')
-      }
-    })
-    checkUser()
-    return () => {
-      authListener.subscription.unsubscribe()
-    }
-  }, [])
-
-  async function checkUser() {
-    /* when the component loads, checks user to show or hide Sign In link */
-    const user = await supabase.auth.getUser()
-    if (!user?.data?.user) {
+    if (!auth?.access_token) {
       navigate('/welcome')
-    } else {
-      setProfile(user.data.user)
     }
-  }
+  }, [auth])
 
   const redirectHome = () => {
     navigate('/')
@@ -55,7 +38,7 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
     navigate('/welcome')
   }
 
-  if (!profile) return null
+  if (!auth?.access_token) return null
 
   return (
     <>
