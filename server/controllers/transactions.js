@@ -19,10 +19,10 @@ const checkout = async (req, res) => {
   res.redirect(303, session.url);
 };
 
-const orderSuccess = async (req, res) => {
-  const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+const orderSuccess = async (session_id) => {
+  const session = await stripe.checkout.sessions.retrieve(session_id);
 
-  res.status(200).send(session.customer_details);
+  return session;
 };
 
 module.exports = {

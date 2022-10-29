@@ -2,19 +2,17 @@ import React, { FC, useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { supabase } from '../../global'
-import { signUpQuery } from '../apis'
-import { isUserValidQuery } from '../apis/queries/isUserValidQuery'
-import { signInQuery } from '../apis/queries/signInQuery'
+import { signInQuery, signUpQuery } from '../apis'
 
 import { LoginView } from './LoginView'
 
 export const LoginContainer: FC = () => {
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const sessionId = searchParams.get('session_id')
   const [isValidUser, setIsValidUser] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const sessionId = searchParams.get('session_id')
 
   useEffect(() => {
     const signUpUser = async (sessionId: string | null) => {
@@ -52,19 +50,20 @@ export const LoginContainer: FC = () => {
     e.preventDefault()
     setIsLoading(true)
     const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value
-    const isUserValid = await isUserValidQuery(email)
 
-    if (isUserValid) {
-      const { error } = await signInQuery(email)
-      if (error) {
-        console.error({ error })
-      } else {
+    try {
+      const res = await signInQuery(email)
+      if (res.ok) {
+        console.info('Magic link sent!')
         setIsSubmitted(true)
+      } else {
+        setIsValidUser(false)
       }
-    } else {
-      setIsValidUser(false)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   const handleBack = () => {
