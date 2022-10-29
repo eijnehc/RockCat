@@ -10,6 +10,7 @@ export const HomeView: FC<Props> = ({ questions }) => (
   <div>
     <ul>
       {questions &&
+        questions.data.length !== 0 &&
         questions.data.map((question) => (
           <li key={question.id}>
             <div>{question.id}</div>

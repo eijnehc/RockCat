@@ -4,6 +4,7 @@ specifiers:
   '@supabase/supabase-js': ^2.0.4
   cors: ^2.8.5
   express: ^4.18.2
+  jwt-decode: ^3.1.2
   nodemon: ^2.0.20
   stripe: ^10.14.0
 
@@ -11,6 +12,7 @@ dependencies:
   '@supabase/supabase-js': 2.0.4
   cors: 2.8.5
   express: 4.18.2
+  jwt-decode: 3.1.2
   nodemon: 2.0.20
   stripe: 10.14.0
 
@@ -483,6 +485,10 @@ packages:
 
   /is-typedarray/1.0.0:
     resolution: {integrity: sha512-cyA56iCMHAh5CdzjJIa4aohJyeO1YbwLi3Jc35MmRU6poroFjIGZzUzupGiRPOjgHg9TLu43xbpwXk523fMxKA==}
+    dev: false
+
+  /jwt-decode/3.1.2:
+    resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
     dev: false
 
   /media-typer/0.3.0:

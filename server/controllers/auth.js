@@ -1,16 +1,21 @@
-const authMiddleware = async (req, res, next) => {
-  const sessionToken = req.headers.sessionToken;
+const jwt_decode = require('jwt-decode');
 
-  supabase
-    .auth({ session_token: sessionToken })
-    .then(() => {
-      next();
-    })
-    .catch((err) => {
-      res.status(401), json(err);
-    });
+const verifyToken = async (req, res, next) => {
+  const accessToken = req.headers.authorization;
+
+  if (!accessToken) {
+    return res.status(403).send('A token is required for authentication');
+  }
+
+  try {
+    const decoded = jwt_decode(accessToken);
+  } catch (err) {
+    return res.status(401).send('Invalid Token');
+  }
+
+  return next();
 };
 
 module.exports = {
-  authMiddleware,
+  verifyToken,
 };
