@@ -9,11 +9,12 @@ const verifyToken = async (req, res, next) => {
 
   try {
     const decoded = jwt_decode(accessToken);
+    res.locals.email = decoded.email;
   } catch (err) {
     return res.status(401).send('Invalid Token');
   }
 
-  return next();
+  next();
 };
 
 module.exports = {

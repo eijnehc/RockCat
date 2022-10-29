@@ -3,17 +3,16 @@ import { Calendar, GitHub } from 'react-feather'
 import styled from 'styled-components'
 
 import { Avatar, Button, Input, Modal } from '../../global'
-
-import { Profile } from './ProfileContainer'
+import { User } from '../../global/interfaces'
 
 interface Props {
-  profile: Profile
+  user: User
   handleUpdateProfile: () => void
 }
 
-export const ProfileView: FC<Props> = ({ profile, handleUpdateProfile }) => {
+export const ProfileView: FC<Props> = ({ user, handleUpdateProfile }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const date = new Date(profile.data[0].created_at).toLocaleDateString('en-US', {
+  const date = new Date(user.created_at).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
   })
@@ -24,11 +23,11 @@ export const ProfileView: FC<Props> = ({ profile, handleUpdateProfile }) => {
         <Card>
           <UserWrapper>
             <AvatarWrapper>
-              <Avatar userName={profile.data[0].name} color='fill' size='large' />
+              <Avatar userName={user.name} color='fill' size='large' />
             </AvatarWrapper>
             <UserInfo>
-              <h2 style={{ fontSize: '1.2rem' }}>{profile.data[0].name}</h2>
-              <div style={{ color: 'var(--color-gray-700)' }}>{profile.data[0].email}</div>
+              <h2 style={{ fontSize: '1.2rem' }}>{user.name}</h2>
+              <div style={{ color: 'var(--color-gray-700)' }}>{user.email}</div>
             </UserInfo>
           </UserWrapper>
           <AdditionalInfoWrapper>
@@ -42,7 +41,7 @@ export const ProfileView: FC<Props> = ({ profile, handleUpdateProfile }) => {
             </AdditionalInfo>
           </AdditionalInfoWrapper>
           <EditUserWrapper>
-            <ButtonWrapper>Invoice</ButtonWrapper>
+            <ButtonWrapper>Receipt</ButtonWrapper>
             <ButtonWrapper onClick={() => setIsOpen(true)}>Edit Profile</ButtonWrapper>
             <ButtonWrapper>Disconnect Github</ButtonWrapper>
           </EditUserWrapper>
@@ -50,8 +49,8 @@ export const ProfileView: FC<Props> = ({ profile, handleUpdateProfile }) => {
       </Wrapper>
       <Modal title='Edit Profile' isOpen={isOpen} handleDismiss={() => setIsOpen(false)}>
         <Form onSubmit={handleUpdateProfile}>
-          <Input name='name' defaultValue={profile.data[0].name} />
-          <Input name='email' type='email' placeholder='email' defaultValue={profile.data[0].email} />
+          <Input name='name' defaultValue={user.name} />
+          <Input name='email' type='email' placeholder='email' defaultValue={user.email} />
           <Button>Save</Button>
         </Form>
       </Modal>

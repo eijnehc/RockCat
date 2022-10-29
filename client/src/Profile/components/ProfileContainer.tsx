@@ -1,41 +1,21 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
-import { supabase } from '../../global'
+import { useUserQuery } from '../../global/apis/hooks/useUserQuery'
 
 import { ProfileView } from './ProfileVIew'
 
-export interface Profile {
-  data: {
-    id: string
-    created_at: string
-    name: string
-    email: string
-  }[]
-}
-
 export const ProfileContainer: FC = () => {
-  const [profile, setProfile] = useState<Profile>()
+  const { user, isLoading, error } = useUserQuery()
 
-  useEffect(() => {
-    fetchProfile()
-  }, [])
-
-  async function fetchProfile() {
-    const profileData = await supabase
-      .from('profile')
-      .select('*')
-      .eq('email', 'chen.jie.2012@vjc.sg')
-      .limit(1)
-    setProfile(profileData as Profile)
+  if (isLoading || error || !user) {
+    return null
   }
 
   const handleUpdateProfile = () => {
     console.log('test')
   }
 
-  if (!profile) return null
-
-  return <ProfileView profile={profile} handleUpdateProfile={handleUpdateProfile} />
+  return <ProfileView user={user} handleUpdateProfile={handleUpdateProfile} />
 }
 
 ProfileContainer.displayName = 'ProfileContainer'

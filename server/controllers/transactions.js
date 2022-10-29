@@ -25,7 +25,14 @@ const orderSuccess = async (session_id) => {
   return session;
 };
 
+const receipt = async (req, res) => {
+  const charge = await stripe.charges.retrieve(res.query.stripe_customer);
+
+  res.status(200).sent({ receipt_url: charge.receipt_url });
+};
+
 module.exports = {
   checkout,
   orderSuccess,
+  receipt,
 };

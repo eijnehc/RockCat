@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Menu, MenuButton, MenuItem, MenuList } from '@reach/menu-button'
 import styled from 'styled-components'
 
+import { useUserQuery } from '../apis/hooks/useUserQuery'
 import { Avatar, Logo } from '../components'
-import { useAuthAtom } from '../hooks'
-import { supabase } from '../utils'
+import { getTokenFromStorage, supabase } from '../utils'
 
 interface Props {
   children: ReactNode
@@ -13,7 +13,8 @@ interface Props {
 
 export const PrivateLayout: FC<Props> = ({ children }) => {
   const navigate = useNavigate()
-  const [auth] = useAuthAtom()
+  const auth = getTokenFromStorage()
+  const { user } = useUserQuery()
 
   useEffect(() => {
     if (!auth?.access_token) {
@@ -50,7 +51,7 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
         <Wrapper>
           <Menu>
             <MenuButton>
-              <Avatar userName='Chen Jie' />
+              <Avatar userName={user?.name ?? ''} />
             </MenuButton>
             <StyledMenuList>
               <StyledMenuItem onSelect={redirectHome}>Home</StyledMenuItem>
