@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { supabase } from '../../global'
-import { createNewUserQuery, orderSuccessQuery } from '../apis'
+import { signUpQuery } from '../apis'
 import { isUserValidQuery } from '../apis/queries/isUserValidQuery'
 import { signInQuery } from '../apis/queries/signInQuery'
 
@@ -17,13 +17,17 @@ export const LoginContainer: FC = () => {
   const sessionId = searchParams.get('session_id')
 
   useEffect(() => {
-    const fetchStripeCustomer = async (sessionId: string | null) => {
+    const signUpUser = async (sessionId: string | null) => {
       if (sessionId) {
-        const customer = await orderSuccessQuery(sessionId)
-        await createNewUserQuery(customer, sessionId)
+        const res = await signUpQuery(sessionId)
+        if (res.ok) {
+          console.info('Customer added')
+        } else {
+          console.error('Customer not added')
+        }
       }
     }
-    fetchStripeCustomer(sessionId)
+    signUpUser(sessionId)
     navigate('/login')
   }, [!sessionId])
 
