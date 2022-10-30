@@ -1,4 +1,5 @@
 import { FC, FormEvent, useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 
 import { useUserQuery } from '../../global'
 import { useUpdateUserQuery } from '../apis'
@@ -11,7 +12,10 @@ export const ProfileContainer: FC = () => {
   const { mutate, isSuccess } = useUpdateUserQuery()
 
   useEffect(() => {
-    refetch()
+    if (isSuccess) {
+      refetch()
+      toast.success('Profile Updated')
+    }
   }, [isSuccess])
 
   if (isLoading || error || !user) {
@@ -36,12 +40,15 @@ export const ProfileContainer: FC = () => {
   }
 
   return (
-    <ProfileView
-      user={user}
-      isOpen={isOpen}
-      toggleModal={toggleModal}
-      handleUpdateProfile={handleUpdateProfile}
-    />
+    <>
+      <Toaster />
+      <ProfileView
+        user={user}
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        handleUpdateProfile={handleUpdateProfile}
+      />
+    </>
   )
 }
 

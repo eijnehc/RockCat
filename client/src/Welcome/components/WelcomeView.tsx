@@ -25,6 +25,7 @@ export const WelcomeView: FC = () => {
         null
     }
   }
+
   return (
     <Wrapper>
       <HeroWrapper>

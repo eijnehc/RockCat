@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { supabase } from '../../global'
@@ -10,6 +11,7 @@ export const LoginContainer: FC = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const sessionId = searchParams.get('session_id')
+  const customerSuccess = searchParams.get('customer_added')
   const [isValidUser, setIsValidUser] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -25,9 +27,18 @@ export const LoginContainer: FC = () => {
         }
       }
     }
-    signUpUser(sessionId)
+    if (sessionId) {
+      signUpUser(sessionId)
+      navigate('/login?customer_added=success')
+    }
     navigate('/login')
   }, [!sessionId])
+
+  useEffect(() => {
+    if (customerSuccess) {
+      toast.success('Customer profile created!')
+    }
+  }, [customerSuccess])
 
   useEffect(() => {
     signOut()
@@ -69,14 +80,17 @@ export const LoginContainer: FC = () => {
   }
 
   return (
-    <LoginView
-      isValidUser={isValidUser}
-      isLoading={isLoading}
-      isSubmitted={isSubmitted}
-      onGithubSignIn={handleGithubSignIn}
-      onSubmit={handleSubmit}
-      onBack={handleBack}
-    />
+    <>
+      <Toaster />
+      <LoginView
+        isValidUser={isValidUser}
+        isLoading={isLoading}
+        isSubmitted={isSubmitted}
+        onGithubSignIn={handleGithubSignIn}
+        onSubmit={handleSubmit}
+        onBack={handleBack}
+      />
+    </>
   )
 }
 

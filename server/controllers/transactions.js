@@ -13,7 +13,7 @@ const checkout = async (req, res) => {
     ],
     mode: 'payment',
     success_url: `http://localhost:${CLIENT_PORT}/login?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `http://localhost:${CLIENT_PORT}/welcome?canceled=true`,
+    cancel_url: `http://localhost:${CLIENT_PORT}/welcome?cancelled=true`,
   });
 
   res.redirect(303, session.url);
