@@ -4,13 +4,14 @@ import styled from 'styled-components'
 type ButtonEmphasis = 'fill' | 'outline'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
+  disabled?: boolean
   emphasis?: ButtonEmphasis
   children: ReactNode
 }
 
-export const Button: FC<Props> = ({ emphasis = 'fill', children, ...htmlAttributes }) => {
+export const Button: FC<Props> = ({ emphasis = 'fill', disabled, children, ...htmlAttributes }) => {
   return (
-    <ButtonView data-emphasis={emphasis} {...htmlAttributes}>
+    <ButtonView disabled={disabled} data-emphasis={emphasis} {...htmlAttributes}>
       {children}
     </ButtonView>
   )
@@ -36,5 +37,11 @@ const ButtonView = styled.button`
 
   :hover {
     color: var(--color-white);
+  }
+
+  :disabled {
+    opacity: 0.6;
+    cursor: default;
+    color: inherit;
   }
 `

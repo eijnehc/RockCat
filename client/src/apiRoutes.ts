@@ -4,4 +4,5 @@ export const apiRoutes = {
   signInHttpUrl: (email: string) => `/api/v1/sign-in?email=${email}`,
   questionsHttpUrl: (query: string) => `/api/v1/questions${query}`,
   userHttpUrl: '/api/v1/user',
+  updateUserHttpUrl: '/api/v1/update-user',
 }

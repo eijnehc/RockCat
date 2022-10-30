@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, FormEvent } from 'react'
 import { Calendar, GitHub } from 'react-feather'
 import styled from 'styled-components'
 
@@ -7,11 +7,12 @@ import { User } from '../../global/interfaces'
 
 interface Props {
   user: User
-  handleUpdateProfile: () => void
+  isOpen: boolean
+  toggleModal: () => void
+  handleUpdateProfile: (event: FormEvent<HTMLFormElement>) => void
 }
 
-export const ProfileView: FC<Props> = ({ user, handleUpdateProfile }) => {
-  const [isOpen, setIsOpen] = useState(false)
+export const ProfileView: FC<Props> = ({ user, isOpen, toggleModal, handleUpdateProfile }) => {
   const date = new Date(user.created_at).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -42,15 +43,16 @@ export const ProfileView: FC<Props> = ({ user, handleUpdateProfile }) => {
           </AdditionalInfoWrapper>
           <EditUserWrapper>
             <ButtonWrapper onClick={() => window.open(user.receipt_url, '_blank')}>Receipt</ButtonWrapper>
-            <ButtonWrapper onClick={() => setIsOpen(true)}>Edit Profile</ButtonWrapper>
+            <ButtonWrapper onClick={toggleModal}>Edit Profile</ButtonWrapper>
             <ButtonWrapper>Disconnect Github</ButtonWrapper>
           </EditUserWrapper>
         </Card>
       </Wrapper>
-      <Modal title='Edit Profile' isOpen={isOpen} handleDismiss={() => setIsOpen(false)}>
+      <Modal title='Edit Profile' isOpen={isOpen} handleDismiss={toggleModal}>
         <Form onSubmit={handleUpdateProfile}>
-          <Input name='name' defaultValue={user.name} />
-          <Input name='email' type='email' placeholder='email' defaultValue={user.email} />
+          <Input name='name' defaultValue={user.name} required />
+          {/* KIV update email */}
+          {/* <Input name='email' type='email' placeholder='email' defaultValue={user.email} required /> */}
           <Button>Save</Button>
         </Form>
       </Modal>

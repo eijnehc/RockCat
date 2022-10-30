@@ -4,7 +4,7 @@ import { User } from '../../interfaces'
 import { userQuery } from '../queries'
 
 export const useUserQuery = () => {
-  const { data, isLoading, error }: UseQueryResult<User> = useQuery(['userQuery'], () => userQuery())
+  const { data, isLoading, error, refetch }: UseQueryResult<User> = useQuery(['userQuery'], () => userQuery())
 
-  return { user: data, isLoading, error }
+  return { user: data, refetch, isLoading, error }
 }

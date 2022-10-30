@@ -68,8 +68,43 @@ const getUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  const { name, email, id } = req.body;
+
+  try {
+    const currentUser = await supabase.from('profile').select('*').eq('id', id);
+
+    if (currentUser.data[0].name !== name) {
+      await supabase.from('profile').update({ name: name }).eq('id', id);
+    }
+
+    if (currentUser.data[0].email !== email) {
+      // KIV update email
+      // const { data, error } = await supabase.auth.updateUser({
+      //   email: 'chen.jie.2012@vjc.sg',
+      // });
+      const { data, error } = await supabase
+        .from('profile')
+        .update({ email: email })
+        .eq('id', id);
+
+      if (error) {
+        throw error;
+      }
+    }
+
+    res.status(200).send({ message: 'Profile updated' });
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({
+      message: 'Profile not updated',
+    });
+  }
+};
+
 module.exports = {
   addUser,
   getUser,
   signIn,
+  updateUser,
 };
