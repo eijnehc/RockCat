@@ -25,11 +25,12 @@ export const ProfileContainer: FC = () => {
   const handleUpdateProfile = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const name = (e.currentTarget.elements.namedItem('name') as HTMLInputElement).value
-    // const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value
+    const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value
 
     mutate({
       ...user,
       name: name,
+      email: email,
     })
     setIsOpen(false)
   }

@@ -9,7 +9,7 @@ const verifyToken = async (req, res, next) => {
 
   try {
     const decoded = jwt_decode(accessToken);
-    res.locals.email = decoded.email;
+    res.locals.id = decoded.sub;
   } catch (err) {
     return res.status(401).send('Invalid Token');
   }

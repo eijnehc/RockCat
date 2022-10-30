@@ -1,4 +1,5 @@
 const supabase = require('../services/supabase').supabase;
+const supabase_admin = require('../services/supabase').supabase_admin;
 const orderSuccess = require('../controllers/transactions').orderSuccess;
 
 const addUser = async (req, res) => {
@@ -47,13 +48,19 @@ const signIn = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  const email = res.locals.email;
-
   try {
+    const { data, error } = await supabase_admin.auth.admin.getUserById(
+      res.locals.id
+    );
+
+    if (error) {
+      throw error;
+    }
+
     const response = await supabase
       .from('profile')
       .select('*')
-      .eq('email', email)
+      .eq('email', data.user.email)
       .limit(1);
 
     if (response.statusText !== 'OK') {
@@ -78,16 +85,18 @@ const updateUser = async (req, res) => {
       await supabase.from('profile').update({ name: name }).eq('id', id);
     }
 
-    // KIV update email
-    // if (currentUser.data[0].email !== email) {
-    //   const { data, error } = await supabase.auth.updateUser({
-    //     email: 'chen.jie.2012@vjc.sg',
-    //   });
-    //   await supabase.from('profile').update({ email: email }).eq('id', id);
-    //   if (error) {
-    //     throw error;
-    //   }
-    // }
+    if (currentUser.data[0].email !== email) {
+      const { data, error } = await supabase_admin.auth.admin.updateUserById(
+        res.locals.id,
+        {
+          email: email,
+        }
+      );
+      if (error) {
+        throw error;
+      }
+      await supabase.from('profile').update({ email: email }).eq('id', id);
+    }
 
     res.status(200).send({ message: 'Profile updated' });
   } catch (err) {
