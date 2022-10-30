@@ -34,10 +34,7 @@ export const LoginContainer: FC = () => {
   }, [])
 
   async function signOut() {
-    const profileData = await supabase.auth.getUser()
-    if (profileData?.data?.user) {
-      supabase.auth.signOut()
-    }
+    localStorage.clear()
   }
 
   const handleGithubSignIn = () => {

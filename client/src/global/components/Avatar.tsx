@@ -13,7 +13,7 @@ interface StyledProps {
 
 interface Props extends StyledProps {
   userName: string
-  color?: string
+  color?: Color
 }
 
 /* units */

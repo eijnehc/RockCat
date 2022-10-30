@@ -24,7 +24,7 @@ export const ProfileView: FC<Props> = ({ user, isOpen, toggleModal, handleUpdate
         <Card>
           <UserWrapper>
             <AvatarWrapper>
-              <Avatar userName={user.name} color='fill' size='large' />
+              <Avatar userName={user.name} imageUrl={user.avatar_url} color='fill' size='large' />
             </AvatarWrapper>
             <UserInfo>
               <h2 style={{ fontSize: '1.2rem' }}>{user.name}</h2>
@@ -50,6 +50,7 @@ export const ProfileView: FC<Props> = ({ user, isOpen, toggleModal, handleUpdate
       </Wrapper>
       <Modal title='Edit Profile' isOpen={isOpen} handleDismiss={toggleModal}>
         <Form onSubmit={handleUpdateProfile}>
+          <Avatar userName={user.name} imageUrl={user.avatar_url} color='fill' size='large' />
           <Input name='name' defaultValue={user.name} required />
           {/* KIV update email */}
           {/* <Input name='email' type='email' placeholder='email' defaultValue={user.email} required /> */}

@@ -78,20 +78,16 @@ const updateUser = async (req, res) => {
       await supabase.from('profile').update({ name: name }).eq('id', id);
     }
 
-    if (currentUser.data[0].email !== email) {
-      // KIV update email
-      // const { data, error } = await supabase.auth.updateUser({
-      //   email: 'chen.jie.2012@vjc.sg',
-      // });
-      const { data, error } = await supabase
-        .from('profile')
-        .update({ email: email })
-        .eq('id', id);
-
-      if (error) {
-        throw error;
-      }
-    }
+    // KIV update email
+    // if (currentUser.data[0].email !== email) {
+    //   const { data, error } = await supabase.auth.updateUser({
+    //     email: 'chen.jie.2012@vjc.sg',
+    //   });
+    //   await supabase.from('profile').update({ email: email }).eq('id', id);
+    //   if (error) {
+    //     throw error;
+    //   }
+    // }
 
     res.status(200).send({ message: 'Profile updated' });
   } catch (err) {

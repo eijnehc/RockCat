@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { useUserQuery } from '../apis/hooks/useUserQuery'
 import { Avatar, Logo } from '../components'
-import { getTokenFromStorage, supabase } from '../utils'
+import { getTokenFromStorage } from '../utils'
 
 interface Props {
   children: ReactNode
@@ -35,7 +35,7 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    localStorage.clear()
     navigate('/welcome')
   }
 
@@ -51,7 +51,7 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
         <Wrapper>
           <Menu>
             <MenuButton>
-              <Avatar userName={user?.name ?? ''} />
+              <Avatar userName={user?.name ?? ''} imageUrl={user?.avatar_url} />
             </MenuButton>
             <StyledMenuList>
               <StyledMenuItem onSelect={redirectHome}>Home</StyledMenuItem>

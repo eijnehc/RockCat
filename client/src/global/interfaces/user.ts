@@ -5,4 +5,5 @@ export interface User {
   name: string
   stripe_customer_id: string
   receipt_url: string
+  avatar_url: string
 }
