@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { supabase } from '../../global'
 import { signInQuery, signUpQuery } from '../apis'
 
 import { LoginView } from './LoginView'
@@ -49,9 +48,7 @@ export const LoginContainer: FC = () => {
   }
 
   const handleGithubSignIn = () => {
-    supabase.auth.signInWithOAuth({
-      provider: 'github',
-    })
+    console.log('sign in github from server')
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
