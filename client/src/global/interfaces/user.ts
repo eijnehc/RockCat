@@ -3,5 +3,6 @@ export interface User {
   email: string
   id: string
   name: string
-  stripe_customer: string
+  stripe_customer_id: string
+  receipt_url: string
 }

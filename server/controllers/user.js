@@ -2,14 +2,16 @@ const supabase = require('../services/supabase').supabase;
 const orderSuccess = require('../controllers/transactions').orderSuccess;
 
 const addUser = async (req, res) => {
-  const session = await orderSuccess(req.query.session_id);
-  const customer = session.customer_details;
+  const { stripe_customer_id, customer, receipt_url } = await orderSuccess(
+    req.query.session_id
+  );
 
   try {
     const response = await supabase.from('profile').insert({
       email: customer.email,
       name: customer.name,
-      stripe_customer: req.query.session_id,
+      stripe_customer_id: stripe_customer_id,
+      receipt_url: receipt_url,
     });
 
     res.status(200).send({ message: 'Customer Added' });
@@ -46,7 +48,7 @@ const signIn = async (req, res) => {
 
 const getUser = async (req, res) => {
   const email = res.locals.email;
-  console.log(email);
+
   try {
     const response = await supabase
       .from('profile')

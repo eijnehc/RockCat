@@ -41,7 +41,7 @@ export const ProfileView: FC<Props> = ({ user, handleUpdateProfile }) => {
             </AdditionalInfo>
           </AdditionalInfoWrapper>
           <EditUserWrapper>
-            <ButtonWrapper>Receipt</ButtonWrapper>
+            <ButtonWrapper onClick={() => window.open(user.receipt_url, '_blank')}>Receipt</ButtonWrapper>
             <ButtonWrapper onClick={() => setIsOpen(true)}>Edit Profile</ButtonWrapper>
             <ButtonWrapper>Disconnect Github</ButtonWrapper>
           </EditUserWrapper>
