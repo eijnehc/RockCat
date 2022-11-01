@@ -11,8 +11,6 @@ import BackgroundImage from '../assets/stars.png'
 import { CourseHighlights, Testimonials } from './Constants'
 
 export const WelcomeView: FC = () => {
-  // KIV Random profile link
-  // <Avatar userName='Chen Jie' imageUrl='https://api.lorem.space/image/face?w=150&h=150' />
   const renderImage = (id: number) => {
     switch (id) {
       case 1:
@@ -63,12 +61,8 @@ export const WelcomeView: FC = () => {
             <TestimonialCard key={item.name}>
               <p>{item.body}</p>
               <TestimonialPersonCard>
-                <div>
-                  Avatar Placeholder
-                </div>
-                <div>
-                  {item.name}
-                </div>
+                <Avatar userName={item.name} imageUrl={item.avatar} size='small' />
+                <div>~ {item.name}</div>
               </TestimonialPersonCard>
             </TestimonialCard>
           ))}
@@ -85,25 +79,6 @@ export const WelcomeView: FC = () => {
     </Wrapper>
   )
 }
-
-const TestimonialPersonCard = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`
-
-const TestimonialCard = styled.article`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1 1 250px;
-  max-width: 350px;
-  justify-self: center;
-  text-align: justify;
-  padding: 2rem;
-  border: 1px solid var(--color-gray-700);
-  border-radius: 2rem;
-`
 
 const Wrapper = styled.div`
   display: flex;
@@ -206,6 +181,29 @@ const CardTitle = styled.div`
   font-weight: var(--font-weight-bold);
   margin-bottom: 16px;
 `
+
+const TestimonialPersonCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+`
+
+const TestimonialCard = styled.article`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 250px;
+  max-width: 350px;
+  justify-self: center;
+  text-align: justify;
+  padding: 2rem;
+  border: 1px solid var(--color-gray-700);
+  border-radius: 2rem;
+`
+
 const TestimonialsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -213,6 +211,7 @@ const TestimonialsWrapper = styled.div`
   align-items: center;
   margin-bottom: 32px;
 `
+
 const TestimonialsContent = styled.main`
   display: flex;
   justify-content: center;
