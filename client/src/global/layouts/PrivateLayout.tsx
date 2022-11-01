@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Menu, MenuButton, MenuItem, MenuList } from '@reach/menu-button'
 import styled from 'styled-components'
 
+import { useAuthAtom } from '../apis'
 import { useUserQuery } from '../apis/hooks/useUserQuery'
 import { Avatar, Logo } from '../components'
-import { getTokenFromStorage } from '../utils'
 
 interface Props {
   children: ReactNode
@@ -13,12 +13,19 @@ interface Props {
 
 export const PrivateLayout: FC<Props> = ({ children }) => {
   const navigate = useNavigate()
-  const auth = getTokenFromStorage()
+  const params = new URL(document.location.toString().replace('/#', '?')).searchParams
+  const accessToken = params.get('access_token')
+  const [auth, setAuth] = useAuthAtom('access_token')
   const { user } = useUserQuery()
 
   useEffect(() => {
-    if (!auth?.access_token) {
+    if (!auth && !accessToken) {
       navigate('/welcome')
+    }
+
+    if (accessToken) {
+      setAuth(accessToken)
+      navigate('/')
     }
   }, [auth])
 
@@ -39,7 +46,7 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
     navigate('/welcome')
   }
 
-  if (!auth?.access_token) return null
+  if (!auth) return null
 
   return (
     <>
