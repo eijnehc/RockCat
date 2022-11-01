@@ -1,5 +1,5 @@
-const formidable = require('formidable');
 const fs = require('fs');
+const formidable = require('formidable');
 const supabase = require('../services/supabase').supabase;
 const supabase_admin = require('../services/supabase').supabase_admin;
 const SUPABASE_URL = require('../services/supabase').SUPABASE_URL;
@@ -112,12 +112,18 @@ const updateUser = async (req, res) => {
 
 const updateAvatar = async (req, res) => {
   const form = new formidable.IncomingForm();
+  const imageFileType = ['image/jpeg', 'image/png', 'image/jpeg'];
   const uploadFile = async () => {
     return new Promise((resolve, reject) => {
       form.parse(req, async function (err, fields, files) {
         let filepath = `${fields.id}/${files.file.originalFilename}`;
         filepath = filepath.replace(/\s/g, '-'); // IN CASE YOU NEED TO REPLACE SPACE OF THE IMAGE NAME
         const rawData = fs.readFileSync(files.file.filepath);
+
+        if (!imageFileType.includes(files.file.mimetype)) {
+          return reject({ success: false });
+        }
+
         const { error } = await supabase.storage
           .from('avatars')
           .upload(filepath, rawData, {

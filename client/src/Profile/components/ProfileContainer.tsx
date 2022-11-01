@@ -3,7 +3,6 @@ import toast, { Toaster } from 'react-hot-toast'
 
 import { useUserQuery } from '../../global'
 import { useUpdateAvatarQuery, useUpdateUserQuery } from '../apis'
-import { updateAvatarQuery } from '../apis/queries'
 
 import { ProfileView } from './ProfileView'
 
