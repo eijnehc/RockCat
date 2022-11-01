@@ -4,9 +4,9 @@ export const authFetch = async (input: RequestInfo, init?: RequestInit) => {
   const auth = getTokenFromStorage()
   const options: RequestInit = init ?? {}
   const defaultHeaders: HeadersInit = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${auth?.access_token}`,
+    Authorization: `Bearer ${auth}`,
   }
+
   options.headers = defaultHeaders
 
   const response = await fetch(input, options)
