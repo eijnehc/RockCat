@@ -39,33 +39,43 @@ const size = (size: Size) => {
 export const Avatar: FC<Props> = ({ size = 'medium', color = 'outline', userName, imageUrl }) => {
   return (
     <Wrapper size={size} color={color} imageUrl={imageUrl}>
-      {imageUrl ? <Image src={imageUrl} alt={userName} /> : getInitials(userName)}
+      {imageUrl ? <Image src={imageUrl} alt={userName} /> : <Text>{getInitials(userName)}</Text>}
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div<StyledProps>`
   display: inline-block;
+  position: relative;
   border-radius: 50%;
   border: 2px solid var(--color-primary-dark);
-  padding: ${(props) => (!props?.imageUrl ? size(props.size ?? 'medium') : '0px')};
-  text-align: center;
   color: var(--color-white);
+  text-align: center;
   background-color: ${(props) =>
     props.color === 'outline' ? 'hsl(333deg 100% 50% / 0.2)' : 'var(--color-primary-medium)'};
   width: ${(props) => size(props.size ?? 'medium')};
   height: ${(props) => size(props.size ?? 'medium')};
+  line-height: ${(props) => size(props.size ?? 'medium')};
 
   :hover {
     border-color: var(--color-primary-medium);
   }
 `
 
+const Text = styled.span`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`
+
 const Image = styled.img`
   display: block;
   border-radius: 50%;
   width: 100%;
-  height: auto;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 `
 
 Avatar.displayName = 'Avatar'

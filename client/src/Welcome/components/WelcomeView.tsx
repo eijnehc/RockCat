@@ -61,7 +61,7 @@ export const WelcomeView: FC = () => {
             <TestimonialCard key={item.name}>
               <p>{item.body}</p>
               <TestimonialPersonCard>
-                <Avatar userName={item.name} imageUrl={item.avatar} size='small' />
+                <Avatar userName={item.name} imageUrl={item.avatar} />
                 <div>~ {item.name}</div>
               </TestimonialPersonCard>
             </TestimonialCard>

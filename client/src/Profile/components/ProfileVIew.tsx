@@ -31,7 +31,7 @@ export const ProfileView: FC<Props> = ({
         <Card>
           <UserWrapper>
             <AvatarWrapper>
-              <Avatar userName={user.name} imageUrl={user.avatar_url} color='fill' size='small' />
+              <Avatar userName={user.name} imageUrl={user.avatar_url} color='fill' size='large' />
               <UpdateAvatar>
                 <label htmlFor='avatar' style={{ cursor: 'pointer' }}>
                   <Edit size={20} />
@@ -97,20 +97,20 @@ const Card = styled.div`
 `
 
 const UserWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
 const AvatarWrapper = styled.div`
-  position: relative;
-  display: inline-block;
+  margin-top: -40px;
 `
 
 const UpdateAvatar = styled.span`
   position: absolute;
-  margin-left: -21px;
-  margin-top: 24px;
+  margin-left: -20px;
+  margin-top: 60px;
 
   svg {
     display: block;
@@ -128,7 +128,7 @@ const HiddenInput = styled.input`
 
 const UserInfo = styled.div`
   text-align: center;
-  margin-top: 48px;
+  margin-top: 16px;
 `
 
 const AdditionalInfoWrapper = styled.div`

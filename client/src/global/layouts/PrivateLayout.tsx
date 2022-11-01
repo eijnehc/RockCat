@@ -57,9 +57,9 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
         </Link>
         <Wrapper>
           <Menu>
-            <MenuButton>
-              <Avatar userName={user?.name ?? ''} imageUrl={user?.avatar_url} />
-            </MenuButton>
+            <StyledMenuButton>
+              <Avatar userName={user?.name ?? ''} imageUrl={user?.avatar_url} size='small' />
+            </StyledMenuButton>
             <StyledMenuList>
               <StyledMenuItem onSelect={redirectHome}>Home</StyledMenuItem>
               <StyledMenuItem onSelect={redirectProfile}>My Account</StyledMenuItem>
@@ -87,6 +87,11 @@ const MainHeader = styled.header`
 
 const Wrapper = styled.div`
   margin-left: auto;
+  display: flex;
+`
+
+const StyledMenuButton = styled(MenuButton)`
+  display: flex;
 `
 
 const StyledMenuList = styled(MenuList)`
@@ -95,7 +100,7 @@ const StyledMenuList = styled(MenuList)`
   white-space: nowrap;
   overflow: hidden;
   border-radius: 8px;
-  transform: translateY(1rem);
+  /* transform: translateY(0.5rem); */
   cursor: pointer;
 `
 
