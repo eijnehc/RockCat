@@ -1,10 +1,11 @@
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Menu, MenuButton, MenuItem, MenuList } from '@reach/menu-button'
 import styled from 'styled-components'
 
+import { useUserQuery } from '../apis/hooks/useUserQuery'
 import { Avatar, Logo } from '../components'
-import { supabase } from '../utils'
+import { getTokenFromStorage } from '../utils'
 
 interface Props {
   children: ReactNode
@@ -12,31 +13,14 @@ interface Props {
 
 export const PrivateLayout: FC<Props> = ({ children }) => {
   const navigate = useNavigate()
-  const [profile, setProfile] = useState<any>(null)
+  const auth = getTokenFromStorage()
+  const { user } = useUserQuery()
 
   useEffect(() => {
-    /* fires when a user signs out */
-    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
-      console.log(event)
-      if (event === 'SIGNED_OUT') {
-        navigate('/welcome')
-      }
-    })
-    checkUser()
-    return () => {
-      authListener.subscription.unsubscribe()
-    }
-  }, [])
-
-  async function checkUser() {
-    /* when the component loads, checks user to show or hide Sign In link */
-    const user = await supabase.auth.getUser()
-    if (!user?.data?.user) {
+    if (!auth?.access_token) {
       navigate('/welcome')
-    } else {
-      setProfile(user.data.user)
     }
-  }
+  }, [auth])
 
   const redirectHome = () => {
     navigate('/')
@@ -51,11 +35,11 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    localStorage.clear()
     navigate('/welcome')
   }
 
-  if (!profile) return null
+  if (!auth?.access_token) return null
 
   return (
     <>
@@ -67,7 +51,7 @@ export const PrivateLayout: FC<Props> = ({ children }) => {
         <Wrapper>
           <Menu>
             <MenuButton>
-              <Avatar userName='Chen Jie' />
+              <Avatar userName={user?.name ?? ''} imageUrl={user?.avatar_url} />
             </MenuButton>
             <StyledMenuList>
               <StyledMenuItem onSelect={redirectHome}>Home</StyledMenuItem>

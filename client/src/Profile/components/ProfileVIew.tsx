@@ -1,19 +1,19 @@
-import { FC, useState } from 'react'
+import { FC, FormEvent } from 'react'
 import { Calendar, GitHub } from 'react-feather'
 import styled from 'styled-components'
 
 import { Avatar, Button, Input, Modal } from '../../global'
-
-import { Profile } from './ProfileContainer'
+import { User } from '../../global/interfaces'
 
 interface Props {
-  profile: Profile
-  handleUpdateProfile: () => void
+  user: User
+  isOpen: boolean
+  toggleModal: () => void
+  handleUpdateProfile: (event: FormEvent<HTMLFormElement>) => void
 }
 
-export const ProfileView: FC<Props> = ({ profile, handleUpdateProfile }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const date = new Date(profile.data[0].created_at).toLocaleDateString('en-US', {
+export const ProfileView: FC<Props> = ({ user, isOpen, toggleModal, handleUpdateProfile }) => {
+  const date = new Date(user.created_at).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
   })
@@ -24,11 +24,11 @@ export const ProfileView: FC<Props> = ({ profile, handleUpdateProfile }) => {
         <Card>
           <UserWrapper>
             <AvatarWrapper>
-              <Avatar userName={profile.data[0].name} color='fill' size='large' />
+              <Avatar userName={user.name} imageUrl={user.avatar_url} color='fill' size='large' />
             </AvatarWrapper>
             <UserInfo>
-              <h2 style={{ fontSize: '1.2rem' }}>{profile.data[0].name}</h2>
-              <div style={{ color: 'var(--color-gray-700)' }}>{profile.data[0].email}</div>
+              <h2 style={{ fontSize: '1.2rem' }}>{user.name}</h2>
+              <div style={{ color: 'var(--color-gray-700)' }}>{user.email}</div>
             </UserInfo>
           </UserWrapper>
           <AdditionalInfoWrapper>
@@ -42,16 +42,16 @@ export const ProfileView: FC<Props> = ({ profile, handleUpdateProfile }) => {
             </AdditionalInfo>
           </AdditionalInfoWrapper>
           <EditUserWrapper>
-            <ButtonWrapper>Invoice</ButtonWrapper>
-            <ButtonWrapper onClick={() => setIsOpen(true)}>Edit Profile</ButtonWrapper>
+            <ButtonWrapper onClick={() => window.open(user.receipt_url, '_blank')}>Receipt</ButtonWrapper>
+            <ButtonWrapper onClick={toggleModal}>Edit Profile</ButtonWrapper>
             <ButtonWrapper>Disconnect Github</ButtonWrapper>
           </EditUserWrapper>
         </Card>
       </Wrapper>
-      <Modal title='Edit Profile' isOpen={isOpen} handleDismiss={() => setIsOpen(false)}>
+      <Modal title='Edit Profile' isOpen={isOpen} handleDismiss={toggleModal}>
         <Form onSubmit={handleUpdateProfile}>
-          <Input name='name' defaultValue={profile.data[0].name} />
-          <Input name='email' type='email' placeholder='email' defaultValue={profile.data[0].email} />
+          <Input name='name' defaultValue={user.name} required />
+          <Input name='email' type='email' placeholder='email' defaultValue={user.email} required />
           <Button>Save</Button>
         </Form>
       </Modal>

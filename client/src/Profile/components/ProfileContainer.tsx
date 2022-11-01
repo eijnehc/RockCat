@@ -1,41 +1,55 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, FormEvent, useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 
-import { supabase } from '../../global'
+import { useUserQuery } from '../../global'
+import { useUpdateUserQuery } from '../apis'
 
-import { ProfileView } from './ProfileVIew'
-
-export interface Profile {
-  data: {
-    id: string
-    created_at: string
-    name: string
-    email: string
-  }[]
-}
+import { ProfileView } from './ProfileView'
 
 export const ProfileContainer: FC = () => {
-  const [profile, setProfile] = useState<Profile>()
+  const [isOpen, setIsOpen] = useState(false)
+  const { user, isLoading, error, refetch } = useUserQuery()
+  const { mutate, isSuccess } = useUpdateUserQuery()
 
   useEffect(() => {
-    fetchProfile()
-  }, [])
+    if (isSuccess) {
+      refetch()
+      toast.success('Profile Updated')
+    }
+  }, [isSuccess])
 
-  async function fetchProfile() {
-    const profileData = await supabase
-      .from('profile')
-      .select('*')
-      .eq('email', 'chen.jie.2012@vjc.sg')
-      .limit(1)
-    setProfile(profileData as Profile)
+  if (isLoading || error || !user) {
+    return null
   }
 
-  const handleUpdateProfile = () => {
-    console.log('test')
+  const toggleModal = () => {
+    setIsOpen(!isOpen)
   }
 
-  if (!profile) return null
+  const handleUpdateProfile = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const name = (e.currentTarget.elements.namedItem('name') as HTMLInputElement).value
+    const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value
 
-  return <ProfileView profile={profile} handleUpdateProfile={handleUpdateProfile} />
+    mutate({
+      ...user,
+      name: name,
+      email: email,
+    })
+    setIsOpen(false)
+  }
+
+  return (
+    <>
+      <Toaster />
+      <ProfileView
+        user={user}
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        handleUpdateProfile={handleUpdateProfile}
+      />
+    </>
+  )
 }
 
 ProfileContainer.displayName = 'ProfileContainer'

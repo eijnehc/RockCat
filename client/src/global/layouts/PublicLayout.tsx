@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { Button, Logo } from '../components'
-import { supabase } from '../utils'
 
 interface Props {
   children: ReactNode
@@ -17,10 +16,7 @@ export const PublicLayout: FC<Props> = ({ children }) => {
   }, [])
 
   async function signOut() {
-    const profileData = await supabase.auth.getUser()
-    if (profileData?.data?.user) {
-      supabase.auth.signOut()
-    }
+    localStorage.clear()
   }
 
   const redirectLogin = () => {
