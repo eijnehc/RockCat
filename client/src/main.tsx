@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { RouterProvider } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ import { router } from './global'
 
 const queryClient = new QueryClient()
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.render(
   <React.StrictMode>
     <GlobalStyles />
     <QueryClientProvider client={queryClient}>
@@ -25,5 +25,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <RouterProvider router={router} />
       </Suspense>
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root') as HTMLElement
 )

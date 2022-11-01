@@ -2,6 +2,7 @@ const addUser = require('../controllers/user').addUser;
 const signIn = require('../controllers/user').signIn;
 const getUser = require('../controllers/user').getUser;
 const updateUser = require('../controllers/user').updateUser;
+const updateAvatar = require('../controllers/user').updateAvatar;
 const verifyToken = require('../controllers/auth').verifyToken;
 
 module.exports = (app) => {
@@ -9,4 +10,5 @@ module.exports = (app) => {
   app.get('/api/v1/sign-in', signIn);
   app.get('/api/v1/user', verifyToken, getUser);
   app.post('/api/v1/update-user', verifyToken, updateUser);
+  app.post('/api/v1/update-avatar', verifyToken, updateAvatar);
 };

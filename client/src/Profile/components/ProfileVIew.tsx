@@ -1,5 +1,5 @@
-import { FC, FormEvent } from 'react'
-import { Calendar, GitHub } from 'react-feather'
+import { FC, FormEventHandler } from 'react'
+import { Calendar, Edit, GitHub } from 'react-feather'
 import styled from 'styled-components'
 
 import { Avatar, Button, Input, Modal } from '../../global'
@@ -9,10 +9,17 @@ interface Props {
   user: User
   isOpen: boolean
   toggleModal: () => void
-  handleUpdateProfile: (event: FormEvent<HTMLFormElement>) => void
+  handleUpdateAvatar: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleUpdateProfile: FormEventHandler<HTMLFormElement>
 }
 
-export const ProfileView: FC<Props> = ({ user, isOpen, toggleModal, handleUpdateProfile }) => {
+export const ProfileView: FC<Props> = ({
+  user,
+  isOpen,
+  toggleModal,
+  handleUpdateAvatar,
+  handleUpdateProfile,
+}) => {
   const date = new Date(user.created_at).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -25,6 +32,17 @@ export const ProfileView: FC<Props> = ({ user, isOpen, toggleModal, handleUpdate
           <UserWrapper>
             <AvatarWrapper>
               <Avatar userName={user.name} imageUrl={user.avatar_url} color='fill' size='large' />
+              <UpdateAvatar>
+                <label htmlFor='avatar' style={{ cursor: 'pointer' }}>
+                  <Edit size={20} />
+                </label>
+                <HiddenInput
+                  id='avatar'
+                  type='file'
+                  name='file'
+                  onChange={(event) => handleUpdateAvatar(event)}
+                />
+              </UpdateAvatar>
             </AvatarWrapper>
             <UserInfo>
               <h2 style={{ fontSize: '1.2rem' }}>{user.name}</h2>
@@ -79,18 +97,38 @@ const Card = styled.div`
 `
 
 const UserWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
 const AvatarWrapper = styled.div`
-  display: inline-block;
+  margin-top: -40px;
+`
+
+const UpdateAvatar = styled.span`
+  position: absolute;
+  margin-left: -20px;
+  margin-top: 60px;
+
+  svg {
+    display: block;
+    color: var(--color-gray-700);
+  }
+
+  svg:hover {
+    color: var(--color-gray-900);
+  }
+`
+
+const HiddenInput = styled.input`
+  display: none;
 `
 
 const UserInfo = styled.div`
   text-align: center;
-  margin-top: 48px;
+  margin-top: 16px;
 `
 
 const AdditionalInfoWrapper = styled.div`

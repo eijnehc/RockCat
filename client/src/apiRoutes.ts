@@ -5,4 +5,5 @@ export const apiRoutes = {
   questionsHttpUrl: (query: string) => `/api/v1/questions${query}`,
   userHttpUrl: '/api/v1/user',
   updateUserHttpUrl: '/api/v1/update-user',
+  updateAvatarHttpUrl: '/api/v1/update-avatar',
 }
