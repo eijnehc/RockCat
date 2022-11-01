@@ -8,7 +8,7 @@ import { QUERIES } from '../../global/constant'
 import RocketLaunch from '../assets/rocket-launch.png'
 import BackgroundImage from '../assets/stars.png'
 
-import { CourseHighlights } from './Constants'
+import { CourseHighlights, Testimonials } from './Constants'
 
 export const WelcomeView: FC = () => {
   // KIV Random profile link
@@ -55,6 +55,24 @@ export const WelcomeView: FC = () => {
           ))}
         </CourseHighlightsContent>
       </CourseHighlightsWrapper>
+      <TestimonialsWrapper>
+        <Header style={{ color: 'var(--color-primary-dark)' }}>Testimonials</Header>
+        <TestimonialsContent>
+          {Testimonials.map((item) => (
+            <TestimonialCard key={item.name}>
+              <p>{item.body}</p>
+              <TestimonialPersonCard>
+                <div>
+                  Avatar Placeholder
+                </div>
+                <div>
+                  {item.name}
+                </div>
+              </TestimonialPersonCard>
+            </TestimonialCard>
+          ))}
+        </TestimonialsContent>
+      </TestimonialsWrapper>
       <FooterWrapper>
         <div>
           <Logo size='24px' />
@@ -66,6 +84,25 @@ export const WelcomeView: FC = () => {
     </Wrapper>
   )
 }
+
+const TestimonialPersonCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const TestimonialCard = styled.article`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 250px;
+  max-width: 350px;
+  justify-self: center;
+  text-align: justify;
+  padding: 2rem;
+  border: 1px solid var(--color-gray-700);
+  border-radius: 2rem;
+`
 
 const Wrapper = styled.div`
   display: flex;
@@ -167,6 +204,19 @@ const CardTitle = styled.div`
   color: var(--color-secondary-medium);
   font-weight: var(--font-weight-bold);
   margin-bottom: 16px;
+`
+const TestimonialsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 32px;
+`
+const TestimonialsContent = styled.main`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 32px;
 `
 
 const FooterWrapper = styled.div`
