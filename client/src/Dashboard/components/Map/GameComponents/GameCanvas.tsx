@@ -1,15 +1,35 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, MutableRefObject,useCallback, useEffect, useRef, useState } from 'react';
+import { useAtom } from 'jotai';
 
+import { mapUpdateRequiredAtom } from './gameAtoms.ts/mapAtom';
 import CanvasContext from './canvasContext';
 import { DIMENSIONS_DICT } from './constants';
 import { GameGrid } from './GameGrid';
+import { ImageLoader } from './ImageLoader';
 
 export const GameComponent: FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [renderingContext, setRenderingContext] = useState<CanvasRenderingContext2D | null>(null);
-    const loopRef = useRef();
+    const [mapUpdateRequired, setMapUpdateRequired] = useAtom(mapUpdateRequiredAtom)
+    const loopRef:MutableRefObject<number> = useRef(0);
+
     const width = DIMENSIONS_DICT.WIDTH;
     const height = DIMENSIONS_DICT.HEIGHT;
+
+    const tick = useCallback(() => {
+        if (mapUpdateRequired) {
+            setMapUpdateRequired(false);
+        }
+        loopRef.current = requestAnimationFrame(tick);
+    }, [mapUpdateRequired, setMapUpdateRequired]);
+
+
+    useEffect(() => {
+        loopRef.current = requestAnimationFrame(tick);
+        return () => {
+            loopRef.current && cancelAnimationFrame(loopRef.current);
+        }
+    }, [loopRef, tick])
 
     // effect to get handle of the Canvas Ref and set it to state
     useEffect(() => {
@@ -26,14 +46,18 @@ export const GameComponent: FC = () => {
     }
 
     return (
-        <CanvasContext.Provider value={{ renderingContext, saveRenderingContext  }}>
-            <canvas
-                ref={canvasRef}
-                width={width}
-                height={height}
-            />
-            <GameGrid/>
-        </CanvasContext.Provider>
+        <>
+            <CanvasContext.Provider value={{ renderingContext, saveRenderingContext  }}>
+                <canvas
+                    ref={canvasRef}
+                    width={width}
+                    height={height}
+                />
+                <ImageLoader/>
+                <GameGrid /> 
+            </CanvasContext.Provider>
+        </>
+
     );
 
 }
