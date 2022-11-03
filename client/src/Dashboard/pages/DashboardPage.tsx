@@ -1,8 +1,13 @@
 import { FC } from 'react'
 
+import { PrivateLayout } from '../../global'
 import { DashboardContainer } from '../components'
 
-const DashboardPage: FC = () => <DashboardContainer />
+const DashboardPage: FC = () => (
+  <PrivateLayout>
+    <DashboardContainer />
+  </PrivateLayout>
+)
 
 DashboardPage.displayName = 'DashboardPage'
 

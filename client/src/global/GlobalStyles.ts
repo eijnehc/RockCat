@@ -68,6 +68,13 @@ table {
   isolation: isolate;
 }
 
+html {
+  /*
+    Silence the warning about missing Reach Dialog styles
+  */
+  --reach-dialog: 1;
+}
+
 html, body, #root {
   height: 100%;
 }
@@ -80,6 +87,22 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/*
+  Remove default button styles. We'll provide our own at the
+  component level
+*/
+button {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
 }
 
 /* DESIGN TOKENS */

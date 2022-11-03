@@ -1,7 +1,7 @@
-import { supabase } from '../../../global'
+import { apiRoutes } from '../../../apiRoutes'
 
 export const signInQuery = async (email: string) => {
-  const { data, error } = await supabase.auth.signInWithOtp({ email: email })
+  const res = await fetch(apiRoutes.signInHttpUrl(email))
 
-  return { data, error }
+  return res
 }

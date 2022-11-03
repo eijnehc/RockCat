@@ -1,51 +1,73 @@
 import React, { FC, useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { supabase } from '../../global'
-import { createNewUserQuery, orderSuccessQuery } from '../apis'
-import { isUserValidQuery } from '../apis/queries/isUserValidQuery'
-import { signInQuery } from '../apis/queries/signInQuery'
+import { signInQuery, signUpQuery } from '../apis'
 
 import { LoginView } from './LoginView'
 
 export const LoginContainer: FC = () => {
-  const [isValidUser, setIsValidUser] = useState(true)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [searchParams] = useSearchParams()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const sessionId = searchParams.get('session_id')
+  const customerSuccess = searchParams.get('customer_added')
+  const [isValidUser, setIsValidUser] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   useEffect(() => {
-    const fetchStripeCustomer = async (sessionId: string | null) => {
+    const signUpUser = async (sessionId: string | null) => {
       if (sessionId) {
-        const customer = await orderSuccessQuery(sessionId)
-        await createNewUserQuery(customer, sessionId)
+        const res = await signUpQuery(sessionId)
+        if (res.ok) {
+          console.info('Customer added')
+        } else {
+          console.error('Customer not added')
+        }
       }
     }
-    fetchStripeCustomer(sessionId)
+    if (sessionId) {
+      signUpUser(sessionId)
+      navigate('/login?customer_added=success')
+    }
     navigate('/login')
   }, [!sessionId])
 
+  useEffect(() => {
+    if (customerSuccess) {
+      toast.success('Customer profile created!')
+    }
+  }, [customerSuccess])
+
+  useEffect(() => {
+    signOut()
+  }, [])
+
+  async function signOut() {
+    localStorage.clear()
+  }
+
   const handleGithubSignIn = () => {
-    supabase.auth.signInWithOAuth({
-      provider: 'github',
-    })
+    console.log('sign in github from server')
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value
-    const isUserValid = await isUserValidQuery(email)
 
-    if (isUserValid) {
-      const { error } = await signInQuery(email)
-      if (error) {
-        console.error({ error })
-      } else {
+    try {
+      const res = await signInQuery(email)
+      if (res.ok) {
+        console.info('Magic link sent!')
         setIsSubmitted(true)
+      } else {
+        setIsValidUser(false)
       }
-    } else {
-      setIsValidUser(false)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -55,13 +77,17 @@ export const LoginContainer: FC = () => {
   }
 
   return (
-    <LoginView
-      isValidUser={isValidUser}
-      isSubmitted={isSubmitted}
-      onGithubSignIn={handleGithubSignIn}
-      onSubmit={handleSubmit}
-      onBack={handleBack}
-    />
+    <>
+      <Toaster />
+      <LoginView
+        isValidUser={isValidUser}
+        isLoading={isLoading}
+        isSubmitted={isSubmitted}
+        onGithubSignIn={handleGithubSignIn}
+        onSubmit={handleSubmit}
+        onBack={handleBack}
+      />
+    </>
   )
 }
 

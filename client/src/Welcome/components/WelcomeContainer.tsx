@@ -1,16 +1,25 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { useSearchParams } from 'react-router-dom'
-
-import { useCoursesQuery } from '../apis'
 
 import { WelcomeView } from './WelcomeView'
 
 export const WelcomeContainer: FC = () => {
-  const { courses } = useCoursesQuery()
   const [searchParams] = useSearchParams()
-  const sessionId = searchParams.get('cancelled')
+  const cancelled = searchParams.get('cancelled')
 
-  return <WelcomeView />
+  useEffect(() => {
+    if (cancelled) {
+      toast.error('Order cancelled')
+    }
+  }, [cancelled])
+
+  return (
+    <>
+      <Toaster />
+      <WelcomeView />
+    </>
+  )
 }
 
 WelcomeContainer.displayName = 'WelcomeContainer'
