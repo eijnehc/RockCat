@@ -1,17 +1,13 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { useAtom } from 'jotai';
 
 import { characterAtom } from './gameAtoms.ts/characterAtom';
 import { mapUpdateRequiredAtom } from './gameAtoms.ts/mapAtom';
 import CanvasContext, { ICanvasContext } from './canvasContext';
 import { GAME_HERO_DETAILS } from './constants';
-import { DIMENSIONS_DICT } from './constants';
+import { TILE_SIZE } from './constants';
 
-const {
-    TILE_SIZE,
-} = DIMENSIONS_DICT
-
-export const DrawHero = () => {
+export const DrawHero:FC <{questionKey: string}> = () => {
     const { renderingContext, saveRenderingContext } = useContext(CanvasContext) as ICanvasContext;
     const [character] = useAtom(characterAtom);
     const { x, y, characterImage, loaded } = character

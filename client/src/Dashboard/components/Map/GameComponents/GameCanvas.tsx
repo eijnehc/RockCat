@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 
 import { mapUpdateRequiredAtom } from './gameAtoms.ts/mapAtom';
 import CanvasContext from './canvasContext';
-import { DIMENSIONS_DICT } from './constants';
+import { COLS, ROWS, TILE_SIZE } from './constants';
 import { GameGrid } from './GameGrid';
 import { ImageLoader } from './ImageLoader';
 
@@ -13,8 +13,8 @@ export const GameComponent: FC = () => {
     const [mapUpdateRequired, setMapUpdateRequired] = useAtom(mapUpdateRequiredAtom)
     const loopRef:MutableRefObject<number> = useRef(0);
 
-    const width = DIMENSIONS_DICT.WIDTH;
-    const height = DIMENSIONS_DICT.HEIGHT;
+    const width = COLS * TILE_SIZE;
+    const height = ROWS * TILE_SIZE;
 
     const tick = useCallback(() => {
         if (mapUpdateRequired) {
