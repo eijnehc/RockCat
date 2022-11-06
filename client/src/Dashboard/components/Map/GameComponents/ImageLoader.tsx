@@ -1,12 +1,11 @@
 import React, { FC, useRef } from 'react';
 import { useAtom } from 'jotai';
 
-import { characterAtom } from './gameAtoms.ts/characterAtom';
+import { characterAtom, DirectionFacing } from './gameAtoms.ts/characterAtom';
 import { mapTilesAtom } from './gameAtoms.ts/mapAtom';
 import {GAME_HERO_DETAILS,GAME_TILES} from './constants';
 
 export const ImageLoader: FC = () => {
-    const charRef = useRef(null);
     const [, setMapTiles] = useAtom(mapTilesAtom)
     const [, setCharacter] = useAtom(characterAtom)
 
@@ -18,11 +17,11 @@ export const ImageLoader: FC = () => {
         })
     }
 
-    const updatedcharacter = (heroId: string) => {
+    const updatedcharacter = (heroId: string, srcString: string) => {
         setCharacter((prev) => {
             const updatedcharacter = { ... prev}
-            updatedcharacter.characterImage =heroId;
-            updatedcharacter.loaded = true
+            updatedcharacter.characterImage = '#down';
+            updatedcharacter.loadedSprites = [...updatedcharacter.loadedSprites, srcString]
             return updatedcharacter;
         })
     }
@@ -30,7 +29,7 @@ export const ImageLoader: FC = () => {
     return (
         <div>
         {
-            Object.keys(GAME_TILES).map(key => {
+            Object.keys(GAME_TILES).map((key) => {
                 return (
                     <img
                         key={`mapSquareImage-${key}`} 
@@ -43,16 +42,25 @@ export const ImageLoader: FC = () => {
                 );
             })
         }
-            <img
-                id="character"
-                ref={charRef}
-                onLoad={
-                    () => {
-                        updatedcharacter(`#${charRef.current.id}`);
-                    }
-                }
-                src={GAME_HERO_DETAILS.sprite}
-            />
+
+        {
+            Object.keys(GAME_HERO_DETAILS.sprites).map((value) => {
+                const key = value as DirectionFacing;
+                const srcString = GAME_HERO_DETAILS.sprites[key];
+                return (
+                    <img
+                        key={key} 
+                        id={key} 
+                        src={srcString}
+                        onLoad={
+                            () => {
+                                updatedcharacter(`#${key}`,srcString);
+                            }
+                        }
+                    />
+                );
+            })
+        }
         </div>
     )
 }

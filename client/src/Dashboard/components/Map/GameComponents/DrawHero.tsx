@@ -10,7 +10,7 @@ import { TILE_SIZE } from './constants';
 export const DrawHero:FC <{questionKey: string}> = () => {
     const { renderingContext, saveRenderingContext } = useContext(CanvasContext) as ICanvasContext;
     const [character] = useAtom(characterAtom);
-    const { x, y, characterImage, loaded } = character
+    const { x, y, characterImage } = character
     const [isUpdateRequired,] = useAtom(mapUpdateRequiredAtom)
     const { imageStart, imageSize } = GAME_HERO_DETAILS
 
@@ -30,7 +30,7 @@ export const DrawHero:FC <{questionKey: string}> = () => {
             );
             saveRenderingContext(renderingContext)
         }
-    }, [renderingContext, characterImage, x, y, loaded, saveRenderingContext, isUpdateRequired]);
+    }, [renderingContext, characterImage, x, y, saveRenderingContext, isUpdateRequired]);
 
     return (
         null

@@ -1,17 +1,24 @@
 import { atom } from 'jotai';
 
+
+export type DirectionFacing = 'down' | 'up' | 'right' | 'left';
+
 export interface ICharacter {
     x: number;
     y: number;
     characterImage: string|null;
-    loaded: boolean
+    loadedSprites: string[]
+    facing: DirectionFacing
+    lastMoved?: DirectionFacing
 }
 
 export const characterAtom = atom<ICharacter>({
-    x: 6,
-    y: 6,        
+    x: 0,
+    y: 1,        
     characterImage: null,
-    loaded: false,
+    loadedSprites: [],
+    facing: 'down'
 })
 
-export const isHeroLoadedAtom = atom(get => get(characterAtom).loaded);
+export const isHeroLoadedAtom = atom(get => get(characterAtom).loadedSprites.length === 4 );
+
