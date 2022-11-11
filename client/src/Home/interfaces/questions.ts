@@ -4,6 +4,7 @@ interface Questions {
   title: string
   description: string
   answers: string
+  difficulty: string
 }
 
 interface Pagination {
