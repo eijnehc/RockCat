@@ -78,7 +78,7 @@ export const questionsMap: IQuestionGameMap = {
             width: 12 * MAP_SQUARE_SIZE,
             height: 12 * MAP_SQUARE_SIZE
         },
-        initialJSHelperString: "turnLeft()\nwhile (true){\n    if (escaped()){\n    break;\n  }\n  \n  // add logic to conditionally turn in the correct direction\n  \n  // call a function to move the character\n}\n",
+        initialJSHelperString: "turnLeft()\nlet loopCount = 0\n\nwhile (loopCount<1000){\n    if (escaped()){\n    break;\n  }\n  \n  // add logic to conditionally turn in the correct direction\n  \n  // call a function to move the character\n  \n  loopCount++\n}\n",
     },
     question3:{
         mapLevels:     [
@@ -115,7 +115,7 @@ export const questionsMap: IQuestionGameMap = {
             width: 12 * MAP_SQUARE_SIZE,
             height: 11 * MAP_SQUARE_SIZE
         },
-        initialJSHelperString: "turnLeft();\nlet count = 0;\nwhile(true) {\n  if (escaped()){\n    break;\n  }\n  \n  if (isBlocked()) {\n    // add logic here to solve the puzzle\n    // use count and floored division\n  }\n  \n  // call function to move character here\n}\n",
+        initialJSHelperString: "turnLeft();\nlet stepCount = 0\nlet turnCount = 0;\n\nwhile(stepCount < 1000) {\n  if (escaped()){\n    break;\n  }\n  \n  if (isBlocked()) {\n    // add logic here to solve the puzzle\n    // use turnCount and floored division\n  }\n  \n  // call function to move character here\n\n  stepCount++\n}\n",
     },
     test:{
         mapLevels:     [

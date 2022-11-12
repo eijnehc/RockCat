@@ -6,6 +6,10 @@ export  const stringJSParser = (jsString: string) => {
 }
 
 const stringFunctionTransformer = (text: string) => {
+    if (text.trim().includes('while') && text.trim().includes('true')) {
+        throw new Error("Possible Infinite Loop. While True is not supported.");
+    }
+
     let transformed= text.replaceAll("move()", "move(); await sleep(300);")
     transformed = transformed.replaceAll("turnRight()", "turnRight(); await sleep(300);")
     transformed = transformed.replaceAll("turnLeft()", "turnLeft(); await sleep(300);")

@@ -15,8 +15,12 @@ import { MapView } from './Map'
 import { QuestionView } from './Questions'
 
 // Used after string to js parsing for gameplay
-async function sleep(msec) {
+async function sleep(msec: number) {
   return new Promise(resolve => setTimeout(resolve, msec));
+}
+
+const randomKeyGenerator = () => {
+  return Math.random().toString(36).slice(2, 7);
 }
 
 export const DashboardContainer: FC = () => {
@@ -34,15 +38,11 @@ export const DashboardContainer: FC = () => {
 
   useEffect(()=> {
     // set key to use from questions.ts . pass from a prop maybe?
-    setQuestionGridMap('question1')
-  }, [])
-
-  useEffect(()=> {
-    // set preset code and comments into editor if available in question object
-    if(questionGridMap && questionsMap[questionGridMap] && questionsMap[questionGridMap].initialJSHelperString) {
-      setJs(questionsMap[questionGridMap].initialJSHelperString)
+    setQuestionGridMap('question3')
+    if(questionsMap['question3'] && questionsMap['question3'].initialJSHelperString) {
+      setJs(questionsMap['question3'].initialJSHelperString)
     }
-  }, [questionGridMap])
+  }, [])
 
   // init character status
   const [character, setCharacter] = useAtom(characterAtom);
@@ -116,15 +116,24 @@ export const DashboardContainer: FC = () => {
       const {finalLocation} = questionsMap[questionGridMap]
       return x === finalLocation.x && y === finalLocation.y ;
     }
+    return false
   }
 
   const handleSubmitCode = async () => {
-    const parsedJS = stringJSParser(js);
-    console.log(parsedJS)
     try {
-        eval(`(async () => {${parsedJS}})()`).then().catch((err: unknown) =>{
-          alert(err)
-        })
+      const parsedJS = stringJSParser(js);
+      const promiseTimeout = new Promise((resolve) => {
+        setTimeout(resolve, 60000, 'Timed Out: Possible Infinite Loop');
+      });
+
+      Promise.race([eval(`(async () => {${parsedJS}})()`), promiseTimeout]).then((value) => {
+        const hasCharacterEscaped = escaped();
+        const trappedMessage = 'Red Riding Hood is Trapped';
+        const escapedMessage = hasCharacterEscaped? "Red Riding Hood has escaped" : value ? `${trappedMessage} - ${value}` : trappedMessage
+        alert(escapedMessage)
+      }).catch((err: unknown) =>{
+        alert(err)
+      })
     } catch(e) {
       alert(e)
     }
