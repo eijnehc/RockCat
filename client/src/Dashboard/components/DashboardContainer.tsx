@@ -1,10 +1,11 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { useAtom } from 'jotai'
 import styled from 'styled-components'
 
 import { useLocalStorage } from '../../global'
 
-import { MOVEMENT } from './Map/GameComponents/constants'
+import { ESCAPED_ENDING, MOVEMENT, TRAPPED_ENDING } from './Map/GameComponents/constants'
 import { characterAtom, DirectionFacing } from './Map/GameComponents/gameAtoms.ts/characterAtom'
 import { mapUpdateRequiredAtom, questionGridMapToDraw } from './Map/GameComponents/gameAtoms.ts/mapAtom'
 import { checkCollision, getNextTurnDirection } from './Map/GameComponents/gameMovementUtils'
@@ -34,9 +35,9 @@ export const DashboardContainer: FC = () => {
 
   useEffect(()=> {
     // set key to use from questions.ts . pass from a prop maybe?
-    setQuestionGridMap('question3')
-    if(questionsMap['question3'] && questionsMap['question3'].initialJSHelperString) {
-      setJs(questionsMap['question3'].initialJSHelperString)
+    setQuestionGridMap('question2')
+    if(questionsMap['question2'] && questionsMap['question2'].initialJSHelperString) {
+      setJs(questionsMap['question2'].initialJSHelperString)
     }
   }, [])
 
@@ -124,20 +125,24 @@ export const DashboardContainer: FC = () => {
 
       Promise.race([eval(`(async () => {${parsedJS}})()`), promiseTimeout]).then((value) => {
         const hasCharacterEscaped = escaped();
-        const trappedMessage = 'Red Riding Hood is Trapped';
-        const escapedMessage = hasCharacterEscaped? "Red Riding Hood has escaped" : value ? `${trappedMessage} - ${value}` : trappedMessage
-        alert(escapedMessage)
+        if (hasCharacterEscaped) {
+          toast.success(ESCAPED_ENDING)
+        } else {
+          const escapedMessage = value ? `${TRAPPED_ENDING} - ${value}` : TRAPPED_ENDING;
+          toast.error(escapedMessage);
+        }
       }).catch((err: unknown) =>{
-        alert(err)
+        toast.error(err as string)
       })
     } catch(e) {
-      alert(e)
+      toast.error(e as string)
     }
   }
 
 
   return (
       <Wrapper>
+        <Toaster toastOptions={{duration:60000 }} />
         <QuestionView />
         <EditorView code={js} onChange={handleChange} onSubmitCode={handleSubmitCode} />
         <MapView />

@@ -49,3 +49,6 @@ export const MOVEMENT: IMovement = {
     down: [0, 1],
     right: [1, 0],
 };
+
+export const TRAPPED_ENDING = 'Red Riding Hood is Trapped Forever';
+export const ESCAPED_ENDING = 'Red Riding Hood has Escaped';
