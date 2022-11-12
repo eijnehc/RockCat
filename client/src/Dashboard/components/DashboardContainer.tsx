@@ -19,10 +19,6 @@ async function sleep(msec: number) {
   return new Promise(resolve => setTimeout(resolve, msec));
 }
 
-const randomKeyGenerator = () => {
-  return Math.random().toString(36).slice(2, 7);
-}
-
 export const DashboardContainer: FC = () => {
   const [js, setJs] = useLocalStorage('js', '')
   const [html, setHtml] = useLocalStorage('html', '')
