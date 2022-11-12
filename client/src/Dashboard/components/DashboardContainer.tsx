@@ -4,9 +4,10 @@ import styled from 'styled-components'
 
 import { useLocalStorage } from '../../global'
 
-import { checkMapCollision, getNextTurnDirection, MOVEMENT } from './Map/GameComponents/constants'
+import { MOVEMENT } from './Map/GameComponents/constants'
 import { characterAtom, DirectionFacing } from './Map/GameComponents/gameAtoms.ts/characterAtom'
 import { mapUpdateRequiredAtom, questionGridMapToDraw } from './Map/GameComponents/gameAtoms.ts/mapAtom'
+import { checkCollision, getNextTurnDirection } from './Map/GameComponents/gameMovementUtils'
 import { questionsMap } from './Map/GameComponents/questions'
 import { EditorView } from './Editor'
 import { stringJSParser } from './editorToGameJSParser'
@@ -36,6 +37,13 @@ export const DashboardContainer: FC = () => {
     setQuestionGridMap('question1')
   }, [])
 
+  useEffect(()=> {
+    // set preset code and comments into editor if available in question object
+    if(questionGridMap && questionsMap[questionGridMap] && questionsMap[questionGridMap].initialJSHelperString) {
+      setJs(questionsMap[questionGridMap].initialJSHelperString)
+    }
+  }, [questionGridMap])
+
   // init character status
   const [character, setCharacter] = useAtom(characterAtom);
   const [, setMapUpdateRequired] = useAtom(mapUpdateRequiredAtom);
@@ -58,15 +66,20 @@ export const DashboardContainer: FC = () => {
 
   // Used after string to js parsing for gameplay
   const turnWhile = () => {
-    // next direction cannot be opposite of 
-    const nextDirection = getNextTurnDirection(characterRef.current.facing, characterRef.current.lastMoved);
+    // Magic/Hack method that can be used in while loops to solve most movement problems
+    const nextDirection = getNextTurnDirection(characterRef.current.facing, 'right',characterRef.current.lastMoved);
     turnState(nextDirection);
   };
 
     // Used after string to js parsing for gameplay
-    const turn = () => {
-      // next direction cannot be opposite of 
-      const nextDirection = getNextTurnDirection(characterRef.current.facing);
+    const turnRight = () => {
+      const nextDirection = getNextTurnDirection(characterRef.current.facing, 'right');
+      turnState(nextDirection);
+    };
+
+    // Used after string to js parsing for gameplay
+    const turnLeft = () => {
+      const nextDirection = getNextTurnDirection(characterRef.current.facing, 'left');
       turnState(nextDirection);
     };
 
@@ -75,7 +88,7 @@ export const DashboardContainer: FC = () => {
     const key = characterRef.current.facing;
     const [x, y] = MOVEMENT[key];
     if (questionGridMap) {
-      const blocked = checkMapCollision(characterRef.current.x + x, characterRef.current.y + y, questionsMap[questionGridMap])
+      const blocked = checkCollision(characterRef.current.x + x, characterRef.current.y + y, questionsMap[questionGridMap])
       return blocked
     }
   }
@@ -84,7 +97,7 @@ export const DashboardContainer: FC = () => {
   const move = () => {
     const key = characterRef.current.facing;
     const [x, y] = MOVEMENT[key];
-    if (questionGridMap && !checkMapCollision(characterRef.current.x + x, characterRef.current.y + y, questionsMap[questionGridMap])) {
+    if (questionGridMap && !checkCollision(characterRef.current.x + x, characterRef.current.y + y, questionsMap[questionGridMap])) {
       setMapUpdateRequired(true);
       setCharacter((prev) => {
           const updatedcharacter = { ... prev}

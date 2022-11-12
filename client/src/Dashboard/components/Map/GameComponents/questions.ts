@@ -1,4 +1,4 @@
-import { TILE_SIZE } from "./constants";
+import { MAP_SQUARE_SIZE } from "./constants";
 
 export interface IQuestionGameMap {
     [key: string]: IQuestionGame;
@@ -13,6 +13,7 @@ export interface IQuestionGame {
         width: number
         height: number
     }
+    initialJSHelperString?: string;
 }
 
 export const questionsMap: IQuestionGameMap = {
@@ -35,9 +36,10 @@ export const questionsMap: IQuestionGameMap = {
         dimensions: {
             columns: 12,
             rows:4,
-            width: 12 * TILE_SIZE,
-            height: 4 * TILE_SIZE
-        }
+            width: 12 * MAP_SQUARE_SIZE,
+            height: 4 * MAP_SQUARE_SIZE
+        },
+        initialJSHelperString: "turnLeft()\n\n// change stepsNeededToEscape count \nconst stepsNeededToEscape = 0\n\n// Write a for loop or while loop to move character\n",
     },
     question2:{
         mapLevels:     [
@@ -73,9 +75,10 @@ export const questionsMap: IQuestionGameMap = {
         dimensions: {
             columns: 12,
             rows:12,
-            width: 12 * TILE_SIZE,
-            height: 12 * TILE_SIZE
-        }
+            width: 12 * MAP_SQUARE_SIZE,
+            height: 12 * MAP_SQUARE_SIZE
+        },
+        initialJSHelperString: "turnLeft()\nwhile (true){\n    if (escaped()){\n    break;\n  }\n  \n  // add logic to conditionally turn in the correct direction\n  \n  // call a function to move the character\n}\n",
     },
     question3:{
         mapLevels:     [
@@ -109,9 +112,10 @@ export const questionsMap: IQuestionGameMap = {
         dimensions: {
             columns: 12,
             rows:11,
-            width: 12 * TILE_SIZE,
-            height: 11 * TILE_SIZE
-        }
+            width: 12 * MAP_SQUARE_SIZE,
+            height: 11 * MAP_SQUARE_SIZE
+        },
+        initialJSHelperString: "turnLeft();\nlet count = 0;\nwhile(true) {\n  if (escaped()){\n    break;\n  }\n  \n  if (isBlocked()) {\n    // add logic here to solve the puzzle\n    // use count and floored division\n  }\n  \n  // call function to move character here\n}\n",
     },
     test:{
         mapLevels:     [
@@ -148,8 +152,8 @@ export const questionsMap: IQuestionGameMap = {
         dimensions: {
             columns: 12,
             rows:12,
-            width: 12 * TILE_SIZE,
-            height: 12 * TILE_SIZE
+            width: 12 * MAP_SQUARE_SIZE,
+            height: 12 * MAP_SQUARE_SIZE
         }
     }
 }

@@ -1,9 +1,10 @@
-import React, { FC, useRef } from 'react';
+import React, { FC } from 'react';
 import { useAtom } from 'jotai';
+import styled from 'styled-components'
 
 import { characterAtom, DirectionFacing } from './gameAtoms.ts/characterAtom';
 import { mapTilesAtom } from './gameAtoms.ts/mapAtom';
-import {GAME_HERO_DETAILS,GAME_TILES} from './constants';
+import {GAME_HERO_DETAILS,MAP_ASSETS} from './constants';
 
 export const ImageLoader: FC = () => {
     const [, setMapTiles] = useAtom(mapTilesAtom)
@@ -27,16 +28,16 @@ export const ImageLoader: FC = () => {
     }
 
     return (
-        <div>
+        <Hidden>
         {
-            Object.keys(GAME_TILES).map((key) => {
+            Object.keys(MAP_ASSETS).map((key) => {
                 return (
                     <img
                         key={`mapSquareImage-${key}`} 
                         id={`mapSquareImage-${key}`} 
-                        src={`${GAME_TILES[key]}`}
+                        src={`${MAP_ASSETS[key]}`}
                         onLoad={() => { 
-                            tilesLoaded(`${GAME_TILES[key]}`)
+                            tilesLoaded(`${MAP_ASSETS[key]}`)
                         }}
                     />
                 );
@@ -61,6 +62,10 @@ export const ImageLoader: FC = () => {
                 );
             })
         }
-        </div>
+        </Hidden>
     )
 }
+
+const Hidden = styled.div`
+  display: none;
+`
