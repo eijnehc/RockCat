@@ -8,7 +8,7 @@ export const useQuestionsQuery = (questionId?: number) => {
     data: questions,
     isLoading,
     error,
-  }: UseQueryResult<QuestionsOverview> = useQuery(['questionsQuery'], () => questionsQuery(questionId))
+  }: UseQueryResult<QuestionsOverview> = useQuery([questionId], () => questionsQuery(questionId))
 
   return { questions, isLoading, error }
 }

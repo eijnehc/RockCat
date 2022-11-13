@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: 'dashboard',
+    path: 'dashboard/:questionId',
     element: <DashboardPage />,
   },
   {

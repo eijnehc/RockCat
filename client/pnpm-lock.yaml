@@ -12,6 +12,7 @@ specifiers:
   '@types/styled-components': ^5.1.26
   '@typescript-eslint/eslint-plugin': ^5.38.0
   '@typescript-eslint/parser': ^5.38.0
+  '@uiw/codemirror-theme-xcode': ^4.13.2
   '@uiw/react-codemirror': ^4.12.3
   '@vitejs/plugin-react': ^2.1.0
   csstype: ^3.0.10
@@ -36,6 +37,7 @@ dependencies:
   '@codemirror/view': 6.3.1
   '@reach/dialog': 0.18.0_ayd5rovvta3ij4fhi2rqvqneja
   '@reach/menu-button': 0.18.0_v5ja746gkdtknuc6tj46sve3be
+  '@uiw/codemirror-theme-xcode': 4.13.2_@codemirror+view@6.3.1
   '@uiw/react-codemirror': 4.12.4_hurtmfg2bqjiu4rlewm6eauajy
   eslint-plugin-simple-import-sort: 8.0.0_eslint@8.25.0
   jotai: 1.9.1_react@17.0.2
@@ -912,6 +914,24 @@ packages:
       '@codemirror/language': 6.2.1
       '@codemirror/lint': 6.0.0
       '@codemirror/search': 6.2.1
+      '@codemirror/state': 6.1.2
+      '@codemirror/view': 6.3.1
+    dev: false
+
+  /@uiw/codemirror-theme-xcode/4.13.2_@codemirror+view@6.3.1:
+    resolution: {integrity: sha512-/eu4ULwurz4m/d61ivDfXWjU7RTOQoWda6i/S8r6vBxL4feG1YhtdMVwJdq8/eIzivspugV8uU5aIUXSQEc0pQ==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.13.2_@codemirror+view@6.3.1
+    transitivePeerDependencies:
+      - '@codemirror/view'
+    dev: false
+
+  /@uiw/codemirror-themes/4.13.2_@codemirror+view@6.3.1:
+    resolution: {integrity: sha512-IPkHzt5SjLjXRPGmFOpRjXzRA9VWomJjWYETq21jXTTnFtZeEjAuhucgKMydt11ALUyGjwTzdReTA9yt9VNskA==}
+    peerDependencies:
+      '@codemirror/view': '>=6.0.0'
+    dependencies:
+      '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.2
       '@codemirror/view': 6.3.1
     dev: false

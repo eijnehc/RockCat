@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { Moon, Sun } from 'react-feather'
 import { javascript } from '@codemirror/lang-javascript'
+import { xcodeDark, xcodeLight } from '@uiw/codemirror-theme-xcode'
 import CodeMirror from '@uiw/react-codemirror'
 import styled from 'styled-components'
 
@@ -33,7 +34,7 @@ export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode }) => {
         onChange={onChange}
         value={code}
         extensions={[javascript({ jsx: true })]}
-        theme={dark ? 'dark' : 'light'}
+        theme={dark ? xcodeDark : xcodeLight}
         height='500px'
         autoFocus
         basicSetup={{
@@ -53,7 +54,6 @@ export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode }) => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
 `
 
 const EditorTitle = styled.div<EditorStyleProps>`
