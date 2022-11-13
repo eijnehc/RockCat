@@ -3,6 +3,8 @@ import { atom } from 'jotai';
 
 export type DirectionFacing = 'down' | 'up' | 'right' | 'left';
 
+export type LeftRight = 'right' | 'left';
+
 export interface ICharacter {
     x: number;
     y: number;

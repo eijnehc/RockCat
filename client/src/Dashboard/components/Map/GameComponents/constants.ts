@@ -1,16 +1,12 @@
-import { Direction } from "@codemirror/view";
-import { DirectionFacing } from "./gameAtoms.ts/characterAtom";
-import { IQuestionGame } from "./questions";
 
-export const TILE_SIZE = 32
-export const COLS = 12
-export const ROWS = 12
+export const MAP_SQUARE_SIZE = 32
+export const CANVAS_LENGTH_WIDTH = 12 * MAP_SQUARE_SIZE;
 
 interface IStringKeyDict {
     [key: string]: string;
  }
 
-export const GAME_TILES: IStringKeyDict= {
+export const MAP_ASSETS: IStringKeyDict= {
     8: 'assets/map/water.png',
     1: 'assets/map/grass.png',
     2: 'assets/map/sand.png',
@@ -29,7 +25,6 @@ interface ISprites {
  }
 
 export const GAME_HERO_DETAILS = {
-    sprite: 'assets/heroes/redhoodmain.png',
     sprites: {
         up: 'assets/heroes/redhood-up.png',
         left: 'assets/heroes/redhood-left.png',
@@ -37,11 +32,9 @@ export const GAME_HERO_DETAILS = {
         right: 'assets/heroes/redhood-right.png',
     } as ISprites,
     imageSize: 32,
-    imageStart: {
-        sx: 0,
-        sy: 0
-    }
 }
+
+export const WALLS = [3, 4, 5, 6];
 
 interface IMovement {
     up: [number, number],
@@ -57,50 +50,5 @@ export const MOVEMENT: IMovement = {
     right: [1, 0],
 };
 
-export const SOLID_TILES = [3, 4, 5, 6];
-
-export const isSolidTile = (x: number, y: number, questionGame: IQuestionGame) => {
-    // check that character cannot move through any solid tils
-    for (const level of questionGame.mapLevels) {
-        if (SOLID_TILES.includes(level[y][x])) {
-            return true;
-        }
-    }
-    return false;
-};
-
-export const isMapEdge = (x: number, y: number, questionGame: IQuestionGame) => {
-    const { rows, columns} = questionGame.dimensions;
-    // check within dimension bounds
-    return (x < 0 || x >= columns || y < 0 || y >= rows)        
-};
-
-export const checkMapCollision = (x: number, y: number, questionGame: IQuestionGame) => {
-    return isMapEdge(x,y, questionGame) || isSolidTile(x,y, questionGame);
-};
-
-
-export const getNextTurnDirection = (currentDirection: DirectionFacing, lastMoved? : DirectionFacing) => {
-    let  lastMovedOppositeDirection: DirectionFacing;
-    if (lastMoved) {
-        if (lastMoved === 'up') {
-            lastMovedOppositeDirection = 'down';
-        } else if(lastMoved === 'down') {
-            lastMovedOppositeDirection = 'up';
-        } else if(lastMoved === 'left') {
-            lastMovedOppositeDirection = 'right';
-        } else if(lastMoved === 'right') {
-            lastMovedOppositeDirection = 'left';
-        }
-    }
-    const clockwiseDirectionList: DirectionFacing[] = ['up', 'right', 'down', 'left'];
-    const filteredDirectionList = clockwiseDirectionList.filter(dir => {
-        if(dir !== lastMovedOppositeDirection) {
-            return dir;
-        }
-    })
-    const currentDirectionIndex = filteredDirectionList.indexOf(currentDirection);
-    // simple circular array logic
-    const nextDirectionIndex = currentDirectionIndex < filteredDirectionList.length-1 ? currentDirectionIndex+1 : 0;
-    return filteredDirectionList[nextDirectionIndex];
-}
+export const TRAPPED_ENDING = 'Red Riding Hood is Trapped Forever';
+export const ESCAPED_ENDING = 'Red Riding Hood has Escaped';

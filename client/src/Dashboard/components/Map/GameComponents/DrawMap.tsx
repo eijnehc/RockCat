@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 
 import { mapDrawnAtom, mapUpdateRequiredAtom } from './gameAtoms.ts/mapAtom';
 import CanvasContext, { ICanvasContext } from './canvasContext';
-import { TILE_SIZE } from './constants';
+import { MAP_SQUARE_SIZE } from './constants';
 import { questionsMap } from './questions';
 
 
@@ -17,46 +17,44 @@ export const DrawMap: FC<{questionKey: string}> = (props) => {
     useEffect(() => {
         if (renderingContext ) {
 
-            // function to add image tiles
-            const drawMap = (grid: number[][]) => {
+            // function to add image to each square on the grid
+            const drawMapSquares = (grid: number[][]) => {
                 for (let i = 0; i < rows; i++) {
                     for (let j = 0; j < columns; j++) {
-                        const item = grid[i][j];
-                        if (!item) {
-                            // empty tile
-                            continue;
-                        }
-                        const img = document.querySelector(`#mapSquareImage-${item}`);
-                        const x = j * TILE_SIZE;
-                        const y = i * TILE_SIZE;
+                        const imageKey = grid[i][j];
+                        if (imageKey) {
+                        const image = document.querySelector(`#mapSquareImage-${imageKey}`);
+                        const x = j * MAP_SQUARE_SIZE;
+                        const y = i * MAP_SQUARE_SIZE;
                         renderingContext.drawImage(
-                            img,
+                            image,
                             0,
                             0,
-                            TILE_SIZE,
-                            TILE_SIZE,
+                            MAP_SQUARE_SIZE,
+                            MAP_SQUARE_SIZE,
                             x,
                             y,
-                            TILE_SIZE,
-                            TILE_SIZE,
+                            MAP_SQUARE_SIZE,
+                            MAP_SQUARE_SIZE,
                         );
+                        }
                     }
                 }
             };
         
-            drawMap(mapLevels[0]);
-            drawMap(mapLevels[1]);
+            drawMapSquares(mapLevels[0]);
+            drawMapSquares(mapLevels[1]);
 
             // two loops to draw horizontal and vertical lines to decpict 2d grid
             for (let i = 0; i < rows; i++) {
-                const y = i * TILE_SIZE;
+                const y = i * MAP_SQUARE_SIZE;
                 renderingContext.beginPath();
                 renderingContext.moveTo(0, y);
                 renderingContext.lineTo(width, y);
                 renderingContext.stroke();
             }
             for (let j = 0; j < columns; j++) {
-                const x = j * TILE_SIZE;
+                const x = j * MAP_SQUARE_SIZE;
                 renderingContext.beginPath();
                 renderingContext.moveTo(x, 0);
                 renderingContext.lineTo(x, height);
