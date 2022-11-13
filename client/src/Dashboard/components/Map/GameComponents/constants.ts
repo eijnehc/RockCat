@@ -21,8 +21,8 @@ interface IStringKeyDict {
 export const MAP_ASSETS: IStringKeyDict = {
   1: grass,
   2: sand,
-  3: tree,
-  4: rockwall,
+  3: rockwall,
+  4: tree,
   5: log,
   6: rock,
   7: sign,

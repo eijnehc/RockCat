@@ -46,7 +46,7 @@ export const DashboardContainer: FC = () => {
     setCharacter(() => {
       character.x = 0
       character.y = 1
-      character.facing = 'down'
+      character.facing = 'right'
 
       return character
     })
