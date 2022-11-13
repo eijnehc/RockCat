@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { CheckCircle } from 'react-feather'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { QuestionsOverview } from '../interfaces'
@@ -44,9 +45,10 @@ export const HomeView: FC<Props> = ({ questions }) => {
   return (
     <QuestionsWrapper>
       <Header>Questions </Header>
-      <QuestionsCard>
+      <QuestionsRow>
         {questions?.data.map((item) => (
           <QuestionsContent
+            to={`dashboard/${item.id}`}
             key={item.id}
             style={{
               background: `linear-gradient(to right, ${getColorDifficulty(
@@ -61,7 +63,7 @@ export const HomeView: FC<Props> = ({ questions }) => {
             </RightSection>
           </QuestionsContent>
         ))}
-      </QuestionsCard>
+      </QuestionsRow>
     </QuestionsWrapper>
   )
 }
@@ -82,20 +84,26 @@ const Header = styled.header`
   margin-bottom: 24px;
 `
 
-const QuestionsCard = styled.section`
+const QuestionsRow = styled.section`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  cursor: pointer;
 `
 
-const QuestionsContent = styled.button`
+const QuestionsContent = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
   border-radius: 1rem;
   color: var(--color-offblack);
+  cursor: pointer;
+
+  :hover {
+    span:first-child {
+      transform: scale(1.2);
+    }
+  }
 `
 
 const RightSection = styled.span`
