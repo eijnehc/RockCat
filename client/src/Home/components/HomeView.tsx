@@ -1,114 +1,102 @@
 import { FC } from 'react'
+import { CheckCircle } from 'react-feather'
+import styled from 'styled-components'
 
 import { QuestionsOverview } from '../interfaces'
-import styled from 'styled-components'
-// import { useQuestionsQuery } from '../hooks'
 
 interface Props {
   questions?: QuestionsOverview
 }
 
-export const HomeView: FC<Props> = ({ questions }) => {
+enum DIFFICULTY {
+  EASY = 'easy',
+  MEDIUM = 'medium',
+  HARD = 'hard',
+}
 
+export const HomeView: FC<Props> = ({ questions }) => {
   const getColorDifficulty = (difficulty: string) => {
-    switch (difficulty) {
-      case "Easy":
-        return "#18ecbe"
-      case "Medium":
-        return "#ff7f00"
+    switch (difficulty.toLowerCase()) {
+      case DIFFICULTY.EASY:
+        return 'var(--color-easy)'
+      case DIFFICULTY.MEDIUM:
+        return 'var(--color-warning)'
+      case DIFFICULTY.HARD:
+        return 'var(--color-danger)'
       default:
         null
     }
   }
 
   return (
-    // <div>
-    //   <ul>
-    //     {questions &&
-    //       questions.data.length !== 0 &&
-    //       questions.data.map((question) => (
-    //         <li key={question.id}>
-    //           <div>{question.id}</div>
-    //           <div>{question.title}</div>
-    //           <div>{question.description}</div>
-    //           <div>{question.answers}</div>
-    //         </li>
-    //       ))}
-    //   </ul>
-    // </div>
-
-
     <QuestionsWrapper>
       <Header>Questions </Header>
-      <QuestionsContent>
+      <QuestionsCard>
         {questions?.data.map((item) => (
-          <QuestionsCard
+          <QuestionsContent
             key={item.id}
             style={{
-              background: `linear-gradient(to right, ${getColorDifficulty(item.difficulty)} 1%, var(--color-white) 1%, var(--color-white) 100%)`
+              background: `linear-gradient(to right, ${getColorDifficulty(
+                item.difficulty
+              )} 3%, var(--color-white) 80%`,
             }}
           >
-            <p>{item.title}</p>
-            <p style={{ color: getColorDifficulty(item.difficulty) }}>{item.difficulty}</p>
-          </QuestionsCard>
+            <span>{item.title}</span>
+            <RightSection>
+              <span style={{ color: getColorDifficulty(item.difficulty) }}>{item.difficulty}</span>
+              {/* <CheckCircle color='var(--color-success)' /> */}
+              <UncheckedCircle />
+            </RightSection>
+          </QuestionsContent>
         ))}
-      </QuestionsContent>
+      </QuestionsCard>
     </QuestionsWrapper>
-
-
   )
-
-
 }
 
-
-HomeView.displayName = 'HomeView'
+const QuestionsWrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  width: clamp(400px, 60%, 700px);
+  max-width: 100%;
+  padding: 64px 0px;
+  font-weight: var(--font-weight-bold);
+`
 
 const Header = styled.header`
   font-size: 1.3rem;
-  font-weight: var(--font-weight-bold);
-  margin-top: 32px;
-  margin-bottom: 32px;
-  margin-left: 240px;
-  text-align: left;
+  margin-bottom: 24px;
 `
 
-const QuestionsWrapper = styled.main`
-  background-color: var(--color-offblack);
-  color: var(--color-white);
+const QuestionsCard = styled.section`
   display: flex;
   flex-direction: column;
-  margin-bottom: 32px;
-`
-
-const QuestionsContent = styled.section`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
   gap: 32px;
-  flex-direction: column;
-  width: 100%;
-  align-items: left;
+  cursor: pointer;
 `
 
-const QuestionsCard = styled.article`
+const QuestionsContent = styled.button`
   display: flex;
-  align-items: left;
-  flex: 1 1 250px;
-  align-items : center;  
+  align-items: center;
   justify-content: space-between;
-  padding: 2rem;
+  padding: 1rem 1.5rem;
   border-radius: 1rem;
-  margin-left: 240px;
-  margin-right:240px;
-  // background: linear-gradient(
-  //   to right,
-  //   #18ecbe 2%,
-  //   var(--color-white) 2%,
-  //   var(--color-white) 100%
-  // );
   color: var(--color-offblack);
-  font-weight: bold;  
-  max-height: 20px;
-
 `
+
+const RightSection = styled.span`
+  display: flex;
+  gap: 8px;
+`
+
+const UncheckedCircle = styled.span`
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: var(--color-gray-300);
+`
+
+HomeView.displayName = 'HomeView'

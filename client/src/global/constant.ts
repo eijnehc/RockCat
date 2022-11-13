@@ -19,7 +19,8 @@ export const COLORS = {
     dark: 'hsl(278deg 63% 48%)',
   },
   info: 'hsl(223deg 77% 63%)',
-  success: 'hsl(167deg 85% 51%)',
+  success: 'hsl(160deg 80% 45%)',
+  easy: 'hsl(167deg 85% 51%)',
   danger: 'hsl(347deg 77% 50%)',
   warning: 'hsl(30deg 100% 50%)',
 }
