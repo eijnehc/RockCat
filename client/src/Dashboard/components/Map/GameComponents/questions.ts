@@ -40,7 +40,7 @@ export const questionsMap: IQuestionGameMap = {
       height: 4 * MAP_SQUARE_SIZE,
     },
     initialJSHelperString:
-      '// change stepsNeededToEscape count \nconst stepsNeededToEscape = 0\n\n// Write a for loop or while loop to move character\n',
+      '// Commands available: move() \n\n// change stepsNeededToEscape count \nconst stepsNeededToEscape = 0\n\n// Write a for loop or while loop to move character\n',
   },
   question2: {
     mapLevels: [
@@ -81,7 +81,7 @@ export const questionsMap: IQuestionGameMap = {
       height: 12 * MAP_SQUARE_SIZE,
     },
     initialJSHelperString:
-      'let loopCount = 0\n\nwhile (loopCount<1000){\n    if (escaped()){\n    break;\n  }\n  \n  // add logic to conditionally turn in the correct direction\n  \n  // call a function to move the character\n  \n  loopCount++\n}\n',
+      '// Commands available: move(), turnRight() \n\nlet loopCount = 0\n\nwhile (loopCount<1000){\n    if (escaped()){\n    break;\n  }\n  \n  // add logic to conditionally turn in the correct direction\n  \n  // call a function to move the character\n  \n  loopCount++\n}\n',
   },
   question3: {
     mapLevels: [
@@ -120,7 +120,7 @@ export const questionsMap: IQuestionGameMap = {
       height: 11 * MAP_SQUARE_SIZE,
     },
     initialJSHelperString:
-      'let stepCount = 0\nlet turnCount = 0;\n\nwhile(stepCount < 1000) {\n  if (escaped()){\n    break;\n  }\n  \n  if (isBlocked()) {\n    // add logic here to solve the puzzle\n    // use turnCount and floored division\n  }\n  \n  // call function to move character here\n\n  stepCount++\n}\n',
+      '// Commands available: move(), turnRight(), turnLeft() \n\nlet stepCount = 0\nlet turnCount = 0;\n\nwhile(stepCount < 1000) {\n  if (escaped()){\n    break;\n  }\n  \n  if (isBlocked()) {\n    // add logic here to solve the puzzle\n    // use turnCount and floored division\n  }\n  \n  // call function to move character here\n\n  stepCount++\n}\n',
   },
   test: {
     mapLevels: [
