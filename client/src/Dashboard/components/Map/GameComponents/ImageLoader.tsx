@@ -21,7 +21,7 @@ export const ImageLoader: FC = () => {
   const updatedcharacter = (heroId: string, srcString: string) => {
     setCharacter((prev) => {
       const updatedcharacter = { ...prev }
-      updatedcharacter.characterImage = '#down'
+      updatedcharacter.characterImage = '#right'
       updatedcharacter.loadedSprites = [...updatedcharacter.loadedSprites, srcString]
       return updatedcharacter
     })

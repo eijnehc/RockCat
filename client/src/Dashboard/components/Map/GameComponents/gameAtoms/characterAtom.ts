@@ -18,5 +18,5 @@ export const characterAtom = atom<ICharacter>({
   y: 1,
   characterImage: null,
   loadedSprites: [],
-  facing: 'down',
+  facing: 'right',
 })

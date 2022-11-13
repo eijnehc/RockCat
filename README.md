@@ -39,7 +39,6 @@ After being redirected to the Stripe checkout page use this test card to simulat
 ### Question 1 (Move Ahead)
 
 ```js
-turnLeft();
 const stepsNeededToEscape = 11;
 for (let i = 0; i < stepsNeededToEscape; i++) {
   move();
@@ -49,7 +48,6 @@ for (let i = 0; i < stepsNeededToEscape; i++) {
 ### Question 2 (Spiral Trial)
 
 ```js
-turnLeft();
 let loopCount = 0;
 
 while (loopCount < 1000) {
@@ -68,7 +66,6 @@ while (loopCount < 1000) {
 ### Question 3 (Zig-Zag Mania)
 
 ```js
-turnLeft();
 let stepCount = 0;
 let turnCount = 0;
 
