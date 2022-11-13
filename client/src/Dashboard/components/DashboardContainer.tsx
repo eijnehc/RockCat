@@ -6,6 +6,7 @@ import { useAtom } from 'jotai'
 import styled from 'styled-components'
 
 import { useQuestionsQuery } from '../../Home/apis/hooks'
+import { useCompleteQuestionQuery } from '../apis'
 
 import { EditorView } from './Editor'
 import { stringJSParser } from './editorToGameJSParser'
@@ -32,6 +33,7 @@ async function sleep(msec: number) {
 export const DashboardContainer: FC = () => {
   const { questionId } = useParams()
   const { questions: question, isLoading } = useQuestionsQuery(Number(questionId))
+  const { mutate } = useCompleteQuestionQuery()
   const [js, setJs] = useState<string>('')
   const [reset, setReset] = useState(false)
   const handleChange = useCallback((value: string) => {
@@ -149,6 +151,7 @@ export const DashboardContainer: FC = () => {
           const hasCharacterEscaped = escaped()
           if (hasCharacterEscaped) {
             toast.success(ESCAPED_ENDING)
+            question && mutate(question.data[0].question_id)
           } else {
             const escapedMessage = value ? `${TRAPPED_ENDING} - ${value}` : TRAPPED_ENDING
             toast.error(escapedMessage)

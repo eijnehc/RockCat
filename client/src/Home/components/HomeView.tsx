@@ -46,7 +46,7 @@ export const HomeView: FC<Props> = ({ questions }) => {
     <QuestionsWrapper>
       <Header>Questions </Header>
       <QuestionsRow>
-        {questions?.data.map((item) => (
+        {questions?.data?.map((item) => (
           <QuestionsContent
             to={`dashboard/${item.id}`}
             key={item.id}

@@ -40,6 +40,7 @@ After being redirected to the Stripe checkout page use this test card to simulat
 
 ```js
 const stepsNeededToEscape = 11;
+
 for (let i = 0; i < stepsNeededToEscape; i++) {
   move();
 }
