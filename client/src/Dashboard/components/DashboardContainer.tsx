@@ -5,6 +5,8 @@ import { Link, useParams } from 'react-router-dom'
 import { useAtom } from 'jotai'
 import styled from 'styled-components'
 
+import { useQuestionsQuery } from '../../Home/apis/hooks'
+
 import { EditorView } from './Editor'
 import { stringJSParser } from './editorToGameJSParser'
 import {
@@ -29,26 +31,30 @@ async function sleep(msec: number) {
 
 export const DashboardContainer: FC = () => {
   const { questionId } = useParams()
-  const [js, setJs] = useState('')
+  const { questions: question, isLoading } = useQuestionsQuery(Number(questionId))
+  const [js, setJs] = useState<string>('')
   const handleChange = useCallback((value: string) => {
     setJs(value)
   }, [])
-
-  // set game map to use
   const [questionGridMap, setQuestionGridMap] = useAtom(questionGridMapToDraw)
-
-  useEffect(() => {
-    // set key to use from questions.ts . pass from a prop maybe?
-    setQuestionGridMap('question2')
-    if (questionsMap['question2'] && questionsMap['question2'].initialJSHelperString) {
-      setJs(questionsMap['question2'].initialJSHelperString)
-    }
-  }, [questionId])
-
-  // init character status
   const [character, setCharacter] = useAtom(characterAtom)
   const [, setMapUpdateRequired] = useAtom(mapUpdateRequiredAtom)
   const characterRef = useRef(character)
+
+  useEffect(() => {
+    const gameId = `question${questionId}`
+    setCharacter(() => {
+      character.x = 0
+      character.y = 1
+      character.facing = 'down'
+
+      return character
+    })
+    setQuestionGridMap(gameId)
+    if (questionsMap[gameId] && questionsMap[gameId].initialJSHelperString) {
+      setJs(questionsMap[gameId].initialJSHelperString ?? '')
+    }
+  }, [questionId])
 
   useEffect(() => {
     characterRef.current = character
@@ -161,7 +167,7 @@ export const DashboardContainer: FC = () => {
         <Home size={32} />
       </BackButton>
       <DashboardWrapper>
-        <QuestionView />
+        <QuestionView question={question} isLoading={isLoading} />
         <EditorView code={js} onChange={handleChange} onSubmitCode={handleSubmitCode} />
         <MapView />
       </DashboardWrapper>
@@ -178,7 +184,7 @@ const BackButton = styled(Link)`
   font-size: 1.3rem;
 
   svg {
-    display: block;
+    display: inline-block;
   }
 
   :hover {
@@ -189,13 +195,14 @@ const BackButton = styled(Link)`
 
 const DashboardWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 24px;
+  justify-content: space-around;
+  /* flex-wrap: wrap; */
+  margin-top: 1rem;
   gap: 16px;
 
-  > div {
+  /* > div {
     flex: 1;
-  }
+  } */
 `
 
 DashboardContainer.displayName = 'DashboardContainer'

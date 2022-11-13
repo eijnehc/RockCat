@@ -20,5 +20,3 @@ export const characterAtom = atom<ICharacter>({
   loadedSprites: [],
   facing: 'down',
 })
-
-export const isHeroLoadedAtom = atom((get) => get(characterAtom).loadedSprites.length === 4)

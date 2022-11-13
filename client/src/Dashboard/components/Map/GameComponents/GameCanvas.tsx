@@ -42,12 +42,10 @@ export const GameComponent: FC = () => {
   }
 
   return (
-    <>
-      <CanvasContext.Provider value={{ renderingContext, saveRenderingContext }}>
-        <canvas ref={canvasRef} width={CANVAS_LENGTH_WIDTH} height={CANVAS_LENGTH_WIDTH} />
-        <ImageLoader />
-        <GameGrid />
-      </CanvasContext.Provider>
-    </>
+    <CanvasContext.Provider value={{ renderingContext, saveRenderingContext }}>
+      <canvas ref={canvasRef} width={CANVAS_LENGTH_WIDTH} height={CANVAS_LENGTH_WIDTH} />
+      <ImageLoader />
+      <GameGrid />
+    </CanvasContext.Provider>
   )
 }

@@ -61,7 +61,7 @@ while (loopCount < 1000) {
   }
 
   move();
-  count++;
+  loopCount++;
 }
 ```
 
