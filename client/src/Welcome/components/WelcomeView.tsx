@@ -7,8 +7,7 @@ import { Avatar, Logo } from '../../global'
 import { QUERIES } from '../../global/constant'
 import RocketLaunch from '../assets/rocket-launch.png'
 import BackgroundImage from '../assets/stars.png'
-
-import { CourseHighlights, Testimonials } from './Constants'
+import { CourseHighlights, Testimonials } from '../Constants'
 
 export const WelcomeView: FC = () => {
   const renderImage = (id: number) => {
@@ -35,7 +34,7 @@ export const WelcomeView: FC = () => {
           </p>
           <br />
           <form action={apiRoutes.createCheckoutSessionHttpUrl} method='POST'>
-            <Button>Get Started</Button>
+            <Button>Enroll Now</Button>
           </form>
         </BoxContent>
         <RocketLaunchWrapper>
@@ -195,6 +194,7 @@ const TestimonialCard = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   flex: 1 1 250px;
   max-width: 350px;
   justify-self: center;

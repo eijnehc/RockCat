@@ -29,9 +29,10 @@ export const LoginContainer: FC = () => {
     if (sessionId) {
       signUpUser(sessionId)
       navigate('/login?customer_added=success')
+    } else {
+      navigate('/login')
     }
-    navigate('/login')
-  }, [!sessionId])
+  }, [sessionId])
 
   useEffect(() => {
     if (customerSuccess) {

@@ -47,7 +47,7 @@ export const LoginView: FC<Props> = ({
               <EmailInputWrapper>
                 <Input type='email' placeholder='email' name='email' required />
                 <ErrorMsg>
-                  {!isValidUser ? 'There is no registered user with this email address' : null}
+                  {!isValidUser ? 'No registered user with this email address. Enroll to login.' : null}
                 </ErrorMsg>
               </EmailInputWrapper>
               <LoginButton type='submit' disabled={isLoading}>

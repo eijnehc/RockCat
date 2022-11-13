@@ -121,6 +121,7 @@ html {
   --color-secondary-medium: ${COLORS.secondary['medium']};
   --color-secondary-dark: ${COLORS.secondary['dark']};
   --color-info: ${COLORS.info};
+  --color-easy: ${COLORS.easy};
   --color-success: ${COLORS.success};
   --color-danger: ${COLORS.danger};
   --color-warning:  ${COLORS.warning};
