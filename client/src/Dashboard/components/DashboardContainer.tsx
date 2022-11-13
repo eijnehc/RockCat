@@ -33,6 +33,7 @@ export const DashboardContainer: FC = () => {
   const { questionId } = useParams()
   const { questions: question, isLoading } = useQuestionsQuery(Number(questionId))
   const [js, setJs] = useState<string>('')
+  const [reset, setReset] = useState(false)
   const handleChange = useCallback((value: string) => {
     setJs(value)
   }, [])
@@ -54,7 +55,7 @@ export const DashboardContainer: FC = () => {
     if (questionsMap[gameId] && questionsMap[gameId].initialJSHelperString) {
       setJs(questionsMap[gameId].initialJSHelperString ?? '')
     }
-  }, [questionId])
+  }, [questionId, reset])
 
   useEffect(() => {
     characterRef.current = character
@@ -161,6 +162,10 @@ export const DashboardContainer: FC = () => {
     }
   }
 
+  const handleReset = () => {
+    setReset(!reset)
+  }
+
   return (
     <Wrapper>
       <BackButton to='/'>
@@ -168,7 +173,12 @@ export const DashboardContainer: FC = () => {
       </BackButton>
       <DashboardWrapper>
         <QuestionView question={question} isLoading={isLoading} />
-        <EditorView code={js} onChange={handleChange} onSubmitCode={handleSubmitCode} />
+        <EditorView
+          code={js}
+          onChange={handleChange}
+          onSubmitCode={handleSubmitCode}
+          handleReset={handleReset}
+        />
         <MapView />
       </DashboardWrapper>
     </Wrapper>

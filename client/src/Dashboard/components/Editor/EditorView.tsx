@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Moon, Sun } from 'react-feather'
+import { Moon, RefreshCcw, Sun } from 'react-feather'
 import { javascript } from '@codemirror/lang-javascript'
 import { xcodeDark, xcodeLight } from '@uiw/codemirror-theme-xcode'
 import CodeMirror from '@uiw/react-codemirror'
@@ -10,6 +10,7 @@ import { Logo } from '../../../global'
 interface Props {
   onChange: (value: string, viewUpdate: any) => void
   onSubmitCode: () => void
+  handleReset: () => void
   code: string
 }
 
@@ -17,7 +18,7 @@ interface EditorStyleProps {
   dark: boolean
 }
 
-export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode }) => {
+export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode, handleReset }) => {
   const [dark, setDark] = useState(false)
 
   return (
@@ -26,9 +27,14 @@ export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode }) => {
         <div>
           <Logo /> Editor
         </div>
-        <ThemeButton onClick={() => setDark((prevDark) => !prevDark)}>
-          {dark ? <Sun color='var(--color-white)' /> : <Moon color='var(--color-offblack)' />}
-        </ThemeButton>
+        <ButtonWrapper>
+          <button onClick={handleReset}>
+            {dark ? <RefreshCcw color='var(--color-white)' /> : <RefreshCcw color='var(--color-offblack)' />}
+          </button>
+          <ThemeButton onClick={() => setDark((prevDark) => !prevDark)}>
+            {dark ? <Sun color='var(--color-white)' /> : <Moon color='var(--color-offblack)' />}
+          </ThemeButton>
+        </ButtonWrapper>
       </EditorTitle>
       <CodeMirror
         onChange={onChange}
@@ -54,6 +60,7 @@ export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode }) => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: clamp(300px, 50%, 500px);
 `
 
 const EditorTitle = styled.div<EditorStyleProps>`
@@ -67,20 +74,16 @@ const EditorTitle = styled.div<EditorStyleProps>`
   border-top-left-radius: 0.5rem;
 `
 
+const ButtonWrapper = styled.span`
+  display: flex;
+  gap: 8px;
+`
+
 const ThemeButton = styled.button`
-  /* Remove default button styles */
-  display: block;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  font: inherit;
-  color: inherit;
+  display: flex;
 
   svg {
-    display: block;
+    display: inline-block;
   }
 `
 
