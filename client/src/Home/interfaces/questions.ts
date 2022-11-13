@@ -5,6 +5,8 @@ interface Questions {
   description: string
   answers: string
   difficulty: string
+  is_completed: boolean
+  likes: number
 }
 
 interface Pagination {

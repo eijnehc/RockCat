@@ -14,20 +14,33 @@ enum DIFFICULTY {
   HARD = 'hard',
 }
 
-export const HomeView: FC<Props> = ({ questions }) => {
-  const getColorDifficulty = (difficulty: string) => {
-    switch (difficulty.toLowerCase()) {
-      case DIFFICULTY.EASY:
-        return 'var(--color-easy)'
-      case DIFFICULTY.MEDIUM:
-        return 'var(--color-warning)'
-      case DIFFICULTY.HARD:
-        return 'var(--color-danger)'
-      default:
-        null
-    }
+const getColorDifficulty = (difficulty: string) => {
+  switch (difficulty.toLowerCase()) {
+    case DIFFICULTY.EASY:
+      return 'var(--color-easy)'
+    case DIFFICULTY.MEDIUM:
+      return 'var(--color-warning)'
+    case DIFFICULTY.HARD:
+      return 'var(--color-danger)'
+    default:
+      null
   }
+}
 
+const difficultyLevel = (difficulty: string) => {
+  switch (difficulty.toLowerCase()) {
+    case DIFFICULTY.EASY:
+      return '40%'
+    case DIFFICULTY.MEDIUM:
+      return '60%'
+    case DIFFICULTY.HARD:
+      return '80%'
+    default:
+      null
+  }
+}
+
+export const HomeView: FC<Props> = ({ questions }) => {
   return (
     <QuestionsWrapper>
       <Header>Questions </Header>
@@ -38,14 +51,13 @@ export const HomeView: FC<Props> = ({ questions }) => {
             style={{
               background: `linear-gradient(to right, ${getColorDifficulty(
                 item.difficulty
-              )} 3%, var(--color-white) 80%`,
+              )} 10%, var(--color-white) ${difficultyLevel(item.difficulty)}`,
             }}
           >
             <span>{item.title}</span>
             <RightSection>
               <span style={{ color: getColorDifficulty(item.difficulty) }}>{item.difficulty}</span>
-              {/* <CheckCircle color='var(--color-success)' /> */}
-              <UncheckedCircle />
+              {item.is_completed ? <CheckCircle color='var(--color-success)' /> : <UncheckedCircle />}
             </RightSection>
           </QuestionsContent>
         ))}
