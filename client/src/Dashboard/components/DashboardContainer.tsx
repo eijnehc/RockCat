@@ -1,7 +1,6 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
-import { Home } from 'react-feather'
 import toast from 'react-hot-toast'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useAtom } from 'jotai'
 import styled from 'styled-components'
 
@@ -32,6 +31,7 @@ async function sleep(msec: number) {
 
 export const DashboardContainer: FC = () => {
   const { questionId } = useParams()
+  const navigate = useNavigate()
   const { questions: question, isLoading } = useQuestionsQuery(Number(questionId))
   const { mutate } = useCompleteQuestionQuery()
   const [js, setJs] = useState<string>('')
@@ -169,13 +169,21 @@ export const DashboardContainer: FC = () => {
     setReset(!reset)
   }
 
+  const handlePagination = (cursor: string) => {
+    const id = Number(questionId)
+    if (cursor === 'prev') {
+      navigate(`/dashboard/${id - 1}`)
+    }
+
+    if (cursor === 'next') {
+      navigate(`/dashboard/${id + 1}`)
+    }
+  }
+
   return (
     <Wrapper>
-      <BackButton to='/'>
-        <Home size={32} />
-      </BackButton>
       <DashboardWrapper>
-        <QuestionView question={question} isLoading={isLoading} />
+        <QuestionView question={question} isLoading={isLoading} handlePagination={handlePagination} />
         <EditorView
           code={js}
           onChange={handleChange}
@@ -190,20 +198,6 @@ export const DashboardContainer: FC = () => {
 
 const Wrapper = styled.div`
   padding: 1rem;
-`
-
-const BackButton = styled(Link)`
-  color: var(--color-gray-300);
-  font-size: 1.3rem;
-
-  svg {
-    display: inline-block;
-  }
-
-  :hover {
-    color: var(--color-white);
-    text-decoration: underline;
-  }
 `
 
 const DashboardWrapper = styled.div`
