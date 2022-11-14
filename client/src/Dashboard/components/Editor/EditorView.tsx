@@ -5,7 +5,7 @@ import { xcodeDark, xcodeLight } from '@uiw/codemirror-theme-xcode'
 import CodeMirror from '@uiw/react-codemirror'
 import styled from 'styled-components'
 
-import { Logo } from '../../../global'
+import { Logo, Tooltip } from '../../../global'
 
 interface Props {
   onChange: (value: string, viewUpdate: any) => void
@@ -28,9 +28,15 @@ export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode, handleRese
           <Logo /> Editor
         </div>
         <ButtonWrapper>
-          <button onClick={handleReset}>
-            {dark ? <RefreshCcw color='var(--color-white)' /> : <RefreshCcw color='var(--color-offblack)' />}
-          </button>
+          <Tooltip text='reset'>
+            <button onClick={handleReset}>
+              {dark ? (
+                <RefreshCcw color='var(--color-white)' />
+              ) : (
+                <RefreshCcw color='var(--color-offblack)' />
+              )}
+            </button>
+          </Tooltip>
           <ThemeButton onClick={() => setDark((prevDark) => !prevDark)}>
             {dark ? <Sun color='var(--color-white)' /> : <Moon color='var(--color-offblack)' />}
           </ThemeButton>

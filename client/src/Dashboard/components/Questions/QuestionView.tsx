@@ -3,6 +3,7 @@ import { Home, Key } from 'react-feather'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { Tooltip } from '../../../global'
 import { QuestionsOverview } from '../../../Home'
 
 interface Props {
@@ -21,7 +22,9 @@ export const QuestionView: FC<Props> = ({ question, isLoading, handlePagination 
               <Home size={32} />
             </BackButton>
             <Title>{question?.data[0].title}</Title>
-            <Key />
+            <Tooltip text='answer'>
+              <Key />
+            </Tooltip>
           </Header>
           <div>{question?.data[0].description}</div>
         </>
