@@ -21,7 +21,7 @@ At the prompt, navigate to the where source code folder and type the below comma
 
 ## Getting Started
 
-To run the demo in a development environment, you can simply start web app and the backend service in same terminal instances by running
+To run the demo in a development environment, you can simply start web app and the backend service in same terminal instances by running this command in the root folder
 
     pnpm dev
 
