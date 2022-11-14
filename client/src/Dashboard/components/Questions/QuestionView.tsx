@@ -79,7 +79,6 @@ const Card = styled.div`
 
 const Front = styled.div`
   position: absolute;
-  height: 200px;
   width: 100%;
   display: flex;
   flex-direction: column;
