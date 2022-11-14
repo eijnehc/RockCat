@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import { useUserQuery } from '../../global'
 import { useUpdateAvatarQuery, useUpdateUserQuery } from '../apis'
 
-import { ProfileView } from './ProfileVIews'
+import { ProfileView } from './ProfileView'
 
 export const ProfileContainer: FC = () => {
   const [isOpen, setIsOpen] = useState(false)
