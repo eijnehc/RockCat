@@ -50,7 +50,8 @@ export const DashboardContainer: FC = () => {
       character.x = 0
       character.y = 1
       character.facing = 'right'
-
+      character.characterImage= '#right'
+      
       return character
     })
     setQuestionGridMap(gameId)
