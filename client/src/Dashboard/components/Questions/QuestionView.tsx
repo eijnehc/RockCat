@@ -3,7 +3,7 @@ import { Home, Key } from 'react-feather'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { Tooltip } from '../../../global'
+import { Loader, Tooltip } from '../../../global'
 import { QuestionsOverview } from '../../../Home'
 
 interface Props {
@@ -19,7 +19,11 @@ export const QuestionView: FC<Props> = ({ question, isLoading, handlePagination 
     <Wrapper>
       <Card data-flipped={flip}>
         <Front>
-          {isLoading ? null : (
+          {isLoading ? (
+            <LoaderWrapper>
+              <Loader />
+            </LoaderWrapper>
+          ) : (
             <>
               <Header>
                 <BackButton to='/'>
@@ -101,6 +105,11 @@ const Back = styled.div`
 
   backface-visibility: hidden;
   transform: rotateY(180deg);
+`
+
+const LoaderWrapper = styled.div`
+  display: grid;
+  place-content: center;
 `
 
 const Header = styled.header`
