@@ -5,7 +5,7 @@ import { xcodeDark, xcodeLight } from '@uiw/codemirror-theme-xcode'
 import CodeMirror from '@uiw/react-codemirror'
 import styled from 'styled-components'
 
-import { Logo, Tooltip } from '../../../global'
+import { Tooltip } from '../../../global'
 
 interface Props {
   onChange: (value: string, viewUpdate: any) => void
@@ -24,9 +24,7 @@ export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode, handleRese
   return (
     <Wrapper>
       <EditorTitle dark={dark}>
-        <div>
-          <Logo /> Editor
-        </div>
+        <div>Playground</div>
         <ButtonWrapper>
           <Tooltip text='reset'>
             <button onClick={handleReset}>
@@ -66,12 +64,12 @@ export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode, handleRese
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: clamp(300px, 50%, 500px);
 `
 
 const EditorTitle = styled.div<EditorStyleProps>`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-weight: var(--font-weight-medium);
   background-color: ${(props) => (props.dark ? 'var(--color-gray-900)' : 'var(--color-gray-100)')};
   color: ${(props) => (props.dark ? 'var(--color-secondary-medium)' : 'var(--color-secondary-dark)')};

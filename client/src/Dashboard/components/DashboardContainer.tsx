@@ -203,13 +203,13 @@ const Wrapper = styled.div`
 const DashboardWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   margin-top: 1rem;
   gap: 16px;
 
-  /* > div {
-    flex: 1;
-  } */
+  > div {
+    flex: 0 1 400px;
+  }
 `
 
 DashboardContainer.displayName = 'DashboardContainer'

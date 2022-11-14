@@ -62,8 +62,7 @@ export const QuestionView: FC<Props> = ({ question, isLoading, handlePagination 
 }
 
 const Wrapper = styled.div`
-  width: clamp(300px, 50%, 500px);
-  max-width: 100%;
+  min-height: 200px;
   color: var(--color-black);
   perspective: 600px;
 `
@@ -80,7 +79,7 @@ const Card = styled.div`
 
 const Front = styled.div`
   position: absolute;
-  height: fit-content;
+  height: 200px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -93,15 +92,16 @@ const Front = styled.div`
 
 const Back = styled.div`
   position: absolute;
-  height: fit-content;
+  height: 200px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: 1rem;
+  border-radius: 1rem 0 0 1rem;
   background-color: var(--color-white);
   border: solid 3px var(--color-primary-medium);
   padding: 1rem;
   gap: 16px;
+  overflow-y: auto;
 
   backface-visibility: hidden;
   transform: rotateY(180deg);

@@ -3,6 +3,7 @@ import { CheckCircle } from 'react-feather'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { Loader } from '../../global'
 import { QuestionsOverview } from '../interfaces'
 
 interface Props {
@@ -46,23 +47,27 @@ export const HomeView: FC<Props> = ({ questions }) => {
     <QuestionsWrapper>
       <Header>Questions </Header>
       <QuestionsRow>
-        {questions?.data?.map((item) => (
-          <QuestionsContent
-            to={`dashboard/${item.id}`}
-            key={item.id}
-            style={{
-              background: `linear-gradient(to right, ${getColorDifficulty(
-                item.difficulty
-              )} 10%, var(--color-white) ${difficultyLevel(item.difficulty)}`,
-            }}
-          >
-            <span>{item.title}</span>
-            <RightSection>
-              <span style={{ color: getColorDifficulty(item.difficulty) }}>{item.difficulty}</span>
-              {item.is_completed ? <CheckCircle color='var(--color-success)' /> : <UncheckedCircle />}
-            </RightSection>
-          </QuestionsContent>
-        ))}
+        {!questions ? (
+          <Loader />
+        ) : (
+          questions.data?.map((item) => (
+            <QuestionsContent
+              to={`dashboard/${item.id}`}
+              key={item.id}
+              style={{
+                background: `linear-gradient(to right, ${getColorDifficulty(
+                  item.difficulty
+                )} 10%, var(--color-white) ${difficultyLevel(item.difficulty)}`,
+              }}
+            >
+              <span>{item.title}</span>
+              <RightSection>
+                <span style={{ color: getColorDifficulty(item.difficulty) }}>{item.difficulty}</span>
+                {item.is_completed ? <CheckCircle color='var(--color-success)' /> : <UncheckedCircle />}
+              </RightSection>
+            </QuestionsContent>
+          ))
+        )}
       </QuestionsRow>
     </QuestionsWrapper>
   )

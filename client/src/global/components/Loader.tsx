@@ -16,8 +16,8 @@ const Animate = keyframes`
 
 const LoaderWrapper = styled.div`
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
 
   :after {
     content: ' ';
