@@ -22,8 +22,8 @@ const LoaderWrapper = styled.div`
   :after {
     content: ' ';
     display: block;
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     margin: 8px;
     border-radius: 50%;
     border: 6px solid var(--color-gray-700);
