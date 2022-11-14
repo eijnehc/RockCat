@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Home, Key } from 'react-feather'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -13,45 +13,94 @@ interface Props {
 }
 
 export const QuestionView: FC<Props> = ({ question, isLoading, handlePagination }) => {
+  const [flip, setFlip] = useState(false)
+
   return (
     <Wrapper>
-      {isLoading ? null : (
-        <>
+      <Card data-flipped={flip}>
+        <Front>
+          {isLoading ? null : (
+            <>
+              <Header>
+                <BackButton to='/'>
+                  <Home size={32} />
+                </BackButton>
+                <Title>{question?.data[0].title}</Title>
+                <Tooltip text='answer'>
+                  <Key
+                    style={{ cursor: 'pointer', display: 'inline-block' }}
+                    onClick={() => setFlip(!flip)}
+                  />
+                </Tooltip>
+              </Header>
+              <div>{question?.data[0].description}</div>
+            </>
+          )}
+          <PaginationWrapper>
+            <Button disabled={!question?.pagination?.prev} onClick={() => handlePagination('prev')}>
+              Previous
+            </Button>
+            <Button disabled={!question?.pagination?.next} onClick={() => handlePagination('next')}>
+              Next
+            </Button>
+          </PaginationWrapper>
+        </Front>
+        <Back>
           <Header>
-            <BackButton to='/'>
-              <Home size={32} />
-            </BackButton>
-            <Title>{question?.data[0].title}</Title>
-            <Tooltip text='answer'>
-              <Key />
-            </Tooltip>
+            <Title>Answer</Title>
+            <Key style={{ cursor: 'pointer' }} onClick={() => setFlip(!flip)} />
           </Header>
-          <div>{question?.data[0].description}</div>
-        </>
-      )}
-      <PaginationWrapper>
-        <Button disabled={!question?.pagination?.prev} onClick={() => handlePagination('prev')}>
-          Previous
-        </Button>
-        <Button disabled={!question?.pagination?.next} onClick={() => handlePagination('next')}>
-          Next
-        </Button>
-      </PaginationWrapper>
+          {question?.data[0].answers}
+        </Back>
+      </Card>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  height: fit-content;
   width: clamp(300px, 50%, 500px);
   max-width: 100%;
-  border-radius: 1rem;
-  padding: 1rem;
-  background-color: var(--color-white);
   color: var(--color-black);
+  perspective: 600px;
+`
+
+const Card = styled.div`
+  transform-style: preserve-3d;
+  transform-origin: center right;
+  transition: transform 1s;
+
+  &[data-flipped='true'] {
+    transform: translateX(-100%) rotateY(-180deg);
+  }
+`
+
+const Front = styled.div`
+  position: absolute;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  background-color: var(--color-white);
+  padding: 1rem;
+  gap: 16px;
+  backface-visibility: hidden;
+`
+
+const Back = styled.div`
+  position: absolute;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  background-color: var(--color-white);
+  border: solid 3px var(--color-primary-medium);
+  padding: 1rem;
+  gap: 16px;
+
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
 `
 
 const Header = styled.header`

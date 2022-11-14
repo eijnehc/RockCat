@@ -18,10 +18,10 @@ const TooltipWrapper = styled.span`
 
     /* vertically center */
     top: 0%;
-    transform: translateY(-120%);
+    transform: translateY(-150%);
 
     /* move to left */
-    margin-left: -70%;
+    margin-left: -100%;
 
     /* basic styles */
     width: 80px;
@@ -47,7 +47,7 @@ const TooltipWrapper = styled.span`
 
     /* vertically center */
     top: 0%;
-    transform: translateY(-50%);
+    transform: translateY(-100%);
 
     /* the arrow */
     border: 10px solid var(--color-gray-300);
