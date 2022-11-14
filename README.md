@@ -21,7 +21,7 @@ At the prompt, navigate to the where source code folder and type the below comma
 
 ## Getting Started
 
-To run the demo in a development environment, you can simply start web app and the backend service in same terminal instances by running
+To run the demo in a development environment, you can simply start web app and the backend service in same terminal instances by running this command in the root folder
 
     pnpm dev
 
@@ -40,6 +40,7 @@ After being redirected to the Stripe checkout page use this test card to simulat
 
 ```js
 const stepsNeededToEscape = 11;
+
 for (let i = 0; i < stepsNeededToEscape; i++) {
   move();
 }

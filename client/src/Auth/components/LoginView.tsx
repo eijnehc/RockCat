@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ArrowLeft, GitHub } from 'react-feather'
+import { ArrowLeft } from 'react-feather'
 import { Link } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
 
@@ -10,19 +10,11 @@ interface Props {
   isValidUser: boolean
   isLoading: boolean
   isSubmitted: boolean
-  onGithubSignIn: () => void
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   onBack: () => void
 }
 
-export const LoginView: FC<Props> = ({
-  isSubmitted,
-  isLoading,
-  isValidUser,
-  onGithubSignIn,
-  onSubmit,
-  onBack,
-}) => {
+export const LoginView: FC<Props> = ({ isSubmitted, isLoading, isValidUser, onSubmit, onBack }) => {
   return (
     <Wrapper>
       <TopSphere />
@@ -40,10 +32,6 @@ export const LoginView: FC<Props> = ({
           <>
             <SignOnHeader>Sign In</SignOnHeader>
             <Form onSubmit={onSubmit}>
-              <GitHubButton onClick={onGithubSignIn}>
-                <GitHub /> Continue on GitHub
-              </GitHubButton>
-              <Divider>OR</Divider>
               <EmailInputWrapper>
                 <Input type='email' placeholder='email' name='email' required />
                 <ErrorMsg>
@@ -110,12 +98,12 @@ const TouchDown = styled.div`
 
 const SignOnHeader = styled.h2`
   font-size: 2.5rem;
-  margin-bottom: 1.5rem;
 `
 
 const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   position: fixed;
   top: 0px;
@@ -124,29 +112,12 @@ const LoginWrapper = styled.div`
   bottom: 0px;
   width: clamp(400px, 65%, 500px);
   max-width: 100%;
-  height: 400px;
+  height: 300px;
   margin: auto;
   padding: 1rem;
   background-color: var(--color-gray-900);
   border-radius: 3rem;
   font-weight: var(--font-weight-bold);
-`
-
-const GitHubButton = styled.button`
-  text-align: center;
-  color: var(--color-gray-300);
-  background-color: inherit;
-  padding: 0.5rem 3rem;
-  border: 1px solid var(--color-gray-300);
-  border-radius: 1rem;
-  font-size: 1rem;
-  font-weight: var(--font-weight-normal);
-  cursor: pointer;
-
-  :hover {
-    color: var(--color-white);
-    border: 1px solid var(--color-white);
-  }
 `
 
 const Animate = keyframes`
@@ -214,7 +185,7 @@ const EmailWrapper = styled.div`
   justify-content: space-around;
   align-items: center;
   min-height: 100%;
-  padding: 3rem;
+  padding: 1rem;
 `
 
 const EmailHeader = styled.h2`
@@ -238,29 +209,6 @@ const BackButton = styled.div`
 
 const EmailText = styled.div`
   text-align: justify;
-`
-
-const Divider = styled.div`
-  display: flex;
-  flex-direction: row;
-  color: var(--color-gray-500);
-  margin: 1.5rem 0px;
-
-  &:before,
-  &:after {
-    content: '';
-    flex: 1 1;
-    border-bottom: 1px solid var(--color-gray-500);
-    margin: auto;
-  }
-
-  &:before {
-    margin-right: 10px;
-  }
-
-  &:after {
-    margin-left: 10px;
-  }
 `
 
 const TopSphere = styled.div`

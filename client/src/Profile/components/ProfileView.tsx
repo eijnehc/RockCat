@@ -1,5 +1,5 @@
 import { FC, FormEventHandler } from 'react'
-import { Calendar, Edit, GitHub } from 'react-feather'
+import { Calendar, Edit } from 'react-feather'
 import styled from 'styled-components'
 
 import { Avatar, Button, Input, Modal } from '../../global'
@@ -54,15 +54,10 @@ export const ProfileView: FC<Props> = ({
               <Calendar style={{ marginRight: '6px' }} />
               Joined in <span style={{ color: 'var(--color-black)' }}>{date}</span>
             </AdditionalInfo>
-            <AdditionalInfo>
-              <GitHub style={{ marginRight: '6px' }} />
-              Linked with <span style={{ color: 'var(--color-black)' }}>JohnDoe</span>
-            </AdditionalInfo>
           </AdditionalInfoWrapper>
           <EditUserWrapper>
             <ButtonWrapper onClick={() => window.open(user.receipt_url, '_blank')}>Receipt</ButtonWrapper>
             <ButtonWrapper onClick={toggleModal}>Edit Profile</ButtonWrapper>
-            <ButtonWrapper>Disconnect Github</ButtonWrapper>
           </EditUserWrapper>
         </Card>
       </Wrapper>
@@ -91,7 +86,7 @@ const Card = styled.div`
   margin-right: auto;
   width: clamp(200px, 60%, 350px);
   max-width: 100%;
-  height: 400px;
+  height: 300px;
   border-radius: 2rem;
   background-color: var(--color-white);
 `

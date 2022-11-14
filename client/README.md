@@ -12,4 +12,4 @@ The web application resides in the client folder and its project structure is as
 
 **Styling**
 
-The \*\*\* framework was chosen for faster and easier web development.
+Styled-Components was chosen because it enable us to build our own bespoke UI components.

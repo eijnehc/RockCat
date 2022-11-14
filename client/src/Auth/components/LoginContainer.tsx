@@ -48,10 +48,6 @@ export const LoginContainer: FC = () => {
     localStorage.clear()
   }
 
-  const handleGithubSignIn = () => {
-    console.log('sign in github from server')
-  }
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
@@ -84,7 +80,6 @@ export const LoginContainer: FC = () => {
         isValidUser={isValidUser}
         isLoading={isLoading}
         isSubmitted={isSubmitted}
-        onGithubSignIn={handleGithubSignIn}
         onSubmit={handleSubmit}
         onBack={handleBack}
       />

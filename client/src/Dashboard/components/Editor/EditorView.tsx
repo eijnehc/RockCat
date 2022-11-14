@@ -1,15 +1,16 @@
 import { FC, useState } from 'react'
-import { Moon, Sun } from 'react-feather'
+import { Moon, RefreshCcw, Sun } from 'react-feather'
 import { javascript } from '@codemirror/lang-javascript'
 import { xcodeDark, xcodeLight } from '@uiw/codemirror-theme-xcode'
 import CodeMirror from '@uiw/react-codemirror'
 import styled from 'styled-components'
 
-import { Logo } from '../../../global'
+import { Tooltip } from '../../../global'
 
 interface Props {
   onChange: (value: string, viewUpdate: any) => void
   onSubmitCode: () => void
+  handleReset: () => void
   code: string
 }
 
@@ -17,18 +18,27 @@ interface EditorStyleProps {
   dark: boolean
 }
 
-export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode }) => {
+export const EditorView: FC<Props> = ({ code, onChange, onSubmitCode, handleReset }) => {
   const [dark, setDark] = useState(false)
 
   return (
     <Wrapper>
       <EditorTitle dark={dark}>
-        <div>
-          <Logo /> Editor
-        </div>
-        <ThemeButton onClick={() => setDark((prevDark) => !prevDark)}>
-          {dark ? <Sun color='var(--color-white)' /> : <Moon color='var(--color-offblack)' />}
-        </ThemeButton>
+        <div>Playground</div>
+        <ButtonWrapper>
+          <Tooltip text='reset'>
+            <button onClick={handleReset}>
+              {dark ? (
+                <RefreshCcw color='var(--color-white)' />
+              ) : (
+                <RefreshCcw color='var(--color-offblack)' />
+              )}
+            </button>
+          </Tooltip>
+          <ThemeButton onClick={() => setDark((prevDark) => !prevDark)}>
+            {dark ? <Sun color='var(--color-white)' /> : <Moon color='var(--color-offblack)' />}
+          </ThemeButton>
+        </ButtonWrapper>
       </EditorTitle>
       <CodeMirror
         onChange={onChange}
@@ -59,6 +69,7 @@ const Wrapper = styled.div`
 const EditorTitle = styled.div<EditorStyleProps>`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-weight: var(--font-weight-medium);
   background-color: ${(props) => (props.dark ? 'var(--color-gray-900)' : 'var(--color-gray-100)')};
   color: ${(props) => (props.dark ? 'var(--color-secondary-medium)' : 'var(--color-secondary-dark)')};
@@ -67,20 +78,16 @@ const EditorTitle = styled.div<EditorStyleProps>`
   border-top-left-radius: 0.5rem;
 `
 
+const ButtonWrapper = styled.span`
+  display: flex;
+  gap: 8px;
+`
+
 const ThemeButton = styled.button`
-  /* Remove default button styles */
-  display: block;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  font: inherit;
-  color: inherit;
+  display: flex;
 
   svg {
-    display: block;
+    display: inline-block;
   }
 `
 

@@ -1,4 +1,5 @@
 interface Questions {
+  question_id: string
   id: number
   created_at: string
   title: string

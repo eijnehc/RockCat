@@ -1,11 +1,11 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
-import { Home } from 'react-feather'
 import toast from 'react-hot-toast'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useAtom } from 'jotai'
 import styled from 'styled-components'
 
 import { useQuestionsQuery } from '../../Home/apis/hooks'
+import { useCompleteQuestionQuery } from '../apis'
 
 import { EditorView } from './Editor'
 import { stringJSParser } from './editorToGameJSParser'
@@ -31,8 +31,11 @@ async function sleep(msec: number) {
 
 export const DashboardContainer: FC = () => {
   const { questionId } = useParams()
+  const navigate = useNavigate()
   const { questions: question, isLoading } = useQuestionsQuery(Number(questionId))
+  const { mutate } = useCompleteQuestionQuery()
   const [js, setJs] = useState<string>('')
+  const [reset, setReset] = useState(false)
   const handleChange = useCallback((value: string) => {
     setJs(value)
   }, [])
@@ -54,7 +57,7 @@ export const DashboardContainer: FC = () => {
     if (questionsMap[gameId] && questionsMap[gameId].initialJSHelperString) {
       setJs(questionsMap[gameId].initialJSHelperString ?? '')
     }
-  }, [questionId])
+  }, [questionId, reset])
 
   useEffect(() => {
     characterRef.current = character
@@ -148,27 +151,45 @@ export const DashboardContainer: FC = () => {
           const hasCharacterEscaped = escaped()
           if (hasCharacterEscaped) {
             toast.success(ESCAPED_ENDING)
+            question && mutate(question.data[0].question_id)
           } else {
             const escapedMessage = value ? `${TRAPPED_ENDING} - ${value}` : TRAPPED_ENDING
             toast.error(escapedMessage)
           }
         })
-        .catch((err: unknown) => {
-          toast.error(err as string)
+        .catch((err: any) => {
+          toast.error(err.message)
         })
-    } catch (e) {
-      toast.error(e as string)
+    } catch (err: any) {
+      toast.error(err.message)
+    }
+  }
+
+  const handleReset = () => {
+    setReset(!reset)
+  }
+
+  const handlePagination = (cursor: string) => {
+    const id = Number(questionId)
+    if (cursor === 'prev') {
+      navigate(`/dashboard/${id - 1}`)
+    }
+
+    if (cursor === 'next') {
+      navigate(`/dashboard/${id + 1}`)
     }
   }
 
   return (
     <Wrapper>
-      <BackButton to='/'>
-        <Home size={32} />
-      </BackButton>
       <DashboardWrapper>
-        <QuestionView question={question} isLoading={isLoading} />
-        <EditorView code={js} onChange={handleChange} onSubmitCode={handleSubmitCode} />
+        <QuestionView question={question} isLoading={isLoading} handlePagination={handlePagination} />
+        <EditorView
+          code={js}
+          onChange={handleChange}
+          onSubmitCode={handleSubmitCode}
+          handleReset={handleReset}
+        />
         <MapView />
       </DashboardWrapper>
     </Wrapper>
@@ -179,30 +200,16 @@ const Wrapper = styled.div`
   padding: 1rem;
 `
 
-const BackButton = styled(Link)`
-  color: var(--color-gray-300);
-  font-size: 1.3rem;
-
-  svg {
-    display: inline-block;
-  }
-
-  :hover {
-    color: var(--color-white);
-    text-decoration: underline;
-  }
-`
-
 const DashboardWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   margin-top: 1rem;
   gap: 16px;
 
-  /* > div {
-    flex: 1;
-  } */
+  > div {
+    flex: 0 1 400px;
+  }
 `
 
 DashboardContainer.displayName = 'DashboardContainer'

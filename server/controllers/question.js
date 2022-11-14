@@ -32,6 +32,7 @@ const getQuestions = async (req, res) => {
           questions (
             *
           ),
+          result_id,
           is_completed,
           likes
         `
@@ -46,6 +47,7 @@ const getQuestions = async (req, res) => {
         questions (
           *
         ),
+        result_id,
         is_completed,
         likes
         `
@@ -56,8 +58,10 @@ const getQuestions = async (req, res) => {
     }
 
     const results = questions.data.map((question) => {
-      const { is_completed, likes, questions } = question;
+      const { result_id, is_completed, likes, questions } = question;
+
       return {
+        question_id: result_id,
         ...questions,
         is_completed,
         likes,
@@ -89,6 +93,55 @@ const getQuestions = async (req, res) => {
   }
 };
 
+const completeQuestion = async (req, res) => {
+  const id = req.body.questionId;
+
+  try {
+    const { error } = await supabase
+      .from('results')
+      .update({ is_completed: true })
+      .eq('result_id', id);
+
+    if (error) {
+      throw error;
+    }
+
+    res.status(200).send({ message: 'Question completed' });
+  } catch (err) {
+    res.status(400).send({
+      message: err,
+    });
+  }
+};
+
+const likeQuestion = async (req, res) => {
+  const id = req.body.questionId;
+  const likes = req.body.likes;
+
+  try {
+    if (likes < 6) {
+      const { error } = await supabase
+        .from('results')
+        .update({ likes: likes + 1 })
+        .eq('result_id', id);
+
+      if (error) {
+        throw error;
+      }
+    } else {
+      throw new Error('You have reach the maximum number of likes');
+    }
+
+    res.status(200).send({ message: 'Question completed' });
+  } catch (err) {
+    res.status(400).send({
+      message: err,
+    });
+  }
+};
+
 module.exports = {
   getQuestions,
+  completeQuestion,
+  likeQuestion,
 };
