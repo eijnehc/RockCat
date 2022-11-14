@@ -147,26 +147,21 @@ export const DashboardContainer: FC = () => {
       })
 
       Promise.race([eval(`(async () => {${parsedJS}})()`), promiseTimeout])
-        .then(
-          (value) => {
-            const hasCharacterEscaped = escaped()
-            if (hasCharacterEscaped) {
-              toast.success(ESCAPED_ENDING)
-              question && mutate(question.data[0].question_id)
-            } else {
-              const escapedMessage = value ? `${TRAPPED_ENDING} - ${value}` : TRAPPED_ENDING
-              toast.error(escapedMessage)
-            }
-          },
-          (error) => {
-            toast.error(error.message as string)
+        .then((value) => {
+          const hasCharacterEscaped = escaped()
+          if (hasCharacterEscaped) {
+            toast.success(ESCAPED_ENDING)
+            question && mutate(question.data[0].question_id)
+          } else {
+            const escapedMessage = value ? `${TRAPPED_ENDING} - ${value}` : TRAPPED_ENDING
+            toast.error(escapedMessage)
           }
-        )
-        .catch((err: unknown) => {
-          toast.error(err as string)
         })
-    } catch (e) {
-      toast.error(e as string)
+        .catch((err: any) => {
+          toast.error(err.message)
+        })
+    } catch (err: any) {
+      toast.error(err.message)
     }
   }
 
