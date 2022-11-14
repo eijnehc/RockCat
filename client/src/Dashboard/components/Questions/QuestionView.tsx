@@ -95,7 +95,6 @@ const Back = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: 1rem 0 0 1rem;
   background-color: var(--color-white);
   border: solid 3px var(--color-primary-medium);
   padding: 1rem;
