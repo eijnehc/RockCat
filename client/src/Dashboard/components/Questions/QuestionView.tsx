@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Home, Key } from 'react-feather'
+import { Heart, Home, Key } from 'react-feather'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -40,6 +40,12 @@ export const QuestionView: FC<Props> = ({ question, isLoading, handlePagination 
               <div>{question?.data[0].description}</div>
             </>
           )}
+          <HeartWrapper>
+            <Heart fill='black' opacity={0.2} />
+            <FillWrapper>
+              <Fill />
+            </FillWrapper>
+          </HeartWrapper>
           <PaginationWrapper>
             <Button disabled={!question?.pagination?.prev} onClick={() => handlePagination('prev')}>
               Previous
@@ -60,6 +66,31 @@ export const QuestionView: FC<Props> = ({ question, isLoading, handlePagination 
     </Wrapper>
   )
 }
+
+const HeartWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+`
+
+const FillWrapper = styled.div`
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  overflow: hidden;
+  clip-path: path(
+    'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'
+  );
+`
+
+const Fill = styled.div`
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-primary-medium);
+  transform: translateY(50%);
+`
 
 const Wrapper = styled.div`
   min-height: 200px;
