@@ -2,8 +2,8 @@ import { apiRoutes } from '../../../apiRoutes'
 import { authFetch } from '../../../global'
 
 interface Props {
-  questionId: string
-  likes: number
+  questionId?: string
+  likes?: number
 }
 
 export const likeQuestionQuery = async ({ questionId, likes }: Props) => {

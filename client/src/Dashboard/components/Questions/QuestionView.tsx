@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Heart, Home, Key } from 'react-feather'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { Loader, Tooltip } from '../../../global'
 import { QuestionsOverview } from '../../../Home'
@@ -9,10 +9,11 @@ import { QuestionsOverview } from '../../../Home'
 interface Props {
   question?: QuestionsOverview
   isLoading: boolean
+  onUpVote: () => void
   handlePagination: (cursor: string) => void
 }
 
-export const QuestionView: FC<Props> = ({ question, isLoading, handlePagination }) => {
+export const QuestionView: FC<Props> = ({ question, isLoading, onUpVote, handlePagination }) => {
   const [flip, setFlip] = useState(false)
 
   return (
@@ -42,8 +43,8 @@ export const QuestionView: FC<Props> = ({ question, isLoading, handlePagination 
           )}
           <HeartWrapper>
             <Heart fill='black' opacity={0.2} />
-            <FillWrapper>
-              <Fill />
+            <FillWrapper onClick={onUpVote}>
+              <Fill likes={question?.data[0].likes} />
             </FillWrapper>
           </HeartWrapper>
           <PaginationWrapper>
@@ -73,7 +74,7 @@ const HeartWrapper = styled.div`
   position: relative;
 `
 
-const FillWrapper = styled.div`
+const FillWrapper = styled.button`
   position: absolute;
   height: 24px;
   width: 24px;
@@ -83,13 +84,41 @@ const FillWrapper = styled.div`
     'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'
   );
 `
+interface Likes {
+  likes?: number
+}
 
-const Fill = styled.div`
+const Fill = styled.div<Likes>`
   position: relative;
   width: 24px;
   height: 24px;
   background-color: var(--color-primary-medium);
-  transform: translateY(50%);
+  transition: 0.3s;
+
+  ${(props) => {
+    const elevate = (likes?: number) => {
+      switch (likes) {
+        case 0:
+          return '90%'
+        case 1:
+          return '65%'
+        case 2:
+          return '50%'
+        case 3:
+          return '35%'
+        case 4:
+          return '20%'
+        case 5:
+          return '0%'
+        default:
+          return '90%'
+      }
+    }
+
+    return css`
+      transform: translateY(${elevate(props.likes)});
+    `
+  }};
 `
 
 const Wrapper = styled.div`

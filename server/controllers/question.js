@@ -119,7 +119,7 @@ const likeQuestion = async (req, res) => {
   const likes = req.body.likes;
 
   try {
-    if (likes < 6) {
+    if (likes < 5) {
       const { error } = await supabase
         .from('results')
         .update({ likes: likes + 1 })
@@ -129,10 +129,10 @@ const likeQuestion = async (req, res) => {
         throw error;
       }
     } else {
-      throw new Error('You have reach the maximum number of likes');
+      throw 'You have reach the maximum number of likes';
     }
 
-    res.status(200).send({ message: 'Question completed' });
+    res.status(200).send({ message: 'Like +1' });
   } catch (err) {
     res.status(400).send({
       message: err,

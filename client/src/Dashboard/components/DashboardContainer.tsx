@@ -5,7 +5,7 @@ import { useAtom } from 'jotai'
 import styled from 'styled-components'
 
 import { useQuestionsQuery } from '../../Home/apis/hooks'
-import { useCompleteQuestionQuery } from '../apis'
+import { useCompleteQuestionQuery, useLikeQuestionQuery } from '../apis'
 
 import { EditorView } from './Editor'
 import { stringJSParser } from './editorToGameJSParser'
@@ -32,8 +32,9 @@ async function sleep(msec: number) {
 export const DashboardContainer: FC = () => {
   const { questionId } = useParams()
   const navigate = useNavigate()
-  const { questions: question, isLoading } = useQuestionsQuery(Number(questionId))
+  const { questions: question, isLoading, refetch } = useQuestionsQuery(Number(questionId))
   const { mutate } = useCompleteQuestionQuery()
+  const { mutate: upVote } = useLikeQuestionQuery()
   const [js, setJs] = useState<string>('')
   const [reset, setReset] = useState(false)
   const handleChange = useCallback((value: string) => {
@@ -50,8 +51,8 @@ export const DashboardContainer: FC = () => {
       character.x = 0
       character.y = 1
       character.facing = 'right'
-      character.characterImage= '#right'
-      
+      character.characterImage = '#right'
+
       return character
     })
     setQuestionGridMap(gameId)
@@ -170,6 +171,11 @@ export const DashboardContainer: FC = () => {
     setReset(!reset)
   }
 
+  const handleUpVote = () => {
+    upVote({ questionId: question?.data[0].question_id, likes: question?.data[0].likes })
+    refetch()
+  }
+
   const handlePagination = (cursor: string) => {
     const id = Number(questionId)
     if (cursor === 'prev') {
@@ -184,7 +190,12 @@ export const DashboardContainer: FC = () => {
   return (
     <Wrapper>
       <DashboardWrapper>
-        <QuestionView question={question} isLoading={isLoading} handlePagination={handlePagination} />
+        <QuestionView
+          question={question}
+          isLoading={isLoading}
+          onUpVote={handleUpVote}
+          handlePagination={handlePagination}
+        />
         <EditorView
           code={js}
           onChange={handleChange}
