@@ -39,14 +39,14 @@ export const QuestionView: FC<Props> = ({ question, isLoading, onUpVote, handleP
                 </Tooltip>
               </Header>
               <div>{question?.data[0].description}</div>
+              <HeartWrapper>
+                <Heart fill='black' opacity={0.2} />
+                <FillWrapper onClick={onUpVote}>
+                  <Fill likes={question?.data[0].likes} />
+                </FillWrapper>
+              </HeartWrapper>
             </>
           )}
-          <HeartWrapper>
-            <Heart fill='black' opacity={0.2} />
-            <FillWrapper onClick={onUpVote}>
-              <Fill likes={question?.data[0].likes} />
-            </FillWrapper>
-          </HeartWrapper>
           <PaginationWrapper>
             <Button disabled={!question?.pagination?.prev} onClick={() => handlePagination('prev')}>
               Previous
